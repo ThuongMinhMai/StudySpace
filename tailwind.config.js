@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        goodvibrations: ['Good Vibrations', 'cursive']
+        greatvibes: ['"Great Vibes"', 'cursive'],
       },
     }
   },
