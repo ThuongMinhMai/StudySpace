@@ -10,7 +10,8 @@ import twitter from '../../../assets/twitter.png'
 import room1 from '../../../assets/room-1.jpg'
 import room2 from '../../../assets/room-2.jpg'
 import room3 from '../../../assets/room-3.jpg'
-
+import { TableOfContents } from 'lucide-react'
+import { X } from 'lucide-react'
 const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -79,9 +80,9 @@ const HomePage = () => {
     const scrollRevealOption = {
       distance: '50px',
       origin: 'bottom',
-      duration: 1000,
-    };
-  
+      duration: 1000
+    }
+
     const revealElements = [
       { selector: '.header__container p', options: { ...scrollRevealOption } },
       { selector: '.header__container h1', options: { ...scrollRevealOption, delay: 500 } },
@@ -91,37 +92,43 @@ const HomePage = () => {
       { selector: '.about__content .section__description', options: { ...scrollRevealOption, delay: 1500 } },
       { selector: '.about__btn', options: { ...scrollRevealOption, delay: 2000 } },
       { selector: '.room__card', options: { ...scrollRevealOption, interval: 500 } },
-      { selector: '.service__list li', options: { ...scrollRevealOption, interval: 500, origin: 'right' } },
-    ];
-  
+      { selector: '.service__list li', options: { ...scrollRevealOption, interval: 500, origin: 'right' } }
+    ]
+
     revealElements.forEach(({ selector, options }) => {
-      ScrollReveal().reveal(selector, options);
-    });
-  
+      ScrollReveal().reveal(selector, options)
+    })
+
     // Cleanup function
     return () => {
       revealElements.forEach(({ selector }) => {
-        const elements = document.querySelectorAll(selector);
+        const elements = document.querySelectorAll(selector)
         elements.forEach((el) => {
-          const htmlElement = el as HTMLElement;
-          htmlElement.style.opacity = '';
-          htmlElement.style.transform = '';
-        });
-      });
-    };
-  }, []);
-  
+          const htmlElement = el as HTMLElement
+          htmlElement.style.opacity = ''
+          htmlElement.style.transform = ''
+        })
+      })
+    }
+  }, [])
 
   return (
     <div>
       <header className='header'>
-        <nav className=' '>
-          <div className='nav__bar'>
+        <nav className='px-16 max-w-full'>
+          <div className='nav__bar '>
             <div className=''>
               <p className='font-greatvibes text-5xl'>StudySpace</p>
             </div>
             <div className='nav__menu__btn' id='menu-btn' onClick={handleMenuToggle}>
               <i className={isMenuOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
+              <div>
+                {isMenuOpen ? (
+                  <X className='w-6 h-6 text-gray-800' />
+                ) : (
+                  <TableOfContents className='w-6 h-6 text-gray-800' />
+                )}
+              </div>
             </div>
           </div>
           <ul className={`nav__links ${isMenuOpen ? 'open' : ''}`} id='nav-links' onClick={closeMenu}>
@@ -129,21 +136,39 @@ const HomePage = () => {
               <a href='#home'>Home</a>
             </li>
             <li>
-              <a href='#about'>About</a>
+              <a href='#about'>About Us</a>
             </li>
             <li>
+              <a href='#service'>Features</a>
+            </li>
+            {/* <li>
               <a href='#service'>Services</a>
+            </li> */}
+            <li>
+              <a href='#room'>Explore</a>
             </li>
             <li>
-              <a href='#explore'>Explore</a>
+              <a href='#explore'>Offer</a>
+            </li>
+            <li>
+              <a href='#explore'>Testimonial</a>
             </li>
             <li>
               <a href='#contact'>Contact</a>
             </li>
+            <li>
+              <a href='#contact'>FAQ</a>
+            </li>
           </ul>
+          <div className='flex'>
+
           <button className='btn nav__btn'>Book Now</button>
+          <button className='btn nav__btn'>Book Now</button>
+          </div>
         </nav>
+
         <div className='section__container header__container' id='home'>
+        <p className="font-paytoneone ">StudySpace</p>
           <p>Simple - Unique - Friendly</p>
           <h1>
             Find Your Flow: <span>Study</span>,<span> Meet</span>
@@ -204,7 +229,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className='section__container room__container'>
+      <section className='section__container room__container' id='room'>
         <p className='section__subheader'>OUR LIVING ROOM</p>
         <h2 className='section__header'>The Most Memorable Rest Time Starts Here.</h2>
         <div className='room__grid'>
@@ -348,8 +373,7 @@ const HomePage = () => {
         <div className='section__container footer__container'>
           <div className='footer__col'>
             <div className=''>
-            <p className='font-greatvibes text-5xl'>StudySpace</p>
-
+              <p className='font-greatvibes text-5xl'>StudySpace</p>
             </div>
             <p className='section__description'>
               Discover a world of comfort, luxury, and adventure as you explore our curated selection of hotels, making

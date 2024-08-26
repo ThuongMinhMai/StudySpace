@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        encodesans: ['"Encode Sans"', 'sans-serif'],
         greatvibes: ['"Great Vibes"', 'cursive'],
+        paytoneone: ['"Paytone One"', 'sans-serif'],
       },
     }
   },
