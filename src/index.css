@@ -98,12 +98,27 @@ body {
 }
 
 .header {
+  position: relative; 
   background-image: url("assets/header.jfif");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
+.header::before {
+  content: ''; /* Required for pseudo-elements */
+  position: absolute;
+  top: 50%;
+  right: 0px; /* Position to the right of the header */
+  left: 1000px;
+  width: 950px; /* Adjust the size of the blur circle */
+  height: 950px; /* Adjust the size of the blur circle */
+  background: rgb(255, 255, 255); /* Light color with transparency */
+  border-radius: 50%;
+  filter: blur(25px); /* Adjust the blur strength as needed */
+  transform: translateY(-50%); /* Center vertically in the middle of the header */
+  opacity: 0.3;
+  z-index: -1;
+}
 nav {
   position: fixed;
   isolation: isolate;
@@ -115,7 +130,7 @@ nav {
 }
 
 .header__container {
-  padding-block: 10rem 15rem;
+  padding-block: 2rem 15rem;
 }
 
 .header__container h1 span {

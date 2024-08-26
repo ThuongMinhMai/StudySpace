@@ -8,12 +8,13 @@
   }
   
   .search-input {
+    margin-left: 10px;
     width: 0;
     height: 40px;
     padding: 0 40px 0 20px; /* Padding adjusted for the icon */
     border-radius: 20px;
     border: 2px solid #fff;
-    background: #fff;
+    background:transparent;
     color: #333;
     font-size: 0.9rem;
     transition: width 0.3s ease-in-out;
@@ -22,12 +23,12 @@
   }
   
   .search-input.open {
-    width: 200px; /* Adjust width as needed */
+    width: 280px; /* Adjust width as needed */
     opacity: 1;
   }
   
   .search-input:focus {
-    width: 200px;
+    width: 280px;
     opacity: 1;
     outline: none;
   }
@@ -43,4 +44,5 @@
     transform: translateY(-50%);
     cursor: pointer;
   }
+  
   
