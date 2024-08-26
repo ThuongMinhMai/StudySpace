@@ -23,58 +23,94 @@ const HomePage = () => {
   }
 
   // ScrollReveal animation setup
+  // React.useEffect(() => {
+  //   const scrollRevealOption = {
+  //     distance: '50px',
+  //     origin: 'bottom',
+  //     duration: 1000
+  //   }
+
+  //   ScrollReveal().reveal('.header__container p', {
+  //     ...scrollRevealOption
+  //   })
+
+  //   ScrollReveal().reveal('.header__container h1', {
+  //     ...scrollRevealOption,
+  //     delay: 500
+  //   })
+
+  //   ScrollReveal().reveal('.about__image img', {
+  //     ...scrollRevealOption,
+  //     origin: 'left'
+  //   })
+
+  //   ScrollReveal().reveal('.about__content .section__subheader', {
+  //     ...scrollRevealOption,
+  //     delay: 500
+  //   })
+
+  //   ScrollReveal().reveal('.about__content .section__header', {
+  //     ...scrollRevealOption,
+  //     delay: 1000
+  //   })
+
+  //   ScrollReveal().reveal('.about__content .section__description', {
+  //     ...scrollRevealOption,
+  //     delay: 1500
+  //   })
+
+  //   ScrollReveal().reveal('.about__btn', {
+  //     ...scrollRevealOption,
+  //     delay: 2000
+  //   })
+
+  //   ScrollReveal().reveal('.room__card', {
+  //     ...scrollRevealOption,
+  //     interval: 500
+  //   })
+
+  //   ScrollReveal().reveal('.service__list li', {
+  //     ...scrollRevealOption,
+  //     interval: 500,
+  //     origin: 'right'
+  //   })
+  // }, [])
   React.useEffect(() => {
     const scrollRevealOption = {
       distance: '50px',
       origin: 'bottom',
-      duration: 1000
-    }
-
-    ScrollReveal().reveal('.header__container p', {
-      ...scrollRevealOption
-    })
-
-    ScrollReveal().reveal('.header__container h1', {
-      ...scrollRevealOption,
-      delay: 500
-    })
-
-    ScrollReveal().reveal('.about__image img', {
-      ...scrollRevealOption,
-      origin: 'left'
-    })
-
-    ScrollReveal().reveal('.about__content .section__subheader', {
-      ...scrollRevealOption,
-      delay: 500
-    })
-
-    ScrollReveal().reveal('.about__content .section__header', {
-      ...scrollRevealOption,
-      delay: 1000
-    })
-
-    ScrollReveal().reveal('.about__content .section__description', {
-      ...scrollRevealOption,
-      delay: 1500
-    })
-
-    ScrollReveal().reveal('.about__btn', {
-      ...scrollRevealOption,
-      delay: 2000
-    })
-
-    ScrollReveal().reveal('.room__card', {
-      ...scrollRevealOption,
-      interval: 500
-    })
-
-    ScrollReveal().reveal('.service__list li', {
-      ...scrollRevealOption,
-      interval: 500,
-      origin: 'right'
-    })
-  }, [])
+      duration: 1000,
+    };
+  
+    const revealElements = [
+      { selector: '.header__container p', options: { ...scrollRevealOption } },
+      { selector: '.header__container h1', options: { ...scrollRevealOption, delay: 500 } },
+      { selector: '.about__image img', options: { ...scrollRevealOption, origin: 'left' } },
+      { selector: '.about__content .section__subheader', options: { ...scrollRevealOption, delay: 500 } },
+      { selector: '.about__content .section__header', options: { ...scrollRevealOption, delay: 1000 } },
+      { selector: '.about__content .section__description', options: { ...scrollRevealOption, delay: 1500 } },
+      { selector: '.about__btn', options: { ...scrollRevealOption, delay: 2000 } },
+      { selector: '.room__card', options: { ...scrollRevealOption, interval: 500 } },
+      { selector: '.service__list li', options: { ...scrollRevealOption, interval: 500, origin: 'right' } },
+    ];
+  
+    revealElements.forEach(({ selector, options }) => {
+      ScrollReveal().reveal(selector, options);
+    });
+  
+    // Cleanup function
+    return () => {
+      revealElements.forEach(({ selector }) => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((el) => {
+          const htmlElement = el as HTMLElement;
+          htmlElement.style.opacity = '';
+          htmlElement.style.transform = '';
+        });
+      });
+    };
+  }, []);
+  
 
   return (
     <div>
