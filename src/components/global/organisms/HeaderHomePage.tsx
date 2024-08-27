@@ -120,7 +120,7 @@ function HeaderHomePage() {
         <div className='flex  gap-5 justify-center items-center'>
           <div className='relative' ref={searchRef}>
             <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' />
-         
+
             <div className={`h-fit p-2 rounded-full search-icon ${isSearchOpen ? '' : 'bg-[#C6A083]/60'}`}>
               {isSearchOpen ? (
                 <X strokeWidth={1} className='' onClick={() => setIsSearchOpen(false)} />
@@ -143,15 +143,20 @@ function HeaderHomePage() {
           }}
         >
           <span className='absolute top-40 left-4 w-[120px] h-[120px] bg-white/70 rounded-full blur-[25px] -translate-x-1/2 -translate-y-1/2'></span>
-          <span className=''>
-          StudySpace.
-          </span>
+          <span className=''>StudySpace.</span>
         </p>
-        <p className='mb-4 text-[1.2rem] text-white text-center opacity-60'>Simple - Unique - Friendly</p>
+        {/* <p className='mb-4 text-[1.2rem] text-white text-center opacity-60'>Simple - Unique - Friendly</p>
         <h1 className='text-[4rem] font-medium leading-[4.5rem] text-white text-center'>
           Find Your Flow: <span>Study</span>,<span> Meet</span>
           <br /> and <span>Sip Coffee</span>.{' '}
-        </h1>
+        </h1> */}
+        <div>
+          <p className='text-[#464C52] w-2/5 text-justify'>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae, asperiores placeat, repellat officia
+            possimus fuga voluptate facere distinctio modi, molestiae iure fugit voluptatum ipsum quibusdam praesentium
+            nam aut. Atque, odit.
+          </p>
+        </div>
       </div>
     </header>
   )
