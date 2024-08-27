@@ -32,7 +32,7 @@ function HeaderHomePage() {
   }, [])
 
   return (
-    <header className='header'>
+    <header className='header overflow-hidden'>
       <nav className=''>
         <div className='nav__bar p-4 flex items-center justify-between gap-8 bg-[#647C6C] '>
           <div className=''>
@@ -120,11 +120,7 @@ function HeaderHomePage() {
         <div className='flex  gap-5 justify-center items-center'>
           <div className='relative' ref={searchRef}>
             <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' />
-            {/* <Search
-              strokeWidth={1}
-              className='search-icon'
-              onClick={handleSearchToggle}
-            /> */}
+         
             <div className={`h-fit p-2 rounded-full search-icon ${isSearchOpen ? '' : 'bg-[#C6A083]/60'}`}>
               {isSearchOpen ? (
                 <X strokeWidth={1} className='' onClick={() => setIsSearchOpen(false)} />
@@ -139,14 +135,14 @@ function HeaderHomePage() {
 
       <div className='section__container header__container' id='home'>
         <p
-          className='font-paytoneone mb-4 text-9xl text-center relative'
+          className='font-paytoneone mb-4 text-[180px] text-center relative '
           style={{
             background: 'linear-gradient(90deg, #464C52, #C6A083)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}
         >
-          <span className='absolute top-20 left-44 w-[120px] h-[120px] bg-white/70 rounded-full blur-[25px] -translate-x-1/2 -translate-y-1/2'></span>
+          <span className='absolute top-40 left-4 w-[120px] h-[120px] bg-white/70 rounded-full blur-[25px] -translate-x-1/2 -translate-y-1/2'></span>
           <span className=''>
           StudySpace.
           </span>
