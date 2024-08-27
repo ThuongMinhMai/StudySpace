@@ -95,15 +95,20 @@ body {
 
 body {
   font-family: 'Encode Sans', sans-serif;
-}
-
-.header {
   position: relative; 
   background-image: url("assets/header.jfif");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+/* .header {
+  position: relative; 
+  background-image: url("assets/header.jfif");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
 .header::before {
   content: ''; 
   position: absolute;

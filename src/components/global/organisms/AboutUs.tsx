@@ -3,7 +3,7 @@ import about from '../../../assets/about.jpg'
 
 function AboutUs() {
   return (
-    <section className='section__container overflow-hidden grid gap-8 about__container ' id='about'>
+    <section className='section__container overflow-hidden grid gap-8 about__container  ' id='about'>
     <div className='about__image '>
       <img className='max-w-[450px] mx-auto rounded-sm' src={about} alt='about' />
     </div>

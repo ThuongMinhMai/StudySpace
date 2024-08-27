@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react' // Import icons if you 
 const images = [
   'https://cafedirect.co.nz/wp-content/uploads/2022/05/Cafe-Direct-Why-Us-930x1024.png',
   //   'https://blogimage.vantagefit.io/vfitimages/2023/06/VFit__coffee-breaks-increase-efficiency.png', // Add more images as needed
-  'https://www.mrisoftware.com/uk/wp-content/uploads/2022/10/meeting-room-booking-system.png',
+//   'https://www.mrisoftware.com/uk/wp-content/uploads/2022/10/meeting-room-booking-system.png',
   //   "https://cdn.kramerav.com/web/images/solutions/diagrams/executiveboardroom_diagram.png",
   'https://png.pngtree.com/png-clipart/20231001/original/pngtree-d-rendering-of-a-coffee-shop-modern-coffeeshop-3d-illustration-of-png-image_13027022.png',
   'https://gofloaters.com/static/219ccad47eda277fb85e480d3c7c8e6c/2a4de/meeting-space.png',

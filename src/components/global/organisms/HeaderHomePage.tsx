@@ -159,16 +159,17 @@ function HeaderHomePage() {
           alt="Image 1"
           className="w-96" // Adjust size as needed
         /> */}
-  
+
           <div className='absolute right-56 top-64'>
             {/* <img
               className='w-96'
               src='https://cafedirect.co.nz/wp-content/uploads/2022/05/Cafe-Direct-Why-Us-930x1024.png'
             ></img> */}
-              <ImageSlider />
+            <ImageSlider />
           </div>
         </div>
       </div>
+      <div className='box'>hkhkghkfjhkjfhgkjhkthkhgkjhfjgkjhkjhkjhkjgkjh</div>
     </header>
   )
 }

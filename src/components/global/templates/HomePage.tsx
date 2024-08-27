@@ -48,7 +48,7 @@ const HomePage = () => {
   return (
     <div>
       <HeaderHomePage />
-      <FormSearch />
+      {/* <FormSearch /> */}
       <AboutUs />
       <Explore />
       <Feature />
