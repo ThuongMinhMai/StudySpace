@@ -45,20 +45,24 @@
     cursor: pointer;
   }
   .section__container.header__container p.font-paytoneone {
-    font-size: 12vw; /* Responsive text size */
+    font-size: 12vw; /* Responsive font size based on viewport width */
     max-width: 100%;
     text-align: center;
+    margin: 0; /* Ensure no extra margin */
+    padding: 0 1rem; /* Add some padding if needed */
   }
   
   @media (max-width: 768px) {
     .section__container.header__container p.font-paytoneone {
-      font-size: 20vw; /* Adjust for smaller screens */
+      font-size: 15vw; /* Adjust for smaller screens */
+      padding: 0 0.5rem; /* Adjust padding for smaller screens */
     }
   }
   
   @media (max-width: 480px) {
     .section__container.header__container p.font-paytoneone {
       font-size: 25vw; /* Further adjust for very small screens */
+      padding: 0 0.25rem; /* Adjust padding for very small screens */
     }
   }
   

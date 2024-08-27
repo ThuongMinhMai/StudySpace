@@ -2,6 +2,8 @@ import { TableOfContents, X } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import './HeaderHomePage.css'
+import HoverButton from '../molecules/HoverButton'
+import ImageSlider from '../molecules/ImageSlider'
 function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -135,7 +137,7 @@ function HeaderHomePage() {
 
       <div className='section__container header__container' id='home'>
         <p
-          className='font-paytoneone mb-4 text-[180px] text-center relative '
+          className='font-paytoneone mb-4 text-center relative'
           style={{
             background: 'linear-gradient(90deg, #464C52, #C6A083)',
             WebkitBackgroundClip: 'text',
@@ -143,19 +145,28 @@ function HeaderHomePage() {
           }}
         >
           <span className='absolute top-40 left-4 w-[120px] h-[120px] bg-white/70 rounded-full blur-[25px] -translate-x-1/2 -translate-y-1/2'></span>
-          <span className=''>StudySpace.</span>
+          <span>StudySpace.</span>
         </p>
-        {/* <p className='mb-4 text-[1.2rem] text-white text-center opacity-60'>Simple - Unique - Friendly</p>
-        <h1 className='text-[4rem] font-medium leading-[4.5rem] text-white text-center'>
-          Find Your Flow: <span>Study</span>,<span> Meet</span>
-          <br /> and <span>Sip Coffee</span>.{' '}
-        </h1> */}
-        <div>
+
+        <div className='flex justify-between items-center mt-10'>
           <p className='text-[#464C52] w-2/5 text-justify'>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae, asperiores placeat, repellat officia
             possimus fuga voluptate facere distinctio modi, molestiae iure fugit voluptatum ipsum quibusdam praesentium
             nam aut. Atque, odit.
           </p>
+          {/* <HoverButton
+          src="https://cafedirect.co.nz/wp-content/uploads/2022/05/Cafe-Direct-Why-Us-930x1024.png"
+          alt="Image 1"
+          className="w-96" // Adjust size as needed
+        /> */}
+  
+          <div className='absolute right-56 top-64'>
+            {/* <img
+              className='w-96'
+              src='https://cafedirect.co.nz/wp-content/uploads/2022/05/Cafe-Direct-Why-Us-930x1024.png'
+            ></img> */}
+              <ImageSlider />
+          </div>
         </div>
       </div>
     </header>
