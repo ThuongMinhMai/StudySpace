@@ -65,19 +65,9 @@
       padding: 0 0.25rem; /* Adjust padding for very small screens */
     }
   }
-  .box {
-    --mask:
-      radial-gradient(51.82px at 50% 73.1px, #000 99%, #0000 101%) calc(50% - 68px) 0/136px 51% repeat-x,
-      radial-gradient(51.82px at 50% -39.1px, #0000 99%, #000 101%) 50% 34px/136px calc(51% - 34px) repeat-x,
-      radial-gradient(51.82px at 50% calc(100% - 73.1px), #000 99%, #0000 101%) 50% 100%/136px 51% repeat-x,
-      radial-gradient(51.82px at 50% calc(100% + 39.1px), #0000 99%, #000 101%) calc(50% - 68px) calc(100% - 34px)/136px calc(51% - 34px) repeat-x;
-    -webkit-mask: var(--mask);
-    mask: var(--mask);
-    height: 350px; /* Ensure the height is set */
-    background: white; /* Ensure a background color is set */
-    filter: blur(25px);
-    opacity: 0.4;
-  }
+  
+  
+  
   
 
   

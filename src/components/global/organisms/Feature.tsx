@@ -38,22 +38,7 @@ function Feature() {
       </div>
     </div>
   </section>
-  <section className='section__container banner__container'>
-  <div className='banner__content p-8 flex gap-8 items-center justify-evenly flex-wrap rounded-lg shadow-lg'>
-    <div className='banner__card text-center flex-1 flex-shrink-0 basis-[180px] '>
-      <h4 className='text-2xl font-semibold'>25+</h4>
-      <p className='text-gray-500'>Properties Available</p>
-    </div>
-    <div className='banner__card text-center flex-1 flex-shrink-0 basis-[180px]'>
-      <h4 className='text-2xl font-semibold'>350+</h4>
-      <p className='text-gray-500'>Bookings Completed</p>
-    </div>
-    <div className='banner__card text-center flex-1 flex-shrink-0 basis-[180px]'>
-      <h4 className='text-2xl font-semibold'>600+</h4>
-      <p className='text-gray-500'>Happy Customers</p>
-    </div>
-  </div>
-</section>
+  
 </>
 
   )

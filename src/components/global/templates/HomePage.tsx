@@ -47,7 +47,10 @@ const HomePage = () => {
 
   return (
     <div>
+      
+     
       <HeaderHomePage />
+     
       {/* <FormSearch /> */}
       <AboutUs />
       <Explore />

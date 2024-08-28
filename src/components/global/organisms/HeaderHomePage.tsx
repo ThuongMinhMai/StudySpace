@@ -4,7 +4,6 @@ import { Search } from 'lucide-react'
 import './HeaderHomePage.css'
 import HoverButton from '../molecules/HoverButton'
 import ImageSlider from '../molecules/ImageSlider'
-import ellip from '../../../assets/ellip.svg'
 function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -56,8 +55,8 @@ function HeaderHomePage() {
         >
           <li>
             <a
-              className={`relative isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
-              href='#home'
+              className={`relative cursor-pointer isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
+              // href='#home'
             >
               Home
             </a>
@@ -170,11 +169,8 @@ function HeaderHomePage() {
           </div>
         </div>
       </div>
-      <div className='box'></div>
 
-      <div className=' h-[800px] float-right w-fit'>
-        <img src={ellip} alt='ellip' className='h-full object-contain' />
-      </div>
+      
     </header>
   )
 }
