@@ -73,7 +73,7 @@
       radial-gradient(51.82px at 50% calc(100% + 39.1px), #0000 99%, #000 101%) calc(50% - 68px) calc(100% - 34px)/136px calc(51% - 34px) repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
-    height: 250px; /* Ensure the height is set */
+    height: 350px; /* Ensure the height is set */
     background: white; /* Ensure a background color is set */
     filter: blur(25px);
     opacity: 0.4;

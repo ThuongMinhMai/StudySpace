@@ -4,6 +4,7 @@ import { Search } from 'lucide-react'
 import './HeaderHomePage.css'
 import HoverButton from '../molecules/HoverButton'
 import ImageSlider from '../molecules/ImageSlider'
+import ellip from '../../../assets/ellip.svg'
 function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -169,7 +170,11 @@ function HeaderHomePage() {
           </div>
         </div>
       </div>
-      <div className='box'>hkhkghkfjhkjfhgkjhkthkhgkjhfjgkjhkjhkjhkjgkjh</div>
+      <div className='box'></div>
+
+      <div className=' h-[800px] float-right w-fit'>
+        <img src={ellip} alt='ellip' className='h-full object-contain' />
+      </div>
     </header>
   )
 }
