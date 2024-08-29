@@ -1,4 +1,6 @@
 .clip-path-custom {
     clip-path: ellipse(80% 100% at 100% 50%);
   }
-  
+  .clip-path-custom-left {
+    clip-path: ellipse(80% 100% at 0% 50%);
+  }

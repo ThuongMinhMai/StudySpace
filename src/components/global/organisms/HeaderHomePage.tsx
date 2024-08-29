@@ -72,7 +72,7 @@ function HeaderHomePage() {
           <li>
             <a
               className={`relative isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
-              href='#service'
+              href='#feature'
             >
               Features
             </a>
