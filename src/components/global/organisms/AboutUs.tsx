@@ -7,7 +7,7 @@ import bubble2 from "../../../assets/bubble2.svg"
 function AboutUs() {
   return (
     <>
-      <div className=' relative flex flex-col items-end mb-28'>
+      <div className=' relative flex flex-col items-end mb-48'>
     
         <div className='box absolute top-0 left-0'></div>
 
@@ -66,7 +66,7 @@ function AboutUs() {
           </div> */}
 
           <section
-            className='section__container overflow-hidden about__container bg-white min-w-3/5 room__card float-right rounded-3xl h-fit '
+            className='section__container overflow-hidden about__container shadow-xl bg-white min-w-3/5 room__card float-right rounded-3xl h-fit '
             id='about'
           >
             <div className='about__content px-14 py-5 flex flex-col gap-6'>

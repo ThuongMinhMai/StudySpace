@@ -53,8 +53,8 @@ const HomePage = () => {
      
       {/* <FormSearch /> */}
       <AboutUs />
-      <Explore />
       <Feature />
+      <Explore />
       <Offer />
       <Testimonial />
       <Faq />
