@@ -35,7 +35,7 @@ function HeaderHomePage() {
 
   return (
     <header className='header overflow-hidden'>
-      <nav className=''>
+      <nav className='z-50'>
         <div className='nav__bar p-4 flex items-center justify-between gap-8 bg-[#647C6C] '>
           <div className=''>
             {isMenuOpen ? (
@@ -119,7 +119,7 @@ function HeaderHomePage() {
             </a>
           </li>
         </ul>
-        <div className='flex  gap-5 justify-center items-center'>
+        <div className='flex gap-5 justify-center items-center'>
           <div className='relative' ref={searchRef}>
             <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' />
 

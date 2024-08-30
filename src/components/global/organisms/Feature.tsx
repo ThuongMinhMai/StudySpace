@@ -42,12 +42,13 @@ function Feature() {
     <div id='feature'>
       <section className='relative flex items-center justify-between h-screen overflow-hidden bg-white'>
         {/* Image on the left side */}
-        <div className='w-3/5 h-full about__image'>
+        <div className='w-3/5 h-full about__image hidden lg:block'>
           <img src={why} alt='Service' className='w-full h-auto object-cover' />
         </div>
 
         {/* Curved content section on the right side */}
-        <div className='absolute right-0 w-3/4 h-full bg-[#D7A883] clip-path-custom p-10 flex flex-col items-end justify-center text-white'>
+        {/* <div className='relative right-0 w-screen lg:w-3/4 lg:absolute h-full bg-[#D7A883] clip-path-custom p-10 flex flex-col items-end justify-center text-white'> */}
+        <div className={`relative right-0 w-full lg:w-3/4 lg:absolute h-full bg-[#D7A883] p-10 flex flex-col lg:items-end items-center justify-center text-white ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
           <div className='mr-20'>
             <h2 className='text-7xl font-bold mb-6 room__card'>Why Choose Us?</h2>
             <ul className='flex gap-10 justify-center service__list'>
@@ -71,7 +72,7 @@ function Feature() {
       {/* Second Section with image on the right */}
       <section className='relative flex items-center justify-between h-screen overflow-hidden bg-white'>
         {/* Curved content section on the left side */}
-        <div className=' z-10 w-[1055px] h-full bg-[#647C6C] clip-path-custom-left p-10 flex flex-col items-start justify-center text-white'>
+        <div className={` z-10 lg:w-[1055px] w-full h-full  bg-[#647C6C]  p-10 flex flex-col lg:items-start items-center justify-center text-white ${window.innerWidth >= 1275 ? 'clip-path-custom-left' : ''}`}>
           <div className='w-4/5 flex flex-col justify-center items-start gap-10 text-[#EAECEB]'>
             <div className='room__card'>
               <h2 className='text-7xl font-bold mb-6'>Special Limited Time Offer Room!</h2>
@@ -111,12 +112,14 @@ function Feature() {
 
       <section className='relative flex items-center justify-between h-screen overflow-hidden bg-white'>
         {/* Image on the left side */}
-        <div className='w-3/5 h-full about__image'>
+        <div className='w-3/5 h-full about__image hidden lg:block'>
           <img src={spe} alt='Service' className='w-full h-auto object-cover ' />
         </div>
 
         {/* Curved content section on the right side */}
-        <div className='absolute right-0 w-3/4 h-full bg-[#D4C4BC] clip-path-custom p-10 flex flex-col items-center justify-center text-[#757069]'>
+        {/* <div className='absolute right-0 w-3/4 h-full bg-[#D4C4BC] clip-path-custom p-10 flex flex-col items-center justify-center text-[#757069]'> */}
+        <div className={`relative right-0 w-full lg:w-3/4 lg:absolute h-full bg-[#D4C4BC] p-10  flex flex-col items-center justify-center text-[#757069] ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
+          
           <div className='ml-32'>
             <h2 className='text-7xl font-bold mb-16 room__card'>Specifications</h2>
             <div className='flex gap-10 justify-center'>

@@ -14,7 +14,7 @@ function AboutUs() {
         <div className='h-[800px] mt-24 float-right w-fit relative'>
           <img src={ellip} alt='ellip' className='h-full object-contain' />
         </div>
-        <div className="absolute -left-96 top-[500px] transform -rotate-90 font-bold text-7xl z-10 tracking-[10px]">
+        <div className="hidden lg:block absolute -left-96 top-[500px] transform -rotate-90 font-bold text-7xl z-10 tracking-[10px] ">
         <p
           className='font-paytoneone mb-4 text-center relative'
           style={{
@@ -86,7 +86,7 @@ function AboutUs() {
                 </p>
               </div>
 
-              <div className='flex justify-between items-center about__btn'>
+              <div className='flex justify-between items-center about__btn gap-5'>
                 <div className='flex flex-col gap-3 justify-center items-center text-[#C5B5A6]'>
                   <h4 className='text-5xl font-semibold section__header'>25k</h4>
                   <p className='section__description'>Properties Available</p>
@@ -104,7 +104,7 @@ function AboutUs() {
            
           </section>
          
-          <img src={bubble1} className='absolute w-80 -right-28 -top-28'/>
+          <img src={bubble1} className='absolute w-80 right-0 -top-28'/>
           <img src={bubble2} className='absolute w-72 top-80 -left-32 z-[-1]'/>
         </section>
       </div>
