@@ -6,19 +6,30 @@ const Testimonial = () => {
 
   useEffect(() => {
     let scrollInterval;
-    
+    let isResetting = false;
+
     const startScrolling = () => {
       scrollInterval = setInterval(() => {
-        if (containerRef.current && !isPaused) {
+        if (containerRef.current && !isPaused && !isResetting) {
           containerRef.current.scrollBy({
             top: 0,
             left: 1, // Adjust the scroll speed
             behavior: 'smooth',
           });
 
-          // Reset scroll position to start if reached the end
-          if (containerRef.current.scrollLeft >= containerRef.current.scrollWidth - containerRef.current.clientWidth) {
-            containerRef.current.scrollLeft = 0;
+          // Check if the scroll has reached the end
+          if (
+            containerRef.current.scrollLeft >=
+            containerRef.current.scrollWidth - containerRef.current.clientWidth
+          ) {
+            isResetting = true; // Start resetting the scroll
+            setTimeout(() => {
+              containerRef.current.scrollTo({
+                left: 0,
+                behavior: 'auto', // Instantly reset to start position
+              });
+              isResetting = false;
+            }, 100); // Short delay before resetting to make it smoother
           }
         }
       }, 20); // Interval in milliseconds, adjust for speed
@@ -29,6 +40,7 @@ const Testimonial = () => {
     return () => clearInterval(scrollInterval);
   }, [isPaused]);
 
+  // Optional: Pause on hover
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
@@ -41,7 +53,10 @@ const Testimonial = () => {
       style={{ width: '100%', height: 'auto', display: 'flex', gap: '20px' }}
     >
       {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} className="testimonial-card bg-white shadow-md rounded-lg p-6 flex-shrink-0 w-80">
+        <div
+          key={index}
+          className="testimonial-card bg-white shadow-md rounded-lg p-6 flex-shrink-0 w-80"
+        >
           <div className="flex items-center mb-4">
             <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
             <div className="ml-4">
