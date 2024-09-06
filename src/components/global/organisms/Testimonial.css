@@ -1,0 +1,30 @@
+.testimonial-container {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    overflow: hidden; /* Use hidden to ensure nothing outside the container is visible */
+  }
+  
+  .testimonial-content {
+    display: flex;
+    flex: none;
+    margin-left: -20px; /* Adjust to control content offset */
+  }
+/* Hide scrollbar for WebKit browsers */
+.testimonial-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for Firefox */
+  .testimonial-container {
+    scrollbar-width: none; /* Firefox */
+  }
+  .testimonial-slider-container .slick-slide {
+    padding: 0 10px; /* Add space on both sides of each slide */
+  }
+  .testimonial-card {
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    min-width: 300px; /* Ensure the minimum width of each card */
+  }

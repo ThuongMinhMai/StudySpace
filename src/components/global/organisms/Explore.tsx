@@ -3,12 +3,14 @@ import React from 'react'
 import room1 from '../../../assets/room-1.jpg'
 import room2 from '../../../assets/room-2.jpg'
 import room3 from '../../../assets/room-3.jpg'
+import './AboutUs.css'
 function Explore() {
   return (
-    <section className='section__container room__container' id='room'>
+    <div className='relative'>
+      <section className=' section__container room__container' id='room'>
         <p className='section__subheader'>OUR LIVING ROOM</p>
         <h2 className='section__header'>The Most Memorable Rest Time Starts Here.</h2>
-        <div className='room__grid mt-16 grid gap-4  '>
+        <div className='room__grid mt-16 grid gap-4 mb-10  '>
           <div className='room__card overflow-hidden rounded-lg shadow-md'>
             <div className='room__card__image'>
               <img src={room1} alt='room' />
@@ -89,6 +91,8 @@ function Explore() {
           </div>
         </div>
       </section>
+      <div className='box absolute -bottom-72 left-0'></div>
+    </div>
   )
 }
 

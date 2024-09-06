@@ -2,7 +2,7 @@ import React from 'react'
 
 function Faq() {
   return (
-    <section className='explore' id='explore'>
+    <section className='explore mt-20' id='explore'>
     <p className='section__subheader'>EXPLORE</p>
     <h2 className='section__header'>What's New Today.</h2>
     <div className='explore__bg'>

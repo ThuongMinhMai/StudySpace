@@ -3,14 +3,13 @@ import './AboutUs.css'
 
 function Offer() {
   return (
-    <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF]'>
-      {/* <div className='box absolute -top-72 left-0'></div> */}
+    <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF] mt-56'>
 
-      <section className='room__container  lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4' id='offer'>
+      <section className='room__container lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4' >
         <div>
           <button className='bg-[#FFDFAE]/80 px-8 py-3 text-[#FFA800] font-bold rounded-lg'>Price Package</button>
         </div>
-        <div className='flex flex-col sm:flex-row justify-center items-stretch lg:gap-20 md:gap-28 my-10 '>
+        <div className='flex flex-col sm:flex-row justify-center items-stretch lg:gap-20 md:gap-28 my-10 ' id='offer'>
           <p className='section__subheader flex-1 text-[#4E4E4E] font-bold text-5xl '>Choose Your Perfect Combo</p>
           <h2 className='section__header flex-1 text-[#67625D] font-light text- leading-loose tracking-wider'>
             Choose your perfect combo membership to unlock exclusive benefits and tailored services that fit your study
@@ -101,7 +100,6 @@ function Offer() {
           </div>
         </div>
       </section>
-      {/* <div className='box absolute -bottom-72 left-0'></div> */}
     </div>
   )
 }

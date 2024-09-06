@@ -9,6 +9,7 @@ import FormSearch from '../organisms/FormSearch'
 import HeaderHomePage from '../organisms/HeaderHomePage'
 import Offer from '../organisms/Offer'
 import Testimonial from '../organisms/Testimonial'
+import Test from '../organisms/Test'
 const HomePage = () => {
   React.useEffect(() => {
     const scrollRevealOption = {
@@ -46,7 +47,7 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div>
+    <div className=''>
       
      
       <HeaderHomePage />
@@ -56,7 +57,8 @@ const HomePage = () => {
       <Feature />
       <Explore />
       <Offer />
-      <Testimonial />
+      {/* <Testimonial /> */}
+      <Test/>
       <Faq />
       <Footer />
     </div>
