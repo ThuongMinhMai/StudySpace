@@ -107,7 +107,7 @@ function HeaderHomePage() {
               className={`relative isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
               href='#contact'
             >
-              Contact
+              FAQ
             </a>
           </li>
           <li>
@@ -115,7 +115,7 @@ function HeaderHomePage() {
               className={`relative isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
               href='#contact'
             >
-              FAQ
+              Contact
             </a>
           </li>
         </ul>
@@ -169,8 +169,6 @@ function HeaderHomePage() {
           </div>
         </div>
       </div>
-
-      
     </header>
   )
 }
