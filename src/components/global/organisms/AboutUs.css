@@ -10,8 +10,8 @@
     background: #f5f0ec;
     filter: blur(50px);
     position: absolute; 
-    top: 0;
-    left: 0;
+    /* top: 0; */
+    /* left: 0; */
     z-index: 10; 
     
   }
