@@ -10,26 +10,32 @@ const Accordion = ({ title, answer }: any) => {
         className="flex bg-white justify-between items-center w-full py-6 px-8"
       >
         <span>{title}</span>
+  
+
+
         <svg
-          className="fill-black shrink-0 ml-8 transition-transform duration-200 ease-out"
+          className="fill-black shrink-0 ml-8"
           width="16"
           height="16"
           xmlns="http://www.w3.org/2000/svg"
-          style={{ transform: `rotate(${accordionOpen ? 180 : 0}deg)` }}
         >
           <rect
             y="7"
             width="16"
             height="2"
             rx="1"
-            className="transition-transform duration-200 ease-out"
+            className={`transform origin-center transition duration-200 ease-out ${
+              accordionOpen && "!rotate-180"
+            }`}
           />
           <rect
             y="7"
             width="16"
             height="2"
             rx="1"
-            className="transform rotate-90 transition-transform duration-200 ease-out"
+            className={`transform origin-center rotate-90 transition duration-200 ease-out ${
+              accordionOpen && "!rotate-180"
+            }`}
           />
         </svg>
       </button>
