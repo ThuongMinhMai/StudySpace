@@ -3,7 +3,7 @@ import './AboutUs.css'
 
 function Offer() {
   return (
-    <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF] mt-56'>
+    <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF] mt-64'>
 
       <section className='room__container lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4' >
         <div>
