@@ -1,19 +1,20 @@
-import React from 'react'
+import React from "react";
+import Accordion from "../molecules/Accordion";
 
-function Faq() {
+const FAQ = () => {
   return (
-    <section className='explore mt-20' id='explore'>
-    <p className='section__subheader'>EXPLORE</p>
-    <h2 className='section__header'>What's New Today.</h2>
-    <div className='explore__bg'>
-      <div className='explore__content'>
-        <p className='section__description mb-2'>10th MAR 2023</p>
-        <h4 className='mb-4 text-lg font-semibold leading-6'>A New Menu Is Available In Our Hotel.</h4>
-        <button className='btn'>Continue</button>
-      </div>
+    <div className="p-4 bg-white/35 rounded-lg w-1/2 mx-auto my-10">
+      <Accordion
+        title="Do you prefer Android or iOS"
+        answer="I like to use iOS products"
+      />
+      <Accordion
+        title="Do you prefer writing CSS or Tailwind?"
+        answer="I like to use Tailwind"
+      />
+      <Accordion title="Firebase or Supabase?" answer="I am using Supabase!" />
     </div>
-  </section>
-  )
-}
+  );
+};
 
-export default Faq
+export default FAQ;

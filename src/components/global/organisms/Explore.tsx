@@ -129,7 +129,7 @@ function Explore() {
           </div>
         </div>
       </section>
-      <div className='box absolute -bottom-72 left-0'></div>
+      <div className='box absolute -bottom-80 left-0'></div>
     </div>
   )
 }
