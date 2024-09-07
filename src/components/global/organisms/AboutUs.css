@@ -15,3 +15,46 @@
     z-index: 10; 
     
   }
+
+  .explore-text {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem; /* Adjust size if needed */
+        font-weight: 500;
+        color: black; /* Adjust color if needed */
+        cursor: pointer;
+        transition: transform 0.3s ease, color 0.3s ease;
+        animation: pulse 1s infinite;
+      }
+      
+      .arrow {
+        margin-left: 0.5rem;
+        display: inline-block;
+        font-size: 1.25rem; /* Same size as text */
+        transition: transform 0.3s ease;
+      }
+      
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      
+      .explore-text:hover {
+        color: #FFA800; /* Change color on hover */
+        transform: scale(1.05);
+      }
+      
+      .explore-text:hover .arrow {
+        transform: translateX(5px); /* Arrow moves right on hover */
+      }
+      
