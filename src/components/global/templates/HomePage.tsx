@@ -57,12 +57,12 @@ const HomePage = () => {
     // Add more FAQ items as needed
   ];
   return (
-    <div className=''>
+    <div className='body'>
       
      
       <HeaderHomePage />
      
-      {/* <FormSearch /> */}
+      <FormSearch />
       <AboutUs />
       <Feature />
       <Explore />

@@ -94,7 +94,7 @@ body {
   scroll-behavior: smooth;
 }
 
-body {
+.body {
   font-family: 'Encode Sans', sans-serif;
   position: relative; 
   background-image: url("assets/header.jfif");
