@@ -3,6 +3,11 @@ import facebook from '../../../assets/facebook.png'
 import instagram from '../../../assets/instagram.png'
 import twitter from '../../../assets/twitter.png'
 import youtube from '../../../assets/youtube.png'
+import { Phone } from 'lucide-react'
+import { Mail } from 'lucide-react'
+import { MapPin } from 'lucide-react'
+import { Globe } from 'lucide-react'
+
 function Footer() {
   return (
     <footer className='footer ' id='contact'>
@@ -34,7 +39,6 @@ function Footer() {
                 Room Types & Amenities
               </a>
             </li>
-           
           </ul>
         </div>
         <div className='footer__col'>
@@ -55,15 +59,42 @@ function Footer() {
                 Airport Transfers
               </a>
             </li>
-           
           </ul>
         </div>
         <div className='footer__col'>
           <h4 className='mb-8 text-lg font-medium '>CONTACT US</h4>
           <ul className='footer__links list-none grid gap-4'>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
-              @bigjump.com | +84 809 7512
+              <a
+                href='mailto:bigjump2024@gmail.com'
+                className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
+              >
+                <Mail className='w-5 h-5 mr-2' />
+                bigjump2024@gmail.com
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
+              >
+                <Phone className='w-5 h-5 mr-2' /> 083 809 7512 (XB)
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
+              >
+                <MapPin className='w-5 h-5 mr-2' /> Thu Duc City, Ho Chi Minh City
+              </a>
+            </li>
+            <li>
+              <a
+                href='#'
+                className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
+              >
+                <Globe className='w-5 h-5 mr-2' /> www.StudySpace.com
               </a>
             </li>
           </ul>
@@ -100,7 +131,7 @@ function Footer() {
         </div>
       </div>
       <div className='footer__bar p-4 text-sm text-gray-500 text-center'>
-      Copyright@ 2024 StudySpace.com . All Right Reserves.
+        Copyright@ 2024 StudySpace.com . All Right Reserves.
       </div>
     </footer>
   )

@@ -8,6 +8,7 @@ function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const searchRef = useRef<HTMLDivElement | null>(null)
+  const [isScrolled, setIsScrolled] = useState(false) // State to track scroll position
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -26,16 +27,33 @@ function HeaderHomePage() {
     }
   }
 
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleClickOutside)
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside)
+  //   }
+  // }, [])
+
+  const handleScroll = () => {
+    // Set isScrolled to true if scrolled more than 50 pixels
+    setIsScrolled(window.scrollY > 50)
+  }
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
+    window.addEventListener('scroll', handleScroll) // Add scroll event listener
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
+      window.removeEventListener('scroll', handleScroll) // Cleanup on component unmount
     }
   }, [])
-
   return (
     <header className='header overflow-hidden'>
-      <nav className='z-50'>
+      {/* <nav className='z-50 fixed top-0 left-0 right-0  '> */}
+      <nav
+        className={`z-50 fixed top-0 left-0 right-0 transition-colors duration-300 w-full md:bg-transparent ${
+          isScrolled? 'lg:bg-[#f2ede7]/95 rounded-full' : 'bg-transparent'
+        }`}
+      >
         <div className='nav__bar p-4 flex items-center justify-between gap-8 bg-[#647C6C] '>
           <div className=''>
             {isMenuOpen ? (
@@ -145,7 +163,7 @@ function HeaderHomePage() {
           }}
         >
           <span className='absolute top-40 left-4 w-[120px] h-[120px] bg-white/70 rounded-full blur-[25px] -translate-x-1/2 -translate-y-1/2'></span>
-          <span>StudySpace.</span>
+          <span className=''>StudySpace.</span>
         </p>
 
         <div className='flex justify-between items-center mt-10'>
