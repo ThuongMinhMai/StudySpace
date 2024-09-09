@@ -51,7 +51,7 @@ const HomePage = () => {
      
       <HeaderHomePage />
      
-      <FormSearch />
+      {/* <FormSearch /> */}
       <AboutUs />
       <Feature />
       <Explore />
