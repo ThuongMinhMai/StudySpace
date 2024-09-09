@@ -44,17 +44,7 @@ const HomePage = () => {
       })
     }
   }, [])
-  const faqItems = [
-    {
-      question: 'What is your return policy?',
-      answer: 'You can return items within 30 days of purchase. Items must be in their original condition.'
-    },
-    {
-      question: 'How do I track my order?',
-      answer: 'You will receive a tracking number once your order has shipped. You can track your order using the link provided in the email.'
-    },
-    // Add more FAQ items as needed
-  ];
+
   return (
     <div className='body'>
       
