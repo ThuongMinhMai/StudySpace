@@ -1,11 +1,10 @@
-import { Coffee, Settings, TrendingUp } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-import why from '../../../assets/whychooseus.png' // Replace this with the correct image path
-import lit from '../../../assets/limitedtime.png' // Replace this with the correct image path
-import spe from '../../../assets/specification.png' // Replace this with the correct image path
-import conve from '../../../assets/convenient.svg' // Replace this with the correct image path
-import flexi from '../../../assets/flexibility.svg' // Replace this with the correct image path
-import product from '../../../assets/productivity.svg' // Replace this with the correct image path
+import { useEffect, useState } from 'react'
+import conve from '../../../assets/convenient.svg'; // Replace this with the correct image path
+import flexi from '../../../assets/flexibility.svg'; // Replace this with the correct image path
+import lit from '../../../assets/limitedtime.png'; // Replace this with the correct image path
+import product from '../../../assets/productivity.svg'; // Replace this with the correct image path
+import spe from '../../../assets/specification.png'; // Replace this with the correct image path
+import why from '../../../assets/whychooseus.png'; // Replace this with the correct image path
 
 import './Feature.css'
 function Feature() {

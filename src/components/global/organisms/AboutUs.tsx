@@ -1,9 +1,7 @@
-import React from 'react'
-import about from '../../../assets/about.jpg'
-import ellip from '../../../assets/ellip.svg'
-import './AboutUs.css'
 import bubble1 from "../../../assets/bubble1.svg"
 import bubble2 from "../../../assets/bubble2.svg"
+import ellip from '../../../assets/ellip.svg'
+import './AboutUs.css'
 function AboutUs() {
   return (
     <>

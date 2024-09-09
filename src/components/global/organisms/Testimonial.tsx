@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
 import { Star } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 const Testimonial = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [isPaused, setIsPaused] = useState(false)

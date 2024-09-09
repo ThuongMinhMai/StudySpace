@@ -1,9 +1,7 @@
-import { TableOfContents, X } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
-import { Search } from 'lucide-react'
-import './HeaderHomePage.css'
-import HoverButton from '../molecules/HoverButton'
+import { Search, TableOfContents, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
+import './HeaderHomePage.css'
 function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)

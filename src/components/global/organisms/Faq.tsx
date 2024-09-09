@@ -1,7 +1,6 @@
-import React from 'react'
 import Accordion from '../molecules/Accordion'
-import './Faq.css'
 import './AboutUs.css'
+import './Faq.css'
 const FAQ = () => {
   return (
     <div className='relative bg-[#D7A883] h-fit py-20 flex flex-col justify-center items-center mt-36 gap-10'>

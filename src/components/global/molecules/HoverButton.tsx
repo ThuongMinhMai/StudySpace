@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface HoverButtonProps {
   src: string;

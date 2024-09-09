@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ScrollReveal from 'scrollreveal'
 import AboutUs from '../organisms/AboutUs'
 import Explore from '../organisms/Explore'
@@ -8,7 +8,6 @@ import Footer from '../organisms/Footer'
 import FormSearch from '../organisms/FormSearch'
 import HeaderHomePage from '../organisms/HeaderHomePage'
 import Offer from '../organisms/Offer'
-import Testimonial from '../organisms/Testimonial'
 import Test from '../organisms/Test'
 const HomePage = () => {
   React.useEffect(() => {
