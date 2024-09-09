@@ -49,6 +49,7 @@ const Testimonial = () => {
     <Slider {...settings}>
       {[...Array(10)].map((_, index) => (
         <div
+        key={index}
           className='testimonial-card bg-white rounded-3xl p-6 flex flex-col my-20'
           style={{
             minWidth: '300px',
