@@ -3,6 +3,7 @@ import HomePage from './components/global/templates/HomePage'
 import RoomPage from './components/global/templates/RoomPage'
 import RootLayout from './components/global/templates/RootLayout'
 import NotFound from './components/global/organisms/NotFound'
+import SearchPage from './components/global/organisms/SearchPage'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
 
       <Route path='/room' element={<RoomPage />} />
       </Route>
+      <Route path='/search' element={<SearchPage />} />
 
       <Route path='*' element={<NotFound />} />
 

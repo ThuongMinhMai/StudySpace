@@ -16,6 +16,7 @@
     "@types/gsap": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "antd": "^5.20.6",
     "clsx": "^2.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",

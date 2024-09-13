@@ -2,6 +2,7 @@ import { Search, TableOfContents, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
+import { Link } from 'react-router-dom'
 function HeaderHomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -49,7 +50,7 @@ function HeaderHomePage() {
       {/* <nav className='z-50 fixed top-0 left-0 right-0  '> */}
       <nav
         className={`z-50 fixed top-0 left-0 right-0 transition-colors duration-300 w-full md:bg-transparent ${
-          isScrolled? 'lg:bg-[#f2ede7]/95 rounded-full' : 'bg-transparent'
+          isScrolled ? 'lg:bg-[#f2ede7]/95 rounded-full' : 'bg-transparent'
         }`}
       >
         <div className='nav__bar p-4 flex items-center justify-between gap-8 bg-[#647C6C] '>
@@ -137,19 +138,23 @@ function HeaderHomePage() {
         </ul>
         <div className='flex gap-5 justify-center items-center'>
           <div className='relative' ref={searchRef}>
-            <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' />
+            {/* <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' /> */}
 
             <div className={`h-fit p-2 rounded-full search-icon ${isSearchOpen ? '' : 'bg-[#C6A083]/60'}`}>
-              {isSearchOpen ? (
-                <X strokeWidth={1} className='' onClick={() => setIsSearchOpen(false)} />
-              ) : (
+              {/* {isSearchOpen ? ( */}
+                {/* <X strokeWidth={1} className='' onClick={() => setIsSearchOpen(false)} /> */}
+              {/* ) : ( */}
+              <Link to="/search">
                 <Search strokeWidth={1} className='' onClick={handleSearchToggle} />
-              )}
+              </Link>
+              {/* )} */}
             </div>
           </div>
           <button className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full'>Sign In</button>
         </div>
       </nav>
+
+        
 
       <div className='section__container header__container' id='home'>
         <p
