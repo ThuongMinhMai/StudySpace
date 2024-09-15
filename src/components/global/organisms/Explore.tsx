@@ -9,7 +9,7 @@ import {
   Podcast,
   UsersRound
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import space1 from '../../../assets/space1.jpg'
 import space2 from '../../../assets/space2.jpg'
 import space3 from '../../../assets/space3.jpg'
@@ -18,12 +18,23 @@ import './AboutUs.css'
 
 function Explore() {
   const navigate = useNavigate()
-
+  const location = useLocation() // Access current URL and search parameters
   // Function to navigate with typeRoom props
-  const handleExplore = (typeRoom: any) => {
-    navigate('/room', { state: { typeRoom } })
-  }
+  // const handleExplore = (typeRoom: any) => {
+  // localStorage.setItem('typeRome', typeRoom);
 
+  //   navigate('/room', { state: { typeRoom } })
+  // }
+  // Function to navigate with typeRoom props and append query params
+  const handleExplore = (typeRoom: string) => {
+    const searchParams = new URLSearchParams(location.search) // Get existing search parameters
+
+    // Add or update the `type` query parameter
+    searchParams.set('typeSpace', typeRoom)
+
+    // Navigate to the new URL with updated query parameters
+    navigate(`${location.pathname}room?${searchParams.toString()}`)
+  }
   return (
     <div className='relative'>
       <section className='section__container room__container' id='explore'>

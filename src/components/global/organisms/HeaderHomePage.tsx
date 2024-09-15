@@ -3,9 +3,10 @@ import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
 import { Link } from 'react-router-dom'
-function HeaderHomePage() {
+import SearchPage from './SearchPage'
+function HeaderHomePage({ isSearchOpen, toggleSearch }:any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  // const [isSearchOpen, setIsSearchOpen] = useState(false)
   const searchRef = useRef<HTMLDivElement | null>(null)
   const [isScrolled, setIsScrolled] = useState(false) // State to track scroll position
   const handleMenuToggle = () => {
@@ -16,13 +17,13 @@ function HeaderHomePage() {
     setIsMenuOpen(false)
   }
 
-  const handleSearchToggle = () => {
-    setIsSearchOpen((prev) => !prev)
-  }
+  // const handleSearchToggle = () => {
+  //   setIsSearchOpen((prev) => !prev)
+  // }
 
   const handleClickOutside = (event: MouseEvent) => {
     if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-      setIsSearchOpen(false)
+      // setIsSearchOpen(false)
     }
   }
 
@@ -46,6 +47,10 @@ function HeaderHomePage() {
     }
   }, [])
   return (
+    <div>
+
+    {isSearchOpen && <SearchPage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}
+
     <header className='header overflow-hidden'>
       {/* <nav className='z-50 fixed top-0 left-0 right-0  '> */}
       <nav
@@ -137,16 +142,18 @@ function HeaderHomePage() {
           </li>
         </ul>
         <div className='flex gap-5 justify-center items-center'>
-          <div className='relative' ref={searchRef}>
+          <div className='relative' 
+          // ref={searchRef}
+          >
             {/* <input type='text' className={`search-input ${isSearchOpen ? 'open' : ''}`} placeholder='Search...' /> */}
 
             <div className={`h-fit p-2 rounded-full search-icon ${isSearchOpen ? '' : 'bg-[#C6A083]/60'}`}>
               {/* {isSearchOpen ? ( */}
                 {/* <X strokeWidth={1} className='' onClick={() => setIsSearchOpen(false)} /> */}
               {/* ) : ( */}
-              <Link to="/search">
-                <Search strokeWidth={1} className='' onClick={handleSearchToggle} />
-              </Link>
+              {/* <Link to="/search"> */}
+                <Search strokeWidth={1} className='' onClick={toggleSearch} />
+              {/* </Link> */}
               {/* )} */}
             </div>
           </div>
@@ -190,7 +197,10 @@ function HeaderHomePage() {
           </div>
         </div>
       </div>
+
     </header>
+    </div>
+
   )
 }
 

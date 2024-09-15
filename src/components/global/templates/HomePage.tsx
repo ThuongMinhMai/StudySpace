@@ -9,7 +9,7 @@ import Footer from '../organisms/FooterForHomePage'
 import HeaderHomePage from '../organisms/HeaderHomePage'
 import Offer from '../organisms/Offer'
 import Test from '../organisms/Test'
-const HomePage = () => {
+const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
   React.useEffect(() => {
     const scrollRevealOption = {
       distance: '50px',
@@ -18,6 +18,7 @@ const HomePage = () => {
     }
     const revealElements = [
       { selector: '.header__container p', options: { ...scrollRevealOption } },
+      { selector: '.header_room', options: { ...scrollRevealOption } },
       { selector: '.header__container h1', options: { ...scrollRevealOption, delay: 500 } },
       { selector: '.about__image img', options: { ...scrollRevealOption, origin: 'left' } },
       { selector: '.about__content .section__subheader', options: { ...scrollRevealOption, delay: 500 } },
@@ -49,7 +50,7 @@ const HomePage = () => {
     <div className='body'>
       
      
-      <HeaderHomePage />
+      <HeaderHomePage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch}  />
      
       {/* <FormSearch /> */}
       <AboutUs />
