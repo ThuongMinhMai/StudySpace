@@ -24,6 +24,7 @@ function RoomPage() {
   })
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     // Update state when query parameters change
     setFormValues({
       location: searchParams.get('location') || 'All',
@@ -77,18 +78,19 @@ function RoomPage() {
       {/* Card space */}
 
 
-      {/* Card section */}
-      <div className='container mx-auto px-32 my-10 mt-20'>
-        <Row gutter={[0, 64]} justify='center'>
+     {/* Card section */}
+     <div className='container mx-auto lg:px-10 my-10'>
+        <Row gutter={[32, 16]} justify='center'>
           {cardData.map((card, index) => (
             <Col
               key={index}
-              xs={24}
-              sm={12}
-              md={8} // 3 cards per row on medium (>= 768px) screens
-              className=''
+              sm={24}
+              md={12}
+              lg={8}
             >
-              <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} />
+              <div className='mb-10'>
+                <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} />
+              </div>
             </Col>
           ))}
         </Row>

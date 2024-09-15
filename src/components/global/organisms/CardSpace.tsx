@@ -2,10 +2,11 @@ import { Card, Button, ConfigProvider } from 'antd'
 import { Usb } from 'lucide-react'
 import { Scaling, User } from 'lucide-react'
 import { Layers2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 const { Meta } = Card
 const CardSpace = ({ title, description, imgSrc, price, size, persons, type }: any) => {
   return (
-    <div className='relative w-4/5 mx-auto shadow-lg'>
+    <div className='relative min-w-80 mx-auto shadow-lg max-w-[350px]'>
       <ConfigProvider
         theme={{
           token: {
@@ -13,6 +14,7 @@ const CardSpace = ({ title, description, imgSrc, price, size, persons, type }: a
           }
         }}
       >
+        <Link to="/detail">
         <Card
           hoverable
           cover={
@@ -46,11 +48,13 @@ const CardSpace = ({ title, description, imgSrc, price, size, persons, type }: a
             Book Now
           </Button> */}
           <button
-            className='w-full mt-4 py-4 rounded-md font-medium border-2 border-[#647C6C] text-[#647C6C] hover:bg-[#647C6C] hover:text-white transition-all'
+            className='w-full mt-5 py-3 text-base rounded-md font-medium border-2 border-[#647C6C] text-[#647C6C] hover:bg-[#647C6C] hover:text-white transition-all'
           >
             Book Now
           </button>
         </Card>
+        </Link>
+
       </ConfigProvider>
     </div>
   )

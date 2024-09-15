@@ -385,7 +385,8 @@ nav {
   right: -14px;
   padding: 0.5rem;
   width: 10rem;
-  background: #f5e0ce;
+  /* background: #f5e0ce; */
+  background: whitesmoke;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
