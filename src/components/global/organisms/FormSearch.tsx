@@ -1,6 +1,6 @@
 import { Button, Form, Select, ConfigProvider, Row, Col } from 'antd'
 import { CalendarDays, Search, SearchCheck, UserRound } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MapPin } from 'lucide-react'
 import { Rocket } from 'lucide-react'
 import { Box } from 'lucide-react'
@@ -8,6 +8,7 @@ import { UsersRound } from 'lucide-react'
 const { Option } = Select
 
 function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initialPersons,  onSearchChange }:any) {
+  const [form] = Form.useForm() // Create a form instance
   const locations = [
     'All',
     'District 1',
@@ -21,7 +22,10 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
     'District 8',
     'District 5'
   ]
-
+  useEffect(() => {
+    // Reset the form fields when props change
+    form.resetFields()
+  }, [initialLocation, initialTypeSpace, initialTypeRoom, initialPersons])
   const typeRoom = ['All', 'Office', 'Co-working', 'Meeting room']
   const typeSpace = ['All', 'Library', 'Coffee', 'Other']
 
@@ -33,7 +37,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
     console.log('Form values:', values)
     // You can perform search or navigation based on form values here
   }
-
+console.log("nhan duoc",initialLocation, initialTypeSpace, initialTypeRoom, initialPersons)
   return (
     <ConfigProvider
       theme={{
@@ -45,6 +49,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
       <div className='header_room w-3/5 mx-auto p-6 pr-20 bg-white shadow-lg rounded-lg sticky top-20'>
 
       <Form
+        form={form} // Assign the form instance to the Form component
         layout='vertical'
         onFinish={onFinish}
     
