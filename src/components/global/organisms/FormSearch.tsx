@@ -154,7 +154,7 @@ console.log("nhan duoc",initialLocation, initialTypeSpace, initialTypeRoom, init
 
           {/* Submit Button */}
           <Col xs={24} sm={12} md={4} >
-            <Button type='primary' htmlType='submit' size='large' icon={<SearchCheck />} className='rounded-lg h-10 '>
+            <Button type='primary' htmlType='submit' size='large' icon={<SearchCheck />} className='rounded-lg h-10 mt-6 '>
               Check Available
             </Button>
           </Col>

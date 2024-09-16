@@ -8,16 +8,17 @@ function SearchPage({ isSearchOpen, toggleSearch }:any) {
   const navigate = useNavigate()
   const location = useLocation() // To get the current URL and query params
   const locations = [
-    'Quận 1',
-    'Quận 2',
-    'Quận 3',
-    'Quận Bình Thạnh',
-    'Thành phố Thủ Đức',
-    'Quận 9',
-    'Quận 7',
-    'Quận 10',
-    'Quận 8',
-    'Quận 5'
+    'All',
+    'District 1',
+    'District 2',
+    'District 3',
+    'District Bình Thạnh',
+    'Thủ Đức City',
+    'District 9',
+    'District 7',
+    'District 10',
+    'District 8',
+    'District 5'
   ]
 
   // const handleChange = (value: any) => {
