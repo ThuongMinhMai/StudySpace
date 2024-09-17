@@ -4,7 +4,7 @@ import React from 'react'
 function Amentities() {
   return (
     <div>
-        <div className='text-2xl mb-4'>Amentities</div>
+        <div className='text-2xl mb-4 font-medium'>Amentities</div>
           <p className='mb-10'>Omnesque iudicabit pri no, ad mel quaeque facilis atomorum.</p>
           <div className='grid grid-cols-3 gap-4'>
             <div className='flex justify-start items-center'>

@@ -4,7 +4,7 @@ import React from 'react'
 function HouseRule() {
   return (
     <div>
-      <div className='text-2xl mb-6'>House Rules</div>
+      <div className='text-2xl mb-6 font-medium'>House Rules</div>
       <div className='flex flex-col gap-5'>
         <div className='flex justify-start items-center'>
           <CigaretteOff className='mr-2' color='#647C6C' fill='#647C6C' />

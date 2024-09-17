@@ -418,4 +418,30 @@ nav {
   border-top-left-radius: 0.2rem;
   border-bottom-left-radius: 0.2rem;
 }
+.cardrelated::before{
+  position: absolute;
+  top:2.5rem;
+  right:-0.5rem;
+  content: '';
+  background:#ecbc94;
+  height: 28px;
+  width: 28px;
+  transform : rotate(45deg);
+}
+
+.cardrelated::after{
+  position: absolute;
+  content: attr(data-label);
+  top: 16px;
+  right: -14px;
+  padding: 0.5rem;
+  width: 8rem;
+  /* background: #f5e0ce; */
+  background: whitesmoke;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+}
 
