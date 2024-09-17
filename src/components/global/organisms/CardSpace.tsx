@@ -20,13 +20,13 @@ const CardSpace = ({ title, description, imgSrc, price, size, persons, type }: a
           cover={
             <div className='relative'>
               <div className='card text-lg font-bold' data-label={`From: ${100}$`}>
-                <div className=' overflow-hidden'>
-                  <img alt={title} src={imgSrc} className='h-56 w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105' />
+                <div className=' relative overflow-hidden '>
+                  <img alt={title} src={imgSrc} className='h-56 w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 z-[100]' />
                 </div>
               </div>
             </div>
           }
-          className='card-space border-none rounded-none '
+          className='card-space border-none rounded-none'
           style={{ borderRadius: '0px' }} // Ensure no border-radius
         >
           <div className='flex items-center justify-between space-x-4 text-sm mb-4'>
