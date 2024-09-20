@@ -11,6 +11,7 @@ import FeedbackGallery from '../molecules/FeedbackGallery'
 import SpaceLocation from '../molecules/SpaceLocation'
 import { useNavigate } from 'react-router-dom'
 import RelatedRoom from '../molecules/RelatedRoom'
+import BookingForm from '../molecules/BookingForm'
 function Detail() {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const navigate = useNavigate()
@@ -80,6 +81,17 @@ function Detail() {
   const handleReturn = () => {
     navigate(-1) // This navigates back to the previous page
   }
+
+  // const bookedSlots = {
+  //   '2024-09-20': [
+  //     { start: '10:00', end: '11:00' },
+  //     { start: '14:00', end: '15:00' }
+  //   ]
+  // }
+  const bookedSlots = [
+    { date: '2024-09-20', slots: [{ start: '10:30', end: '11:30' }, { start: '14:00', end: '15:00' }] },
+    { date: '2024-09-21', slots: [{ start: '09:00', end: '10:00' }] },
+  ];
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>
@@ -143,7 +155,6 @@ function Detail() {
             <HouseRule />
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
-
             <div className='flex justify-between items-center'>
               <p className='text-2xl font-medium'>Feedback Gallery</p>
               <div className='flex justify-center items-center gap-2'>
@@ -154,7 +165,7 @@ function Detail() {
             </div>
             <FeedbackGallery images={images} />
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
-         
+
             <div>
               <SpaceLocation
                 name={spaceLocation.name}
@@ -166,10 +177,12 @@ function Detail() {
               />
             </div>
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
-         
           </div>
 
-          <div className='flex-[2] bg-red-200 h-fit sticky top-[95px]'>fjhghljlk</div>
+          <div className='flex-[2] bg-red-200 h-fit sticky top-[95px]'>
+            fjhghljlk
+            <BookingForm storeOpenTime='09:00' storeCloseTime='18:00' bookedSlots={bookedSlots} />,
+          </div>
         </div>
         <RelatedRoom />
 

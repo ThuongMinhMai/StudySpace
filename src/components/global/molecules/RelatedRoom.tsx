@@ -40,7 +40,7 @@ function RelatedRoom() {
   ]
   return (
     <div className=''>
-      <div className='text-2xl font-medium mb-10' >Relacted Room</div>
+      <div className='text-2xl font-medium mb-10' >Related Room</div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full'>
         {cardData.map((card, index) => (

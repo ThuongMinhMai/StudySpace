@@ -3,14 +3,15 @@ import facebook from '../../../assets/facebook.png'
 import instagram from '../../../assets/instagram.png'
 import twitter from '../../../assets/twitter.png'
 import youtube from '../../../assets/youtube.png'
-
+import logo from '../../../assets/LOGO SS 02.png'
 function Footer() {
   return (
     <footer className='footer ' id='contact'>
       <div className='section__container footer__container grid gap-y-16 gap-x-8'>
         <div className='footer__col'>
           <div className=''>
-            <p className='font-greatvibes text-5xl'>StudySpace</p>
+            {/* <p className='font-greatvibes text-5xl'>StudySpace</p> */}
+            <img className='w-32' src={logo} alt='logo'/>
           </div>
           <p className='section__description'>
             We provide a mobile app and website that allows users to easily search, compare and book study and group
