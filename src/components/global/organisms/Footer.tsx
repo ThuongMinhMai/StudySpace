@@ -3,6 +3,7 @@ import facebook from '../../../assets/facebook.png'
 import instagram from '../../../assets/instagram.png'
 import twitter from '../../../assets/twitter.png'
 import youtube from '../../../assets/youtube.png'
+import logo from '../../../assets/LOGO SS-01.png'
 
 function Footer() {
   return (
@@ -10,7 +11,9 @@ function Footer() {
       <div className='section__container footer__container grid gap-y-16 gap-x-8'>
         <div className='footer__col'>
           <div className=''>
-            <p className='font-greatvibes text-5xl mb-4'>StudySpace</p>
+            {/* <p className='font-greatvibes text-5xl mb-4'>StudySpace</p> */}
+            <img className='h-20 w-auto object-contain mx-auto mb-2' src={logo} alt='logo'/>
+
           </div>
           <p className=''>
             We provide a mobile app and website that allows users to easily search, compare and book study and group
@@ -21,17 +24,17 @@ function Footer() {
           <h4 className='mb-8 text-lg font-medium '>QUICK LINKS</h4>
           <ul className='footer__links list-none grid gap-4'>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Browse Destinations
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Special Offers & Packages
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Room Types & Amenities
               </a>
             </li>
@@ -41,17 +44,17 @@ function Footer() {
           <h4 className='mb-8 text-lg font-medium '>OUR SERVICES</h4>
           <ul className='footer__links list-none grid gap-4'>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Concierge Assistance
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Flexible Booking Options
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#D7A883] '>
+              <a  className='transition-colors duration-300 hover:text-[#D7A883] '>
                 Airport Transfers
               </a>
             </li>
@@ -71,7 +74,6 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
                 className='transition-colors duration-300 hover:text-[#D7A883] flex justify-start items-center'
               >
                 <Phone className='w-5 h-5 mr-2' /> 083 809 7512 (XB)
@@ -79,7 +81,6 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
                 className='transition-colors duration-300 hover:text-[#D7A883] flex justify-start items-center'
               >
                 <MapPin className='w-5 h-5 mr-2' /> Thu Duc City, Ho Chi Minh City
@@ -87,7 +88,6 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
                 className='transition-colors duration-300 hover:text-[#D7A883] flex justify-start items-center'
               >
                 <Globe className='w-5 h-5 mr-2' /> www.StudySpace.com
@@ -95,7 +95,7 @@ function Footer() {
             </li>
           </ul>
           <div className='footer__socials mt-8 flex items-center gap-4 flex-wrap'>
-            <a href='#'>
+          <a href='https://www.facebook.com/profile.php?id=61562440290206'target='_blank'>
               <img
                 className='max-w-[25px] opacity-80 transition duration-300 hover:opacity-100'
                 src={facebook}

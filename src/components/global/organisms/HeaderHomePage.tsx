@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
 import { Link } from 'react-router-dom'
+// import logo from '../../../assets/LOGO SS 04.png'
+import logo from '../../../assets/LOGO SS 1-01.png'
+import logo1 from '../../../assets/LOGO SS 03.png'
 import SearchPage from './SearchPage'
 function HeaderHomePage({ isSearchOpen, toggleSearch }:any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -61,9 +64,12 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }:any) {
         <div className='nav__bar p-4 flex items-center justify-between gap-8 bg-[#647C6C] '>
           <div className=''>
             {isMenuOpen ? (
-              <p className='font-greatvibes text-5xl text-white'>StudySpace</p>
+              // <p className='font-greatvibes text-5xl text-white'>StudySpace</p>
+              <img className='max-h-16 ml-10 z-100 my-auto w-auto object-contain' src={logo1} alt='logo'/>
             ) : (
-              <p className='font-greatvibes text-5xl mr-3 text-[#3D4449]'>StudySpace</p>
+              // <p className='font-greatvibes text-5xl mr-3 text-[#3D4449]'>StudySpace</p>
+              <img className='max-h-16 ml-10 w-auto my-auto -mt-4 object-contain' src={logo} alt='logo'/>
+
             )}
           </div>
           <div className='nav__menu__btn text-xl text-white cursor-pointer' id='menu-btn' onClick={handleMenuToggle}>
@@ -71,7 +77,7 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }:any) {
           </div>
         </div>
         <ul
-          className={`list-none text-sm text-[#3D4449] absolute w-full p-8 flex flex-col items-center gap-8 font-medium bg-[#647C6C]/90 -translate-y-full transition-transform duration-500 z-[-1] nav__links ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}
+          className={`list-none text-sm  text-[#3D4449] absolute w-full flex flex-col items-center lg:gap-12 md:gap-4 font-medium bg-[#647C6C]/90 -translate-y-full transition-transform duration-500 z-[-1] nav__links ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}
           id='nav-links'
           onClick={closeMenu}
         >

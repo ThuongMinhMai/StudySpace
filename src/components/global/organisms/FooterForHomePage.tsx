@@ -3,7 +3,7 @@ import facebook from '../../../assets/facebook.png'
 import instagram from '../../../assets/instagram.png'
 import twitter from '../../../assets/twitter.png'
 import youtube from '../../../assets/youtube.png'
-import logo from '../../../assets/LOGO SS 02.png'
+import logo from '../../../assets/LOGO SS 1-01.png'
 function Footer() {
   return (
     <footer className='footer ' id='contact'>
@@ -11,7 +11,7 @@ function Footer() {
         <div className='footer__col'>
           <div className=''>
             {/* <p className='font-greatvibes text-5xl'>StudySpace</p> */}
-            <img className='w-32' src={logo} alt='logo'/>
+            <img className='h-20 w-auto object-contain mx-auto' src={logo} alt='logo'/>
           </div>
           <p className='section__description'>
             We provide a mobile app and website that allows users to easily search, compare and book study and group
@@ -22,17 +22,17 @@ function Footer() {
           <h4 className='mb-8 text-lg font-medium '>QUICK LINKS</h4>
           <ul className='footer__links list-none grid gap-4'>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Browse Destinations
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Special Offers & Packages
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Room Types & Amenities
               </a>
             </li>
@@ -42,17 +42,17 @@ function Footer() {
           <h4 className='mb-8 text-lg font-medium '>OUR SERVICES</h4>
           <ul className='footer__links list-none grid gap-4'>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a  className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Concierge Assistance
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a  className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Flexible Booking Options
               </a>
             </li>
             <li>
-              <a href='#' className='transition-colors duration-300 hover:text-[#647C6C] '>
+              <a  className='transition-colors duration-300 hover:text-[#647C6C] '>
                 Airport Transfers
               </a>
             </li>
@@ -72,7 +72,7 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
+               
                 className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
               >
                 <Phone className='w-5 h-5 mr-2' /> 083 809 7512 (XB)
@@ -80,7 +80,7 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
+             
                 className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
               >
                 <MapPin className='w-5 h-5 mr-2' /> Thu Duc City, Ho Chi Minh City
@@ -88,7 +88,7 @@ function Footer() {
             </li>
             <li>
               <a
-                href='#'
+                // href='#'
                 className='transition-colors duration-300 hover:text-[#647C6C] flex justify-start items-center'
               >
                 <Globe className='w-5 h-5 mr-2' /> www.StudySpace.com
@@ -96,14 +96,14 @@ function Footer() {
             </li>
           </ul>
           <div className='footer__socials mt-8 flex items-center gap-4 flex-wrap'>
-            <a href='#'>
+            <a href='https://www.facebook.com/profile.php?id=61562440290206'target='_blank'>
               <img
                 className='max-w-[25px] opacity-80 transition duration-300 hover:opacity-100'
                 src={facebook}
                 alt='facebook'
               />
             </a>
-            <a href='#'>
+            <a href='#' >
               <img
                 className='max-w-[25px] opacity-80 transition duration-300  hover:opacity-100'
                 src={instagram}
