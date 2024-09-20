@@ -179,8 +179,7 @@ function Detail() {
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
           </div>
 
-          <div className='flex-[2] bg-red-200 h-fit sticky top-[95px]'>
-            fjhghljlk
+          <div className='flex-[2 h-fit sticky top-[95px]'>
             <BookingForm storeOpenTime='09:00' storeCloseTime='18:00' bookedSlots={bookedSlots} />,
           </div>
         </div>

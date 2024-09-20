@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, DatePicker, TimePicker, Button, Typography, Space, Checkbox, message, Alert } from 'antd';
+import { Form, DatePicker, TimePicker, Button, Typography, Space, Checkbox, message, Alert, ConfigProvider } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import 'antd/dist/reset.css';
 
@@ -148,7 +148,19 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   };
 
   return (
-    <Form form={form} onFinish={handleSubmit} layout="vertical">
+    <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#647C6C'
+      },
+      components: {
+        Button: {
+          colorTextLightSolid: '#647C6C'
+        }
+      }
+    }}
+  >
+    <Form form={form} onFinish={handleSubmit} layout="vertical" className='border-2 border-[#647C6C] p-5'>
       <Form.Item>
         <Checkbox onChange={handleBookingTypeChange}>Overnight Booking</Checkbox>
       </Form.Item>
@@ -192,7 +204,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
       )}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">Book</Button>
+        <Button type="primary" htmlType="submit" className='text-white'>Book</Button>
       </Form.Item>
 
       {selectedDate && !isOvernight && (
@@ -225,6 +237,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         </>
       )}
     </Form>
+    </ConfigProvider>
   );
 };
 
