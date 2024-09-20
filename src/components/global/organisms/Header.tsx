@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Button, Input, Select, Space } from 'antd'
 import { Search, Star } from 'lucide-react'
 import SearchPage from './SearchPage'
+import logo from '../../../assets/LOGO SS ()-01.png'
+
 function Header({ isSearchOpen, toggleSearch }: any) {
   const options = [
     {
@@ -24,7 +26,9 @@ function Header({ isSearchOpen, toggleSearch }: any) {
 
       <div className='fixed top-0 bg-white py-4 w-full right-0 left-0 z-50 flex justify-between items-center gap-10 lg:px-40 m-auto border-b-2'>
         <Link to='/'>
-          <p className='font-greatvibes text-5xl mr-3 text-[#3D4449]'>StudySpace</p>
+          {/* <p className='font-greatvibes text-5xl mr-3 text-[#3D4449]'>StudySpace</p> */}
+          <img className='max-h-16 ml-10 w-auto my-auto -mt-4 object-contain' src={logo} alt='logo' />
+
         </Link>
         <div
         onClick={toggleSearch}

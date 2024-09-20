@@ -67,7 +67,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Coffee Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Bask in luxury with breathtaking ocean views from your private suite.
+              Enjoy a relaxed, creative environment with Wi-Fi, flexible seating,facilities, and the convenience of refreshments, ideal for meetings or solo work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$299/hour</span>
@@ -104,7 +104,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Library Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Experience urban elegance and modern comfort in the heart of the city.
+              Access a quiet, focused environment with abundant resources, free Wi-Fi, and comfortable seating, perfect for studying or research.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$199/hour</span>
@@ -141,7 +141,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Other Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Spacious and inviting, perfect for creating cherished memories with loved ones.
+              Discover versatile spaces offering tailored environments, from collaborative hubs to quiet zones, with amenities like Wi-Fi and flexible setups for meetings, events, or focused work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$249/hour</span>

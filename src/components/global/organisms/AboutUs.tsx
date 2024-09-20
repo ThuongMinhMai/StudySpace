@@ -72,15 +72,15 @@ function AboutUs() {
                 ABOUT US
               </p>
               <div>
-                <h2 className='section__header text-2xl font-bold mb-3'>StudySpace</h2>
+                <h2 className='section__header text-2xl font-bold mb-3'>Vision</h2>
                 <p className='section__description'>
-                  With a focus on quality accommodations, personalized experiences.
+                To be the top global platform for connecting and managing study and workspaces
                 </p>
               </div>
               <div>
-                <h2 className='section__header text-2xl font-bold mb-3'>StudySpace</h2>
+                <h2 className='section__header text-2xl font-bold mb-3'>Mission</h2>
                 <p className='section__description'>
-                  With a focus on quality accommodations, personalized experiences.
+                To streamline bookings for users and help organizations optimize resources and boost efficiency.
                 </p>
               </div>
 

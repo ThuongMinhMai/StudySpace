@@ -2,6 +2,7 @@ import { AutoComplete, ConfigProvider, Select, Input } from 'antd'
 import { Search } from 'lucide-react'
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import logo from '../../../assets/LOGO SS ()-01.png'
 
 function SearchPage({ isSearchOpen, toggleSearch }:any) {
   const { Option } = Select
@@ -52,7 +53,9 @@ function SearchPage({ isSearchOpen, toggleSearch }:any) {
         <div className='fixed inset-0 z-[1000] flex flex-col justify-center items-center bg-white'>
           <div className='flex justify-between items-center gap-10 mt-4 w-4/5 m-auto'>
             {/* <Link to='/'> */}
-              <p className='font-greatvibes text-5xl mr-3 text-[#3D4449] cursor-pointer' onClick={toggleSearch}>StudySpace</p>
+          <img className='max-h-16 ml-10 w-auto my-auto -mt-4 object-contain cursor-pointer' src={logo} alt='logo' onClick={toggleSearch}/>
+
+              {/* <p className='font-greatvibes text-5xl mr-3 text-[#3D4449] cursor-pointer' onClick={toggleSearch}>StudySpace</p> */}
             {/* </Link> */}
             <div className=' w-full'>
               <ConfigProvider
