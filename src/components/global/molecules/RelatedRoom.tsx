@@ -45,6 +45,7 @@ function RelatedRoom() {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full'>
         {cardData.map((card, index) => (
           <div className='mb-10' key={index}>
+        
             <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} />
           </div>
         ))}

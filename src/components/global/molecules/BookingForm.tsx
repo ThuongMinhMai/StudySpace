@@ -155,7 +155,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
       },
       components: {
         Button: {
-          colorTextLightSolid: '#647C6C'
+       
         }
       }
     }}
