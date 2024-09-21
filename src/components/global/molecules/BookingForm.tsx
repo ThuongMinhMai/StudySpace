@@ -36,23 +36,26 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     setOverlapWarning("");
     setIsOvernight(e.target.checked);
   };
-
   const handleSubmit = (values: any) => {
     const { date, timeRange } = values;
-
+  
     if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
       const [startDate, endDate] = selectedRangeDate;
       if (startDate.isSame(endDate, 'day')) {
         setOverlapWarning('Start date and end date cannot be the same for overnight bookings.');
         return; // Prevent form submission
       }
-
-      // Check for overlaps for both days
+  
+      // Get the selected time range
       const selectedStart = timeRange[0].format('HH:mm');
       const selectedEnd = timeRange[1].format('HH:mm');
-
-      const overlapExists = checkForOverlap([startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD')], selectedStart, selectedEnd);
-
+  
+      // Adjust the end time for the second day
+      const adjustedSelectedEnd = selectedEnd; // This is already in the right format
+  
+      // Check for overlaps
+      const overlapExists = checkForOverlap([startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD')], selectedStart, adjustedSelectedEnd);
+  
       if (overlapExists) {
         setOverlapWarning('The selected time overlaps with an already booked slot on one of the selected days.');
         return; // Prevent form submission
@@ -63,15 +66,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
       const selectedDateStr = date.format('YYYY-MM-DD');
       const selectedStart = timeRange[0].format('HH:mm');
       const selectedEnd = timeRange[1].format('HH:mm');
-
+  
       // Handle reverse time ranges for same-day bookings
       if (!isOvernight && dayjs(selectedStart, 'HH:mm').isAfter(dayjs(selectedEnd, 'HH:mm'))) {
         setOverlapWarning('Start time cannot be after end time for same-day bookings.');
         return; // Prevent form submission
       }
-
+  
       const overlapExists = checkForOverlap(selectedDateStr, selectedStart, selectedEnd);
-
+  
       if (overlapExists) {
         setOverlapWarning('The selected time overlaps with an already booked slot.');
         return; // Prevent form submission
@@ -79,23 +82,92 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         setOverlapWarning(null); // Clear the warning if no overlap
       }
     }
-
+  
     console.log('Form values:', values);
+    form.resetFields()
   };
+  
+  // const handleSubmit = (values: any) => {
+  //   const { date, timeRange } = values;
 
+  //   if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
+  //     const [startDate, endDate] = selectedRangeDate;
+  //     if (startDate.isSame(endDate, 'day')) {
+  //       setOverlapWarning('Start date and end date cannot be the same for overnight bookings.');
+  //       return; // Prevent form submission
+  //     }
+
+  //     // Check for overlaps for both days
+  //     const selectedStart = timeRange[0].format('HH:mm');
+  //     const selectedEnd = timeRange[1].format('HH:mm');
+
+  //     const overlapExists = checkForOverlap([startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD')], selectedStart, selectedEnd);
+
+  //     if (overlapExists) {
+  //       setOverlapWarning('The selected time overlaps with an already booked slot on one of the selected days.');
+  //       return; // Prevent form submission
+  //     } else {
+  //       setOverlapWarning(null); // Clear the warning if no overlap
+  //     }
+  //   } else if (date && timeRange) {
+  //     const selectedDateStr = date.format('YYYY-MM-DD');
+  //     const selectedStart = timeRange[0].format('HH:mm');
+  //     const selectedEnd = timeRange[1].format('HH:mm');
+
+  //     // Handle reverse time ranges for same-day bookings
+  //     if (!isOvernight && dayjs(selectedStart, 'HH:mm').isAfter(dayjs(selectedEnd, 'HH:mm'))) {
+  //       setOverlapWarning('Start time cannot be after end time for same-day bookings.');
+  //       return; // Prevent form submission
+  //     }
+
+  //     const overlapExists = checkForOverlap(selectedDateStr, selectedStart, selectedEnd);
+
+  //     if (overlapExists) {
+  //       setOverlapWarning('The selected time overlaps with an already booked slot.');
+  //       return; // Prevent form submission
+  //     } else {
+  //       setOverlapWarning(null); // Clear the warning if no overlap
+  //     }
+  //   }
+
+  //   console.log('Form values:', values);
+  // };
+
+  // const checkForOverlap = (selectedDateStr: string | string[], start: string, end: string): boolean => {
+  //   if (Array.isArray(selectedDateStr)) {
+  //     // Overnight booking: check across both days
+  //     const [firstDay, secondDay] = selectedDateStr;
+
+  //     // Check first day slots
+  //     const firstDaySlots = bookedSlots.find(slot => slot.date === firstDay)?.slots || [];
+  //     const firstDayOverlap = checkForSlotOverlap(start, end, firstDaySlots);
+
+  //     // Check second day slots
+  //     const secondDaySlots = bookedSlots.find(slot => slot.date === secondDay)?.slots || [];
+  //     const secondDayOverlap = checkForSlotOverlap(start, end, secondDaySlots);
+
+  //     return firstDayOverlap || secondDayOverlap;
+  //   } else {
+  //     // Same-day booking
+  //     const bookedForSelectedDate = bookedSlots.find(slot => slot.date === selectedDateStr);
+  //     return bookedForSelectedDate
+  //       ? checkForSlotOverlap(start, end, bookedForSelectedDate.slots)
+  //       : false;
+  //   }
+  // };
   const checkForOverlap = (selectedDateStr: string | string[], start: string, end: string): boolean => {
     if (Array.isArray(selectedDateStr)) {
       // Overnight booking: check across both days
       const [firstDay, secondDay] = selectedDateStr;
-
+  
       // Check first day slots
       const firstDaySlots = bookedSlots.find(slot => slot.date === firstDay)?.slots || [];
       const firstDayOverlap = checkForSlotOverlap(start, end, firstDaySlots);
-
+  
       // Check second day slots
       const secondDaySlots = bookedSlots.find(slot => slot.date === secondDay)?.slots || [];
       const secondDayOverlap = checkForSlotOverlap(start, end, secondDaySlots);
-
+  
       return firstDayOverlap || secondDayOverlap;
     } else {
       // Same-day booking
@@ -105,7 +177,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         : false;
     }
   };
-
+  
   const checkForSlotOverlap = (start: string, end: string, slots: Slot[]): boolean => {
     const selectedStart = dayjs(start, 'HH:mm');
     const selectedEnd = dayjs(end, 'HH:mm');
