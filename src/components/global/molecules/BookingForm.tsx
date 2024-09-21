@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, DatePicker, TimePicker, Button, Typography, Space, Checkbox, message, Alert, ConfigProvider } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
 import 'antd/dist/reset.css'
@@ -23,10 +23,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null)
   const [selectedRangeDate, setSelectedRangeDate] = useState<Dayjs[] | null>(null) // For overnight
   const [overlapWarning, setOverlapWarning] = useState<string | null>(null) // State to track overlap warning
-
+  const [totalBill, setTotalBill] = useState<number>(0) // State to track total bill
   const handleDateChange = (date: Dayjs | null) => {
     setSelectedDate(date)
   }
+  // Call calculateTotalBill when form values change
+  useEffect(() => {
+    const fieldsValue = form.getFieldsValue()
+    calculateTotalBill(fieldsValue)
+  }, [form, selectedRangeDate, isOvernight])
 
   const handleRangeDateChange = (rangeDates: Dayjs[] | null) => {
     setSelectedRangeDate(rangeDates)
@@ -92,86 +97,106 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         setOverlapWarning(null) // Clear the warning if no overlap
       }
     }
-
+    calculateTotalBill(values)
     console.log('Form values:', values)
     setSelectedRangeDate(null)
     setSelectedDate(null)
+    setTotalBill(0)
     form.resetFields()
   }
   const extraServices = [
-    { label: 'WiFi', value: 'wifi' },
-    { label: 'Café', value: 'cafe' },
-    { label: 'Parking', value: 'parking' }
-    // Add more services as needed
+    { label: 'WiFi', value: 'wifi', price: 5 }, // Added prices
+    { label: 'Café', value: 'cafe', price: 10 },
+    { label: 'Parking', value: 'parking', price: 15 }
   ]
-  // const handleSubmit = (values: any) => {
-  //   const { date, timeRange } = values;
+  // const calculateTotalBill = (values: any) => {
+  //   const { timeRange, extraServices: selectedServices } = values;
 
-  //   if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
-  //     const [startDate, endDate] = selectedRangeDate;
-  //     if (startDate.isSame(endDate, 'day')) {
-  //       setOverlapWarning('Start date and end date cannot be the same for overnight bookings.');
-  //       return; // Prevent form submission
-  //     }
+  //   let total = 0;
 
-  //     // Check for overlaps for both days
+  //   // Calculate hourly charges
+  //   if (timeRange) {
   //     const selectedStart = timeRange[0].format('HH:mm');
   //     const selectedEnd = timeRange[1].format('HH:mm');
+  //     const duration = dayjs(selectedEnd, 'HH:mm').diff(dayjs(selectedStart, 'HH:mm'), 'hour');
+  //     total += duration >= 1 ? duration : 1; // Minimum charge for 1 hour
+  //   }
 
-  //     const overlapExists = checkForOverlap([startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD')], selectedStart, selectedEnd);
+  //   // Calculate extra services charges
+  //   if (selectedServices) {
+  //     selectedServices.forEach((service: string) => {
+  //       const extraService = extraServices.find(s => s.value === service);
+  //       if (extraService) {
+  //         total += extraService.price;
+  //       }
+  //     });
+  //   }
 
-  //     if (overlapExists) {
-  //       setOverlapWarning('The selected time overlaps with an already booked slot on one of the selected days.');
-  //       return; // Prevent form submission
-  //     } else {
-  //       setOverlapWarning(null); // Clear the warning if no overlap
-  //     }
-  //   } else if (date && timeRange) {
-  //     const selectedDateStr = date.format('YYYY-MM-DD');
-  //     const selectedStart = timeRange[0].format('HH:mm');
-  //     const selectedEnd = timeRange[1].format('HH:mm');
+  //   setTotalBill(total);
+  // };
 
-  //     // Handle reverse time ranges for same-day bookings
-  //     if (!isOvernight && dayjs(selectedStart, 'HH:mm').isAfter(dayjs(selectedEnd, 'HH:mm'))) {
-  //       setOverlapWarning('Start time cannot be after end time for same-day bookings.');
-  //       return; // Prevent form submission
-  //     }
+  // const calculateTotalBill = (values: any) => {
+  //   const { timeRange, extraServices: selectedServices } = values
 
-  //     const overlapExists = checkForOverlap(selectedDateStr, selectedStart, selectedEnd);
+  //   let total = 0
 
-  //     if (overlapExists) {
-  //       setOverlapWarning('The selected time overlaps with an already booked slot.');
-  //       return; // Prevent form submission
-  //     } else {
-  //       setOverlapWarning(null); // Clear the warning if no overlap
+  //   // Calculate hourly charges
+  //   if (timeRange) {
+  //     const selectedStart = dayjs(timeRange[0].format('HH:mm'), 'HH:mm')
+  //     const selectedEnd = dayjs(timeRange[1].format('HH:mm'), 'HH:mm')
+
+  //     // Calculate duration in minutes
+  //     const durationInMinutes = selectedEnd.diff(selectedStart, 'minute')
+  //     if (durationInMinutes > 0) {
+  //       // Calculate the duration in hours (including decimal)
+  //       const durationInHours = durationInMinutes / 60
+  //       total += durationInHours // Add the duration as-is for total cost
   //     }
   //   }
 
-  //   console.log('Form values:', values);
-  // };
-
-  // const checkForOverlap = (selectedDateStr: string | string[], start: string, end: string): boolean => {
-  //   if (Array.isArray(selectedDateStr)) {
-  //     // Overnight booking: check across both days
-  //     const [firstDay, secondDay] = selectedDateStr;
-
-  //     // Check first day slots
-  //     const firstDaySlots = bookedSlots.find(slot => slot.date === firstDay)?.slots || [];
-  //     const firstDayOverlap = checkForSlotOverlap(start, end, firstDaySlots);
-
-  //     // Check second day slots
-  //     const secondDaySlots = bookedSlots.find(slot => slot.date === secondDay)?.slots || [];
-  //     const secondDayOverlap = checkForSlotOverlap(start, end, secondDaySlots);
-
-  //     return firstDayOverlap || secondDayOverlap;
-  //   } else {
-  //     // Same-day booking
-  //     const bookedForSelectedDate = bookedSlots.find(slot => slot.date === selectedDateStr);
-  //     return bookedForSelectedDate
-  //       ? checkForSlotOverlap(start, end, bookedForSelectedDate.slots)
-  //       : false;
+  //   // Calculate extra services charges
+  //   if (selectedServices) {
+  //     selectedServices.forEach((service: string) => {
+  //       const extraService = extraServices.find((s) => s.value === service)
+  //       if (extraService) {
+  //         total += extraService.price
+  //       }
+  //     })
   //   }
-  // };
+
+  //   setTotalBill(total)
+  // }
+  const calculateTotalBill = (values: any) => {
+    const { timeRange, extraServices: selectedServices } = values;
+  
+    let total = 0;
+  
+    // Calculate hourly charges
+    if (timeRange) {
+      const selectedStart = dayjs(timeRange[0].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
+      const selectedEnd = dayjs(timeRange[1].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
+  
+      // Calculate total duration in hours
+      const durationInHours = selectedEnd.diff(selectedStart, 'hour', true); // Use 'true' for decimal hours
+      total += durationInHours; // Add the duration for total cost
+    }
+  
+    // Calculate extra services charges
+    if (selectedServices) {
+      selectedServices.forEach((service: string) => {
+        const extraService = extraServices.find((s) => s.value === service);
+        if (extraService) {
+          total += extraService.price;
+        }
+      });
+    }
+  
+    setTotalBill(total);
+  };
+  
+  
+  
+
   const checkForOverlap = (selectedDateStr: string | string[], start: string, end: string): boolean => {
     if (Array.isArray(selectedDateStr)) {
       // Overnight booking: check across both days
@@ -233,6 +258,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   const disablePastDates = (current: Dayjs) => {
     return current.isBefore(dayjs().startOf('day'), 'day')
   }
+  const onValuesChange = (changedValues: any) => {
+    calculateTotalBill(form.getFieldsValue())
+  }
 
   return (
     <ConfigProvider
@@ -248,9 +276,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
       <Form
         form={form}
         onFinish={handleSubmit}
+        onValuesChange={onValuesChange} // Add this line
         layout='vertical'
-        className='shadow-xl border-[#647C6C] bg-[#e5dbcf] p-5 w-full'
+        className='shadow-xl border-[#647C6C] bg-[#e5dbcf] p-5 w-full '
       >
+        <div className='text-2xl font-paytoneone text-center text-[#647C6C] mb-4'>Your Reservation</div>
         <Form.Item>
           <Checkbox onChange={handleBookingTypeChange}>Overnight Booking</Checkbox>
         </Form.Item>
@@ -266,6 +296,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
               rules={[{ required: true, message: 'Please select a time range' }]}
             >
               <TimeRangePicker
+                className='w-full'
                 format='HH:mm'
                 showTime={{ format: 'HH:mm' }}
                 disabledHours={getDisabledHours}
@@ -296,20 +327,27 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             <Alert message={overlapWarning} type='warning' />
           </Form.Item>
         )}
-        <Form.Item label='Extra Services' name='extraServices'>
+        <Form.Item label='Extra Services' name='extraServices' className='w-full'>
           <Checkbox.Group>
             <Space direction='vertical'>
               {extraServices.map((service) => (
                 <Checkbox key={service.value} value={service.value}>
-                  {service.label}
+                  {service.label}-{service.price}
                 </Checkbox>
               ))}
             </Space>
           </Checkbox.Group>
         </Form.Item>
         <Form.Item>
-          <Button type='primary' htmlType='submit' className='text-white'>
-            Book
+          <Form.Item>
+            <div className='h-[1px] w-full bg-[#647C6C] my-4'></div>
+            <div className='flex justify-between items-center text-xl '>
+              <div className='font-medium'>Total Bill: </div>
+              <div className='font-bold'>${totalBill}</div>
+            </div>
+          </Form.Item>
+          <Button type='primary' htmlType='submit' size='large' className='text-white w-full'>
+            Book Now
           </Button>
         </Form.Item>
 
