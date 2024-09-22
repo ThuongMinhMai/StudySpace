@@ -1,37 +1,21 @@
-import React from 'react'
+import { Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Button, Input, Select, Space } from 'antd'
-import { Search, Star } from 'lucide-react'
-import SearchPage from './SearchPage'
 import logo from '../../../assets/LOGO SS ()-01.png'
+import SearchPage from './SearchPage'
 
 function Header({ isSearchOpen, toggleSearch }: any) {
-  const options = [
-    {
-      value: 'diachi',
-      label: 'Địa chỉ'
-    },
-    {
-      value: 'soluong',
-      label: 'Số lượng người'
-    },
-    {
-      value: 'soluong',
-      label: 'Số lượng người'
-    }
-  ]
+ 
   return (
     <div>
-    {isSearchOpen && <SearchPage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}
+      {isSearchOpen && <SearchPage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}
 
       <div className='fixed top-0 bg-white py-4 w-full right-0 left-0 z-50 flex justify-between items-center gap-10 lg:px-40 m-auto border-b-2'>
         <Link to='/'>
           {/* <p className='font-greatvibes text-5xl mr-3 text-[#3D4449]'>StudySpace</p> */}
           <img className='max-h-16 ml-10 w-auto my-auto -mt-4 object-contain' src={logo} alt='logo' />
-
         </Link>
         <div
-        onClick={toggleSearch}
+          onClick={toggleSearch}
           className='flex justify-center items-center gap-4 border-[#3D4449] border-[1px] w-1/3 rounded-full py-3 cursor-pointer'
         >
           {/* <div className='flex justify-center items-center gap-4 border-[#3D4449] border-[1px] w-1/3 rounded-full py-3'> */}

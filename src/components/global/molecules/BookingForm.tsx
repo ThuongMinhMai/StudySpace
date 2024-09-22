@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Form, DatePicker, TimePicker, Button, Typography, Space, Checkbox, message, Alert, ConfigProvider } from 'antd'
-import dayjs, { Dayjs } from 'dayjs'
+import { Alert, Button, Checkbox, ConfigProvider, DatePicker, Form, Space, TimePicker, Typography } from 'antd'
 import 'antd/dist/reset.css'
+import dayjs, { Dayjs } from 'dayjs'
+import React, { useEffect, useState } from 'react'
 
 const { RangePicker: TimeRangePicker } = TimePicker
 const { RangePicker: DateTimeRangePicker } = DatePicker
@@ -21,7 +21,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   const [form] = Form.useForm()
   const [isOvernight, setIsOvernight] = useState<boolean>(false)
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null)
-  const [selectedRangeDate, setSelectedRangeDate] = useState<Dayjs[] | null>(null) // For overnight
+  const [selectedRangeDate, setSelectedRangeDate] = useState<[Dayjs | null, Dayjs | null] | null>(null);
   const [overlapWarning, setOverlapWarning] = useState<string | null>(null) // State to track overlap warning
   const [totalBill, setTotalBill] = useState<number>(0) // State to track total bill
   const handleDateChange = (date: Dayjs | null) => {
@@ -33,7 +33,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     calculateTotalBill(fieldsValue)
   }, [form, selectedRangeDate, isOvernight])
 
-  const handleRangeDateChange = (rangeDates: Dayjs[] | null) => {
+  const handleRangeDateChange = (rangeDates: [Dayjs | null, Dayjs | null] | null) => {
     setSelectedRangeDate(rangeDates)
   }
 
@@ -46,7 +46,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
 
     if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
       const [startDate, endDate] = selectedRangeDate
-      if (startDate.isSame(endDate, 'day')) {
+      if (startDate?.isSame(endDate, 'day')) {
         setOverlapWarning('Start date and end date cannot be the same for overnight bookings.')
         return // Prevent form submission
       }
@@ -60,7 +60,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
 
       // Check for overlaps
       const overlapExists = checkForOverlap(
-        [startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD')],
+        [startDate!.format('YYYY-MM-DD'), endDate!.format('YYYY-MM-DD')],
         selectedStart,
         adjustedSelectedEnd
       )
@@ -109,93 +109,34 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     { label: 'Café', value: 'cafe', price: 10 },
     { label: 'Parking', value: 'parking', price: 15 }
   ]
-  // const calculateTotalBill = (values: any) => {
-  //   const { timeRange, extraServices: selectedServices } = values;
 
-  //   let total = 0;
-
-  //   // Calculate hourly charges
-  //   if (timeRange) {
-  //     const selectedStart = timeRange[0].format('HH:mm');
-  //     const selectedEnd = timeRange[1].format('HH:mm');
-  //     const duration = dayjs(selectedEnd, 'HH:mm').diff(dayjs(selectedStart, 'HH:mm'), 'hour');
-  //     total += duration >= 1 ? duration : 1; // Minimum charge for 1 hour
-  //   }
-
-  //   // Calculate extra services charges
-  //   if (selectedServices) {
-  //     selectedServices.forEach((service: string) => {
-  //       const extraService = extraServices.find(s => s.value === service);
-  //       if (extraService) {
-  //         total += extraService.price;
-  //       }
-  //     });
-  //   }
-
-  //   setTotalBill(total);
-  // };
-
-  // const calculateTotalBill = (values: any) => {
-  //   const { timeRange, extraServices: selectedServices } = values
-
-  //   let total = 0
-
-  //   // Calculate hourly charges
-  //   if (timeRange) {
-  //     const selectedStart = dayjs(timeRange[0].format('HH:mm'), 'HH:mm')
-  //     const selectedEnd = dayjs(timeRange[1].format('HH:mm'), 'HH:mm')
-
-  //     // Calculate duration in minutes
-  //     const durationInMinutes = selectedEnd.diff(selectedStart, 'minute')
-  //     if (durationInMinutes > 0) {
-  //       // Calculate the duration in hours (including decimal)
-  //       const durationInHours = durationInMinutes / 60
-  //       total += durationInHours // Add the duration as-is for total cost
-  //     }
-  //   }
-
-  //   // Calculate extra services charges
-  //   if (selectedServices) {
-  //     selectedServices.forEach((service: string) => {
-  //       const extraService = extraServices.find((s) => s.value === service)
-  //       if (extraService) {
-  //         total += extraService.price
-  //       }
-  //     })
-  //   }
-
-  //   setTotalBill(total)
-  // }
   const calculateTotalBill = (values: any) => {
-    const { timeRange, extraServices: selectedServices } = values;
-  
-    let total = 0;
-  
+    const { timeRange, extraServices: selectedServices } = values
+
+    let total = 0
+
     // Calculate hourly charges
     if (timeRange) {
-      const selectedStart = dayjs(timeRange[0].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
-      const selectedEnd = dayjs(timeRange[1].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
-  
+      const selectedStart = dayjs(timeRange[0].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
+      const selectedEnd = dayjs(timeRange[1].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
+
       // Calculate total duration in hours
-      const durationInHours = selectedEnd.diff(selectedStart, 'hour', true); // Use 'true' for decimal hours
-      total += durationInHours; // Add the duration for total cost
+      const durationInHours = selectedEnd.diff(selectedStart, 'hour', true) // Use 'true' for decimal hours
+      total += durationInHours // Add the duration for total cost
     }
-  
+
     // Calculate extra services charges
     if (selectedServices) {
       selectedServices.forEach((service: string) => {
-        const extraService = extraServices.find((s) => s.value === service);
+        const extraService = extraServices.find((s) => s.value === service)
         if (extraService) {
-          total += extraService.price;
+          total += extraService.price
         }
-      });
+      })
     }
-  
-    setTotalBill(total);
-  };
-  
-  
-  
+
+    setTotalBill(total)
+  }
 
   const checkForOverlap = (selectedDateStr: string | string[], start: string, end: string): boolean => {
     if (Array.isArray(selectedDateStr)) {
@@ -259,6 +200,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     return current.isBefore(dayjs().startOf('day'), 'day')
   }
   const onValuesChange = (changedValues: any) => {
+    console.log("form doi", changedValues)
     calculateTotalBill(form.getFieldsValue())
   }
 
@@ -298,7 +240,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
               <TimeRangePicker
                 className='w-full'
                 format='HH:mm'
-                showTime={{ format: 'HH:mm' }}
+                // showTime={{ format: 'HH:mm' }}
                 disabledHours={getDisabledHours}
                 disabledMinutes={getDisabledMinutes}
                 minuteStep={15}
@@ -369,11 +311,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         {selectedRangeDate && isOvernight && (
           <>
             {selectedRangeDate.map((date) => (
-              <Form.Item key={date.format('YYYY-MM-DD')}>
-                <Typography.Title level={4}>Booked Slots on {date.format('YYYY-MM-DD')}</Typography.Title>
+              <Form.Item key={date?.format('YYYY-MM-DD')}>
+                <Typography.Title level={4}>Booked Slots on {date?.format('YYYY-MM-DD')}</Typography.Title>
                 <Space direction='vertical'>
                   {bookedSlots
-                    .find((slot) => slot.date === date.format('YYYY-MM-DD'))
+                    .find((slot) => slot.date === date?.format('YYYY-MM-DD'))
                     ?.slots.map((slot, index) => (
                       <Typography.Text key={index}>
                         {slot.start} - {slot.end}

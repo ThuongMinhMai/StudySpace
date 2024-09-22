@@ -1,7 +1,4 @@
-import React from 'react'
-import { Col, Row } from 'antd'
 import CardSpace from '../organisms/CardSpace'
-import CardReated from './CardRelated'
 
 function RelatedRoom() {
   const cardData = [
@@ -40,12 +37,11 @@ function RelatedRoom() {
   ]
   return (
     <div className=''>
-      <div className='text-2xl font-medium mb-10' >Related Room</div>
+      <div className='text-2xl font-medium mb-10'>Related Room</div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full'>
         {cardData.map((card, index) => (
           <div className='mb-10' key={index}>
-        
             <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} />
           </div>
         ))}

@@ -1,12 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import FormSearch from '../organisms/FormSearch'
-import { SlidersHorizontal, Star } from 'lucide-react'
-import ImgHeader from '../../../assets/ImagerHeader.png'
-import { useEffect, useState } from 'react'
 import { Button, Col, ConfigProvider, Drawer, Row } from 'antd'
-import CardSpace from '../organisms/CardSpace'
-import FilterComponent from '../molecules/FilterComponent'
 import axios from 'axios'
+import { SlidersHorizontal } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import ImgHeader from '../../../assets/ImagerHeader.png'
+import FilterComponent from '../molecules/FilterComponent'
+import CardSpace from '../organisms/CardSpace'
+import FormSearch from '../organisms/FormSearch'
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -14,10 +14,10 @@ function RoomPage() {
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
   const searchParams = new URLSearchParams(location.search)
   // Get the 'type', 'location', 'typeSpace', 'typeRoom', and 'persons' query parameters
-  const locationParam = searchParams.get('location') || 'All'
-  const typeSpace = searchParams.get('typeSpace') || 'All'
-  const typeRoom = searchParams.get('typeRoom') || 'All'
-  const persons = parseInt(searchParams.get('persons') || '2', 10)
+  // const locationParam = searchParams.get('location') || 'All'
+  // const typeSpace = searchParams.get('typeSpace') || 'All'
+  // const typeRoom = searchParams.get('typeRoom') || 'All'
+  // const persons = parseInt(searchParams.get('persons') || '2', 10)
 
   // Function to handle search selection changes
   // State to manage form values
@@ -56,7 +56,7 @@ function RoomPage() {
     // Update query parameters
     const newParams = new URLSearchParams(updatedValues).toString()
     navigate(`?${newParams}`)
-    // fetchData(updatedValues) // Fetch data with new filter values
+    fetchData(updatedValues) 
   }
 
   const handleFilterChange = (newFilters: any) => {
@@ -145,8 +145,8 @@ function RoomPage() {
       </div>
       {/* Card space */}
 
-       {/* Card section */}
-       <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
+      {/* Card section */}
+      <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
         <div className='flex justify-between  items-center lg:px-14 md:px-0 px-36 mb-10'>
           <h2 className='text-2xl font-semibold'>6 Available Spaces</h2>
           <ConfigProvider
@@ -179,7 +179,7 @@ function RoomPage() {
           <FilterComponent onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
         </Drawer>
 
-        <Row gutter={[32, 16]} justify='center' >
+        <Row gutter={[32, 16]} justify='center'>
           {cardData.map((card, index) => (
             <Col key={index} sm={24} md={12} lg={8}>
               <div className='mb-10'>

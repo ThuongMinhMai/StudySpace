@@ -1,17 +1,17 @@
-import { Image, Modal, Popover, Tooltip } from 'antd'
+import { Image, Modal, Tooltip } from 'antd'
 import { Layers2, Scaling, Undo2, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import star from '../../../assets/star-fill.svg'
 import Amentities from '../molecules/Amentities'
-import HouseRule from '../molecules/HouseRule'
-import FeedbackGallery from '../molecules/FeedbackGallery'
-import SpaceLocation from '../molecules/SpaceLocation'
-import { useNavigate } from 'react-router-dom'
-import RelatedRoom from '../molecules/RelatedRoom'
 import BookingForm from '../molecules/BookingForm'
+import FeedbackGallery from '../molecules/FeedbackGallery'
+import HouseRule from '../molecules/HouseRule'
+import RelatedRoom from '../molecules/RelatedRoom'
+import SpaceLocation from '../molecules/SpaceLocation'
 function Detail() {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const navigate = useNavigate()
@@ -89,9 +89,15 @@ function Detail() {
   //   ]
   // }
   const bookedSlots = [
-    { date: '2024-09-22', slots: [{ start: '10:30', end: '11:30' }, { start: '14:00', end: '15:00' }] },
-    { date: '2024-09-23', slots: [{ start: '09:00', end: '10:00' }] },
-  ];
+    {
+      date: '2024-09-22',
+      slots: [
+        { start: '10:30', end: '11:30' },
+        { start: '14:00', end: '15:00' }
+      ]
+    },
+    { date: '2024-09-23', slots: [{ start: '09:00', end: '10:00' }] }
+  ]
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>

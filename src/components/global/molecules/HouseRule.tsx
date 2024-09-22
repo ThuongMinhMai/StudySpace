@@ -1,5 +1,4 @@
 import { CigaretteOff, MilkOff, Speech } from 'lucide-react'
-import React from 'react'
 
 function HouseRule() {
   return (

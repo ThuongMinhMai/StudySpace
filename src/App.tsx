@@ -1,16 +1,15 @@
+import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import Detail from './components/global/organisms/Detail'
+import NotFound from './components/global/organisms/NotFound'
 import HomePage from './components/global/templates/HomePage'
 import RoomPage from './components/global/templates/RoomPage'
 import RootLayout from './components/global/templates/RootLayout'
-import NotFound from './components/global/organisms/NotFound'
-import SearchPage from './components/global/organisms/SearchPage'
-import { useState } from 'react'
-import Detail from './components/global/organisms/Detail'
 
 function App() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
-  const toggleSearch = () => setIsSearchOpen(prev => !prev);
+  const toggleSearch = () => setIsSearchOpen((prev) => !prev)
 
   return (
     <Routes>
