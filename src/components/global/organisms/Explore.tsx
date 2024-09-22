@@ -9,7 +9,7 @@ import {
   Podcast,
   UsersRound
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import space1 from '../../../assets/space1.jpg'
 import space2 from '../../../assets/space2.jpg'
 import space3 from '../../../assets/space3.jpg'
@@ -18,12 +18,23 @@ import './AboutUs.css'
 
 function Explore() {
   const navigate = useNavigate()
-
+  const location = useLocation() // Access current URL and search parameters
   // Function to navigate with typeRoom props
-  const handleExplore = (typeRoom: any) => {
-    navigate('/room', { state: { typeRoom } })
-  }
+  // const handleExplore = (typeRoom: any) => {
+  // localStorage.setItem('typeRome', typeRoom);
 
+  //   navigate('/room', { state: { typeRoom } })
+  // }
+  // Function to navigate with typeRoom props and append query params
+  const handleExplore = (typeRoom: string) => {
+    const searchParams = new URLSearchParams(location.search) // Get existing search parameters
+
+    // Add or update the `type` query parameter
+    searchParams.set('typeSpace', typeRoom)
+
+    // Navigate to the new URL with updated query parameters
+    navigate(`${location.pathname}room?${searchParams.toString()}`)
+  }
   return (
     <div className='relative'>
       <section className='section__container room__container' id='explore'>
@@ -56,7 +67,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Coffee Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Bask in luxury with breathtaking ocean views from your private suite.
+              Enjoy a relaxed, creative environment with Wi-Fi, flexible seating,facilities, and the convenience of refreshments, ideal for meetings or solo work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$299/hour</span>
@@ -93,7 +104,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Library Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Experience urban elegance and modern comfort in the heart of the city.
+              Access a quiet, focused environment with abundant resources, free Wi-Fi, and comfortable seating, perfect for studying or research.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$199/hour</span>
@@ -130,7 +141,7 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Other Spaces</h4>
               <p className='my-4 text-gray-600'>
-                Spacious and inviting, perfect for creating cherished memories with loved ones.
+              Discover versatile spaces offering tailored environments, from collaborative hubs to quiet zones, with amenities like Wi-Fi and flexible setups for meetings, events, or focused work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$249/hour</span>

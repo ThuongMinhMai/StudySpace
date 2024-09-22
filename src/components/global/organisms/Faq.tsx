@@ -24,7 +24,7 @@ const FAQ = () => {
           title='How can I book a room?'
           answer='Simply visit our website, select your desired room, choose the time slot, and complete the online payment.'
         />
-        <Accordion title='What are the room rental fees?' answer='I like to use Tailwind' />
+        <Accordion title='What are the room rental fees?' answer='The room rental fees are based on hourly rates and may vary depending on the room type. You can view the specific fees by navigating to the Rooms section and selecting `Detail Room` for more information.' />
         <Accordion
           title='Can I cancel or modify my booking?'
           answer='I am using Supabase! lordhsgfskgkhjkchvjhkjshkjdhfkjkfjhgjkdfhgkhdfkjghdkjhk'

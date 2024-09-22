@@ -1,15 +1,10 @@
+import { Outlet } from 'react-router-dom'
+import Header from '../../../components/global/organisms/Header'
+import Footer from '../organisms/Footer'
 import React from 'react'
 import ScrollReveal from 'scrollreveal'
-import AboutUs from '../organisms/AboutUs'
-import Explore from '../organisms/Explore'
-import Faq from '../organisms/Faq'
-import Feature from '../organisms/Feature'
-import Footer from '../organisms/FooterForHomePage'
-// import FormSearch from '../organisms/FormSearch'
-import HeaderHomePage from '../organisms/HeaderHomePage'
-import Offer from '../organisms/Offer'
-import Test from '../organisms/Test'
-const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
+
+function RootLayout({ isSearchOpen, toggleSearch }:any) {
   React.useEffect(() => {
     const scrollRevealOption = {
       distance: '50px',
@@ -17,8 +12,8 @@ const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
       duration: 1000
     }
     const revealElements = [
-      { selector: '.header__container p', options: { ...scrollRevealOption } },
-      { selector: '.header_room', options: { ...scrollRevealOption } },
+      { selector: '.header__image', options: { ...scrollRevealOption } },
+      { selector: '.header_room', options: { ...scrollRevealOption ,delay:300} },
       { selector: '.header__container h1', options: { ...scrollRevealOption, delay: 500 } },
       { selector: '.about__image img', options: { ...scrollRevealOption, origin: 'left' } },
       { selector: '.about__content .section__subheader', options: { ...scrollRevealOption, delay: 500 } },
@@ -47,22 +42,16 @@ const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
   }, [])
 
   return (
-    <div className='body'>
-      
-     
-      <HeaderHomePage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch}  />
-     
-      {/* <FormSearch /> */}
-      <AboutUs />
-      <Feature />
-      <Explore />
-      <Offer />
-      {/* <Testimonial /> */}
-      <Test/>
-      <Faq/>
+    <div className="h-screen relative">
+      {/* Pass isSearchOpen and toggleSearch to Header */}
+      <Header isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />
+      <div className="flex min-h-[70%] pt-10">
+        {/* The Outlet will pass context to nested routes like RoomPage */}
+        <Outlet context={{ isSearchOpen, toggleSearch }} />
+      </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default RootLayout
