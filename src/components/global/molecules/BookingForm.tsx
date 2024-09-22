@@ -220,7 +220,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
         onFinish={handleSubmit}
         onValuesChange={onValuesChange} // Add this line
         layout='vertical'
-        className='shadow-xl border-[#647C6C] bg-[#e5dbcf] p-5 w-full '
+        className='shadow-xl border-[#647C6C] bg-[#e5dbcf] p-5 w-full h-[600px] overflow-auto'
       >
         <div className='text-2xl font-paytoneone text-center text-[#647C6C] mb-4'>Your Reservation</div>
         <Form.Item>
@@ -263,7 +263,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             </Form.Item>
           </>
         )}
-
+   {selectedDate && !isOvernight && (
+          <Form.Item>
+            <Typography.Title level={4}>Booked Slots on {selectedDate.format('YYYY-MM-DD')}</Typography.Title>
+            <Space direction='vertical'>
+              {bookedSlots
+                .find((slot) => slot.date === selectedDate.format('YYYY-MM-DD'))
+                ?.slots.map((slot, index) => (
+                  <Typography.Text key={index}>
+                    {slot.start} - {slot.end}
+                  </Typography.Text>
+                ))}
+            </Space>
+          </Form.Item>
+        )}
         {overlapWarning && (
           <Form.Item>
             <Alert message={overlapWarning} type='warning' />
@@ -293,20 +306,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
           </Button>
         </Form.Item>
 
-        {selectedDate && !isOvernight && (
-          <Form.Item>
-            <Typography.Title level={4}>Booked Slots on {selectedDate.format('YYYY-MM-DD')}</Typography.Title>
-            <Space direction='vertical'>
-              {bookedSlots
-                .find((slot) => slot.date === selectedDate.format('YYYY-MM-DD'))
-                ?.slots.map((slot, index) => (
-                  <Typography.Text key={index}>
-                    {slot.start} - {slot.end}
-                  </Typography.Text>
-                ))}
-            </Space>
-          </Form.Item>
-        )}
+     
 
         {selectedRangeDate && isOvernight && (
           <>

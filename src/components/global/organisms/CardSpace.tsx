@@ -17,7 +17,7 @@ const CardSpace = ({ title, description, imgSrc, price, size, persons, type }: a
             hoverable
             cover={
               <div className='relative'>
-                <div className='card text-lg font-bold' data-label={`From: ${price}$`}>
+                <div className='card text-lg font-bold' data-label={`From: ${price || 0}$`}>
                   <div className=' relative overflow-hidden '>
                     <img
                       alt={title}
