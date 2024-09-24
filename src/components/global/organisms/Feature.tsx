@@ -47,7 +47,7 @@ function Feature() {
 
         {/* Curved content section on the right side */}
         {/* <div className='relative right-0 w-screen lg:w-3/4 lg:absolute h-full bg-[#D7A883] clip-path-custom p-10 flex flex-col items-end justify-center text-white'> */}
-        <div className={`relative right-0 w-full lg:w-3/4 lg:absolute h-full bg-[#D7A883] p-10 flex flex-col lg:items-end items-center justify-center text-white ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
+        <div className={`relative right-1 w-full lg:w-3/4 lg:absolute h-full bg-[#D7A883] p-10 flex flex-col lg:items-end items-center justify-center text-white ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
           <div className='mr-20'>
             <h2 className='text-7xl font-bold mb-6 room__card'>Why Choose Us?</h2>
             <ul className='flex gap-10 justify-center service__list'>
@@ -117,7 +117,7 @@ function Feature() {
 
         {/* Curved content section on the right side */}
         {/* <div className='absolute right-0 w-3/4 h-full bg-[#D4C4BC] clip-path-custom p-10 flex flex-col items-center justify-center text-[#757069]'> */}
-        <div className={`relative right-0 w-full lg:w-3/4 lg:absolute h-full bg-[#D4C4BC] p-10  flex flex-col items-center justify-center text-[#757069] ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
+        <div className={`relative right-1 w-full lg:w-3/4 lg:absolute h-full bg-[#D4C4BC] p-10  flex flex-col items-center justify-center text-[#757069] ${window.innerWidth >= 1275 ? 'clip-path-custom' : ''}`}>
           
           <div className='ml-32'>
             <h2 className='text-7xl font-bold mb-16 room__card'>Specifications</h2>

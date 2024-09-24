@@ -66,7 +66,7 @@ function Detail() {
     'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
   ]
   useEffect(() => {
-    // window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
     // Update state when query parameters change
   }, [])
 
