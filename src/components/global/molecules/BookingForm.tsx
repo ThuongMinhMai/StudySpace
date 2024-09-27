@@ -298,7 +298,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             <div className='h-[1px] w-full bg-[#647C6C] my-4'></div>
             <div className='flex justify-between items-center text-xl '>
               <div className='font-medium'>Total Bill: </div>
-              <div className='font-bold'>${totalBill}</div>
+              <div className='font-bold'>${totalBill.toFixed(2)}</div>
             </div>
           </Form.Item>
           <Button type='primary' htmlType='submit' size='large' className='text-white w-full'>

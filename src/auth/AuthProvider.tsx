@@ -2,9 +2,9 @@
 import axios from 'axios'
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import busAPI from '@/lib/busAPI'
+import studySpaceAPI from '../lib/studySpaceAPI'
 import { toast } from 'sonner'
-import { useInvoice } from '@/contexts/InvoiceContext'
+// import { useInvoice } from '@/contexts/InvoiceContext'
 // Define the shape of our AuthContext
 interface AuthContextType {
   token: string | null
@@ -19,21 +19,14 @@ interface AuthContextType {
 
 // Define the shape of User
 interface User {
-  UserID: string
-  UserName: string
-  Password: string
-  FullName: string
-  Email: string
-  Avatar: string
-  Address: string
-  OtpCode: string
-  PhoneNumber: string
-  Balance: number
-  CreateDate: string
-  IsVerified: boolean
-  Status: string
-  RoleID: string
-  Result: any
+  userID: string
+  roleName:string
+  phone: string
+  name: string
+  gender:string
+  email: string
+  avaURL: string
+  address: string
 }
 
 // Create the AuthContext
@@ -57,7 +50,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [token, setToken] = useState<string | null>(() => {
     return localStorage.getItem('token')
   })
-  const { resetInvoiceData } = useInvoice()
   const [user, setUser] = useState<User | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
@@ -66,14 +58,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      console.log("refresh")
       if (token) {
         try {
-          const response = await busAPI.get<User>('/auth-management/managed-auths/token-verification', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          setUser(response.data.Result.User)
+          const response = await studySpaceAPI.post<User>('/Accounts/decode', token)
+          // const response = await studySpaceAPI.post<User>('/Accounts/decode', {
+            //   headers: {
+              //     Authorization: `Bearer ${token}`
+              //   }
+              // })
+              console.log("hfkjhsjhjk", response.data)
+          setUser(response.data)
         } catch (error) {
           localStorage.removeItem('token')
           localStorage.removeItem('token')
@@ -88,11 +83,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string) => {
     try {
       setLoading(true)
-      const response = await busAPI.post('/auth-management/managed-auths/sign-ins', {
+      const response = await studySpaceAPI.post('/Accounts/login', {
         email: email,
         password: password
       })
-      const newToken = response.data.AccessToken
+      const newToken = response.data.token.token
       setToken(newToken)
       localStorage.setItem('token', newToken)
       setErrorMessage(null)
@@ -102,17 +97,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         console.log(error)
-        const message = error.response.data.message
+        const message = error.response.data
         console.log('msajgjgaej', message)
-        if (error.response.data.verified === false) {
-          toast.error('Email đã đăng kí nhưng chưa xác thực. Vui lòng xác thực email!')
-          navigate(`/otp-verified/${email}`)
-          const response = await busAPI.post('user-management/managed-users/otp-code-sending', { email: email })
-        } else {
-          setLoading(false)
-          toast.error('Email hoặc mật khẩu không đúng')
-        }
-        console.log('check verified', error.response.data.verified)
+        toast.error(message)
+        // if (error.response.data.verified === false) {
+        //   toast.error('Email đã đăng kí nhưng chưa xác thực. Vui lòng xác thực email!')
+        //   // navigate(`/otp-verified/${email}`)
+        //   const response = await studySpaceAPI.post('user-management/managed-users/otp-code-sending', { email: email })
+        // } else {
+        //   setLoading(false)
+        //   toast.error('Email hoặc mật khẩu không đúng')
+        // }
+        // console.log('check verified', error.response.data.verified)
         setErrorMessage(message)
       } else {
         console.error('Login failed:', error)
@@ -126,7 +122,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoadingGG(true)
     try {
       setLoading(true)
-      const response = await busAPI.post('/auth-management/managed-auths/access-token-verification', accessToken)
+      const response = await studySpaceAPI.post('/auth-management/managed-auths/access-token-verification', accessToken)
       const newToken = response.data.token
       setToken(newToken)
       localStorage.setItem('token', newToken)
@@ -153,7 +149,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setToken(null)
     setUser(null)
     localStorage.removeItem('token')
-    resetInvoiceData();
     toast.success('Đăng xuất tài khoản thành công')
     // Redirect to login page after logout
     navigate('/')

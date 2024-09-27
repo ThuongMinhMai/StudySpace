@@ -161,7 +161,7 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
                 {/* )} */}
               </div>
             </div>
-            <Link className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full' to="/signin">Sign In</Link>
+            <Link className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all' to="/signin">Sign In</Link>
           </div>
         </nav>
 
