@@ -1,4 +1,4 @@
-import { Search, TableOfContents, X } from 'lucide-react'
+import { CircleUser, FileBox, Search, TableOfContents, Wallet, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
@@ -6,7 +6,41 @@ import logo from '../../../assets/LOGO SS ()-01.png'
 import logo1 from '../../../assets/LOGO SS-01.png'
 import SearchPage from './SearchPage'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../auth/AuthProvider'
+import { Dropdown, Space, type MenuProps } from 'antd'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
+  const { user, token, logout } = useAuth()
+  console.log('user ơ header', user)
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <div className='cursor-not-allowed'>
+          <p className='font-bold'>{user?.name}</p>
+          <p className='font-medium'>{user?.email || 'My Account'}</p>
+        </div>
+      )
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: '2',
+      label: 'Profile',
+      icon: <CircleUser strokeWidth={1} className='w-6 h-6' />
+    },
+
+    {
+      key: '3',
+      label: 'Booking',
+      icon: <FileBox strokeWidth={1} className='w-6 h-6' />
+    },
+    {
+      key: '4',
+      label: 'Wallet',
+      icon: <Wallet strokeWidth={1} className='w-6 h-6' />
+    }
+  ]
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [isSearchOpen, setIsSearchOpen] = useState(false)
   const searchRef = useRef<HTMLDivElement | null>(null)
@@ -161,7 +195,30 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
                 {/* )} */}
               </div>
             </div>
-            <Link className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all' to="/signin">Sign In</Link>
+            {/* <Link className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all' to="/signin">Sign In</Link> */}
+            {user ? (
+              <Dropdown menu={{ items }}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <div className='flex justify-center items-center text-nowrap bg-[#C6A083] px-3 py-1 gap-2 rounded-full hover:bg-[#efd2af] transition-all cursor-pointer'>
+                      <img
+                        className='w-8 h-8 rounded-full object-cover'
+                        src={'https://m.media-amazon.com/images/I/51ID6ovRfCL._AC_UF1000,1000_QL80_.jpg'}
+                        alt='User avatar'
+                      />
+                      <p className='font-medium'>{user?.name}</p>
+                    </div>
+                  </Space>
+                </a>
+              </Dropdown>
+            ) : (
+              <Link
+                className=' text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all'
+                to='/signin'
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </nav>
 

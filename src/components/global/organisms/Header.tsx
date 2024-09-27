@@ -1,10 +1,46 @@
-import { Search } from 'lucide-react'
+import { CircleUser, FileBox, Search, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import SearchPage from './SearchPage'
-
+import { useAuth } from '../../../auth/AuthProvider'
+import { Dropdown, Menu, Space } from 'antd'
+import type { MenuProps } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 function Header({ isSearchOpen, toggleSearch }: any) {
- 
+  const { user, token, logout } = useAuth()
+  console.log('user ơ header', user)
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <div className='cursor-not-allowed'>
+          <p className='font-bold'>{user?.name}</p> 
+          <p className='font-medium'>{user?.email || 'My Account'}</p>
+        </div>
+      ),
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: '2',
+      label: 'Profile',
+      icon:  <CircleUser strokeWidth={1} className='w-6 h-6'/>
+    },
+    
+    {
+      key: '3',
+      label: 'Booking',
+      icon:  <FileBox strokeWidth={1} className='w-6 h-6' />
+    },
+    {
+      key: '4',
+      label: 'Wallet',
+      icon:  <Wallet strokeWidth={1} className='w-6 h-6' />
+     
+    }
+  ]
+  // const { data, isLoading, isError, refetch } = fetchUserDetail(user?.UserID || "");
   return (
     <div>
       {isSearchOpen && <SearchPage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}
@@ -24,7 +60,30 @@ function Header({ isSearchOpen, toggleSearch }: any) {
           {/* </div> */}
         </div>
         {/* <input placeholder='What are you looking for?' className='w-full border-black' /> */}
-        <Link className=' text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all' to="/signin">Sign In</Link>
+
+        {user ? (
+          <Dropdown menu={{ items }}>
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                <div className='flex justify-center items-center text-nowrap bg-[#C6A083] px-3 py-1 gap-2 rounded-full hover:bg-[#efd2af] transition-all cursor-pointer'>
+                  <img
+                    className='w-8 h-8 rounded-full object-cover'
+                    src={'https://m.media-amazon.com/images/I/51ID6ovRfCL._AC_UF1000,1000_QL80_.jpg'}
+                    alt='User avatar'
+                  />
+                  <p className='font-medium'>{user?.name}</p>
+                </div>
+              </Space>
+            </a>
+          </Dropdown>
+        ) : (
+          <Link
+            className=' text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full hover:bg-[#efd2af] transition-all'
+            to='/signin'
+          >
+            Sign In
+          </Link>
+        )}
       </div>
     </div>
   )
