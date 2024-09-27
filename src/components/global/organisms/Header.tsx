@@ -24,7 +24,7 @@ function Header({ isSearchOpen, toggleSearch }: any) {
           {/* </div> */}
         </div>
         {/* <input placeholder='What are you looking for?' className='w-full border-black' /> */}
-        <button className=' text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full'>Sign In</button>
+        <Link className=' text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full' to="/signin">Sign In</Link>
       </div>
     </div>
   )

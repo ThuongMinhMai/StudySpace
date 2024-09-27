@@ -17,7 +17,7 @@ const SpaceLocation: React.FC<SpaceLocationProps> = ({ name, address, city, post
       <div className='flex flex-col gap-5 w-full md:w-1/2'>
         <p className='text-2xl font-medium'>{name} Location</p>
         <p>{address}, {city}, {postalCode}</p>
-        <p className='text-2xl font-medium'>What’s nearby</p>
+        {/* <p className='text-2xl font-medium'>What’s nearby</p>
         <div className='flex flex-col gap-2'>
           <p>
             School: <span className='font-medium'>1.2 km</span>
@@ -28,7 +28,7 @@ const SpaceLocation: React.FC<SpaceLocationProps> = ({ name, address, city, post
           <p>
             University: <span className='font-medium'>3 km</span>
           </p>
-        </div>
+        </div> */}
       </div>
       <div className='w-full md:w-1/2'>
         <iframe

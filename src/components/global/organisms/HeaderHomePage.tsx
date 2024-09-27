@@ -5,6 +5,7 @@ import './HeaderHomePage.css'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import logo1 from '../../../assets/LOGO SS-01.png'
 import SearchPage from './SearchPage'
+import { Link } from 'react-router-dom'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -160,7 +161,7 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
                 {/* )} */}
               </div>
             </div>
-            <button className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full'>Sign In</button>
+            <Link className='nav__btn hidden text-nowrap bg-[#D1C6B9] px-10 py-2 rounded-full' to="/signin">Sign In</Link>
           </div>
         </nav>
 

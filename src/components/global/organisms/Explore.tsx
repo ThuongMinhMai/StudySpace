@@ -42,7 +42,7 @@ function Explore() {
 
         <div className='flex justify-between items-center'>
           <h2 className='section__header text-gray-600'>The Most Memorable Work Time Starts Here.</h2>
-          <p className='explore-text cursor-pointer' onClick={() => handleExplore('all')}>
+          <p className='explore-text cursor-pointer' onClick={() => handleExplore('All')}>
             Explore all <span className='arrow'>&#x2192;</span>
           </p>
         </div>

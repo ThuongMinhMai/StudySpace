@@ -52,7 +52,7 @@ const CardSpace = ({ shopName, roomName, description, imgSrc, price, size, perso
               <h3 className='text-lg font-bold text-[#1d9447]'>{shopName || 'Cloudy Coffee'}</h3>
 
               {/* Room Name */}
-              <h2 className='text-xl font-semibold'>{roomName || 'Room 023'}</h2>
+              <h2 className='text-2xl font-semibold'>{roomName || 'Room 023'}</h2>
             </div>
 
             {/* Description */}
