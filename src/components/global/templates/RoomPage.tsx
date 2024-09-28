@@ -7,6 +7,7 @@ import ImgHeader from '../../../assets/ImagerHeader.png'
 import FilterComponent from '../molecules/FilterComponent'
 import CardSpace from '../organisms/CardSpace'
 import FormSearch from '../organisms/FormSearch'
+import SkeletonCarder from '../organisms/SkeletonCarder'
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -198,6 +199,14 @@ function RoomPage() {
               </div>
             </Col>
           ))}
+          {cardData.map((card, index) => (
+            <Col key={index} sm={24} md={12} lg={8}>
+              <div className='mb-10'>
+              <SkeletonCarder/>
+              </div>
+            </Col>
+          ))}
+         
         </Row>
       </div>
     </div>
