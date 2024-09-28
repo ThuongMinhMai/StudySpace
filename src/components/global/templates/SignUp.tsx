@@ -2,19 +2,54 @@ import { Button, ConfigProvider, Form, Input, Tooltip } from 'antd'
 import { Undo2 } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
+import { toast } from 'sonner'
+
 import logoMini from '../../../assets/LOGO SS 04.png'
 
 function SignUp() {
   const navigate = useNavigate()
   const [isSignedUp, setIsSignedUp] = useState(false)
   const [slideOut, setSlideOut] = useState(false)
+  const [email, setEmail] = useState('')
+  const [isSending, setIsSending] = useState(false)
+  const [isResending, setIsResending] = useState(false)
 
+  // Handle form submission
   const onFinish = async (values: any) => {
-    // Add slide-out animation for the form
-    setSlideOut(true)
-    setTimeout(() => {
-      setIsSignedUp(true)
-    }, 500) // Wait for the form to slide out before showing success
+    setEmail(values.email)  // Store the email to use for resending
+    setIsSending(true)  // Start loading
+    try {
+      // Send a POST request to the signup API
+      const response = await studySpaceAPI.post('/Accounts/send-confirm-mail', values.email )
+      console.log(response.data)
+
+      // Add slide-out animation for the form
+      setSlideOut(true)
+      setTimeout(() => {
+        setIsSignedUp(true)
+        setIsSending(false)  // Stop loading
+      }, 500) // Wait for the form to slide out before showing success
+    } catch (error) {
+      console.error('Signup failed', error)
+      setIsSending(false)  // Stop loading
+    }
+  }
+
+  // Handle resend email action
+  const handleResendEmail = async () => {
+    setIsResending(true)  // Start loading
+    try {
+      // Send a POST request to resend confirmation email
+      const response = await studySpaceAPI.post('/Accounts/send-confirm-mail',  email )
+      toast.success("Email resent successfully")
+      console.log('Resend email response:', response.data)
+      setIsResending(false)  // Stop loading
+    } catch (error) {
+      console.error('Resend email failed', error)
+      setIsResending(false)  // Stop loading
+    }
   }
 
   const handleReturn = () => {
@@ -33,7 +68,7 @@ function SignUp() {
         {isSignedUp ? (
           <div className='flex items-center justify-center h-screen w-full animate-slide-in'>
             {/* Success Message */}
-            <div className='flex flex-col items-center justify-between w-full rounded-lg '>
+            <div className='flex flex-col items-center justify-between w-full rounded-lg'>
               <div className='flex items-center h-56 justify-center'>
                 <img
                   src='https://i.pinimg.com/originals/91/36/df/9136df0949a40e6567c6f4f7a6343672.gif'
@@ -52,8 +87,8 @@ function SignUp() {
                 </p>
                 <p className='text-gray-500'>
                   Didn’t receive the email? Check your spam folder or{' '}
-                  <a href='#' className='text-[#647C6C] underline'>
-                    resend the email
+                  <a href='#' className='text-[#647C6C] underline' onClick={handleResendEmail}>
+                    {isResending ? 'Resending...' : 'Resend the email'}
                   </a>
                   .
                 </p>
@@ -82,7 +117,7 @@ function SignUp() {
               </Tooltip>
 
               <div className='w-1/2 max-w-md'>
-                <h2 className='text-3xl font-semibold text-center mb-4 '>Sign Up</h2>
+                <h2 className='text-3xl font-semibold text-center mb-4'>Sign Up</h2>
                 <p className='flex text-center gap-2 justify-center items-start text-gray-500 mb-10'>
                   to continue with <img className='w-5 h-5' src={logoMini} alt='logo' />
                   <span>StudySpace</span>
@@ -100,14 +135,14 @@ function SignUp() {
                   </Form.Item>
 
                   <Form.Item>
-                    <Button type='primary' htmlType='submit' size='large' block>
-                      Continue
+                    <Button type='primary' htmlType='submit' size='large' block loading={isSending}>
+                      {isSending ? 'Sending...' : 'Continue'}
                     </Button>
                   </Form.Item>
                 </Form>
                 <div className='text-center mt-6'>
                   Already have an account?
-                  <Link to='/signin' className='text-[#647C6C] hover:underline '>
+                  <Link to='/signin' className='text-[#647C6C] hover:underline'>
                     {' '}
                     Sign In
                   </Link>

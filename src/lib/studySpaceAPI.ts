@@ -2,7 +2,7 @@ import axios from "axios"
 
 const studySpaceAPI = axios.create({
     baseURL: 'https://api-ss.diavan-valuation.asia',
-    timeout: 3000,
+    timeout: 10000,
     headers: {
       "Content-Type": "application/json"
     }
