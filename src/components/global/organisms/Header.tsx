@@ -1,57 +1,57 @@
+import type { MenuProps } from 'antd'
+import { Dropdown, Space } from 'antd'
 import { CircleUser, FileBox, LogOut, Search, Wallet } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/LOGO SS ()-01.png'
-import SearchPage from './SearchPage'
 import { useAuth } from '../../../auth/AuthProvider'
-import { Dropdown, Menu, Space } from 'antd'
-import type { MenuProps } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
+import SearchPage from './SearchPage'
 function Header({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
   console.log('user ơ header', user)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: (
         <div className='cursor-not-allowed'>
-          <p className='font-bold'>{user?.name}</p> 
+          <p className='font-bold'>{user?.name}</p>
           <p className='font-medium'>{user?.email || 'My Account'}</p>
         </div>
-      ),
+      )
     },
     {
       type: 'divider'
     },
     {
       key: '2',
-      label:  (
-        <div onClick={() => navigate('/profile')}> {/* Navigate to /profile */}
+      label: (
+        <div onClick={() => navigate('/profile')}>
+          {' '}
+          {/* Navigate to /profile */}
           Profile
         </div>
       ),
-      icon:  <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5'/>
+      icon: <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5' />
     },
-    
+
     {
       key: '3',
       label: 'Booking',
-      icon:  <FileBox strokeWidth={1} className='w-5 h-5' />
+      icon: <FileBox strokeWidth={1} className='w-5 h-5' />
     },
     {
       key: '4',
       label: 'Wallet',
-      icon:  <Wallet strokeWidth={1} className='w-5 h-5' />
-     
+      icon: <Wallet strokeWidth={1} className='w-5 h-5' />
     },
     {
       type: 'divider'
     },
     {
       key: '5',
-      label: (<div onClick={logout}>Logout</div>),
+      label: <div onClick={logout}>Logout</div>,
       icon: <LogOut onClick={logout} strokeWidth={1} className='w-5 h-5' />
-    },
+    }
   ]
   // const { data, isLoading, isError, refetch } = fetchUserDetail(user?.UserID || "");
   return (

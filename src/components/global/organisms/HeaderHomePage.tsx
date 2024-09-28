@@ -1,17 +1,17 @@
+import { Dropdown, Space, type MenuProps } from 'antd'
 import { CircleUser, FileBox, LogOut, Search, TableOfContents, Wallet, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import ImageSlider from '../molecules/ImageSlider'
-import './HeaderHomePage.css'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import logo1 from '../../../assets/LOGO SS-01.png'
-import SearchPage from './SearchPage'
-import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../auth/AuthProvider'
-import { Dropdown, Space, type MenuProps } from 'antd'
+import ImageSlider from '../molecules/ImageSlider'
+import './HeaderHomePage.css'
+import SearchPage from './SearchPage'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
   console.log('user ơ header', user)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const items: MenuProps['items'] = [
     {
@@ -28,12 +28,14 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
     },
     {
       key: '2',
-      label:  (
-        <div onClick={() => navigate('/profile')}> {/* Navigate to /profile */}
+      label: (
+        <div onClick={() => navigate('/profile')}>
+          {' '}
+          {/* Navigate to /profile */}
           Profile
         </div>
       ),
-      icon:  <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5'/>
+      icon: <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5' />
     },
 
     {
@@ -51,9 +53,9 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
     },
     {
       key: '5',
-      label:  (<div onClick={logout}>Logout</div>),
+      label: <div onClick={logout}>Logout</div>,
       icon: <LogOut strokeWidth={1} className='w-5 h-5' />
-    },
+    }
   ]
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [isSearchOpen, setIsSearchOpen] = useState(false)

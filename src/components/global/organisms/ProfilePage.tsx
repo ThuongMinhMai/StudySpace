@@ -2,7 +2,6 @@ import { fetchUserDetail, updateUserProfile } from '../../../apis/userAPI'
 import { useAuth } from '../../../auth/AuthProvider'
 // import { Avatar, AvatarFallback, AvatarImage } from '@/components/global/atoms/avatar'
 // import Loader from '@/components/local/TabCardTrip/Loader'
-import { formatPrice } from '../../../lib/utils'
 import { useQueryClient } from '@tanstack/react-query'
 import { Avatar, Button, ConfigProvider, Form, Input } from 'antd'
 import { RuleObject } from 'antd/lib/form'
@@ -11,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'sonner'
 import avaDefaul from '../../../assets/whychooseus.png'
+import { formatPrice } from '../../../lib/utils'
 // import Loading from '@/components/local/login/Loading'
 function ProfilePage() {
   const { user } = useAuth()
@@ -22,21 +22,21 @@ function ProfilePage() {
   const [file, setFile] = useState<File | null>(null)
   const [showPasswordFields, setShowPasswordFields] = useState(false)
   const queryClient = useQueryClient()
-console.log("user ở profile", data)
-useEffect(() => {
-  if (data) {
-    // Update form fields when data is available
-    form.setFieldsValue({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      Password: '',
-      NewPassword: '',
-      ConfirmPassword: ''
-    })
-  }
-}, [data, form])
+  console.log('user ở profile', data)
+  useEffect(() => {
+    if (data) {
+      // Update form fields when data is available
+      form.setFieldsValue({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        Password: '',
+        NewPassword: '',
+        ConfirmPassword: ''
+      })
+    }
+  }, [data, form])
   useEffect(() => {
     refetch()
   }, [user, queryClient])
@@ -205,11 +205,7 @@ useEffect(() => {
                   >
                     <input {...getInputProps()} />
                     {!preview ? (
-                      <Avatar
-                        className='h-full w-full'
-                        src={data?.avatarUrl || avaDefaul}
-                        alt={data?.name}
-                      ></Avatar>
+                      <Avatar className='h-full w-full' src={data?.avatarUrl || avaDefaul} alt={data?.name}></Avatar>
                     ) : (
                       <Avatar className='h-full w-full ' src={preview as string} alt={data?.name}></Avatar>
                     )}
@@ -259,7 +255,6 @@ useEffect(() => {
                   <Input className='cursor-not-allowed' disabled />
                 </Form.Item>
 
-               
                 {/* {data?.Password && ( // Check if data.Password has a value */}
                 <Button type='link' className='mb-2 p-0 text-tertiary' onClick={handleTogglePasswordFields}>
                   {showPasswordFields ? 'Ẩn đổi mật khẩu' : 'Đổi mật khẩu'}

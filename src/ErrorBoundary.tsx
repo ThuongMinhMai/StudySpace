@@ -1,5 +1,5 @@
 import { Button, ConfigProvider } from 'antd'
-import React, { Component, ErrorInfo, ReactNode } from 'react'
+import { Component, ErrorInfo, ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -26,12 +26,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error('ErrorBoundary caught an error', error, errorInfo)
   }
-   handleRefresh = () => {
-    window.location.reload(); // Refresh the page
-  };
+  handleRefresh = () => {
+    window.location.reload() // Refresh the page
+  }
   handleHomePage = () => {
-    window.location.href = '/'; // Navigate to the homepage
-  };
+    window.location.href = '/' // Navigate to the homepage
+  }
   render() {
     if (this.state.hasError) {
       return (
@@ -44,7 +44,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             <p className='text-2xl font-bold'>Ahhhh! Something went wrong</p>
             <p className='my-2'>Brace yourself till we get the error fixed</p>
 
-            <p>You may also <span className='text-[#54d780] font-bold hover:underline cursor-pointer' onClick={this.handleRefresh}>refresh</span> the page or try again!</p>
+            <p>
+              You may also{' '}
+              <span className='text-[#54d780] font-bold hover:underline cursor-pointer' onClick={this.handleRefresh}>
+                refresh
+              </span>{' '}
+              the page or try again!
+            </p>
           </div>
           <ConfigProvider
             theme={{
@@ -52,13 +58,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                 colorPrimary: '#647C6C'
               },
               components: {
-                Button: {
-                }
+                Button: {}
               }
             }}
           >
-
-          <Button type='primary' onClick={this.handleHomePage}>HomePage</Button>
+            <Button type='primary' onClick={this.handleHomePage}>
+              HomePage
+            </Button>
           </ConfigProvider>
         </div>
       )

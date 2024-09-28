@@ -56,7 +56,7 @@ function RoomPage() {
     // Update query parameters
     const newParams = new URLSearchParams(updatedValues).toString()
     navigate(`?${newParams}`)
-    fetchData(updatedValues) 
+    fetchData(updatedValues)
   }
 
   const handleFilterChange = (newFilters: any) => {
@@ -74,13 +74,13 @@ function RoomPage() {
     {
       title: 'Card 1',
       description: 'Description 1',
-      price:100,
+      price: 100,
       imgSrc:
         'https://www.eposaudio.com/contentassets/2af3669017f34ae58049ce43c127bd3b/expand_idealmeetingroom_still-life_01.jpg?width=1300'
     },
     {
       title: 'Card 2',
-      price:100,
+      price: 100,
 
       description: 'Description 2',
       imgSrc: 'https://zoomgov.com/docs/image/zoomrooms/overview-03.png'
@@ -88,20 +88,20 @@ function RoomPage() {
     {
       title: 'Card 3',
       description: 'Description 3',
-      price:100,
+      price: 100,
 
       imgSrc: 'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg'
     },
     {
       title: 'Card 4',
-      price:100,
+      price: 100,
 
       description: 'Description 4',
       imgSrc: 'https://www.doanhchu.com/wp-content/uploads/2015/01/coffee-shop-1.jpg'
     },
     {
       title: 'Card 5',
-      price:100,
+      price: 100,
 
       description: 'Description 5',
       imgSrc:
@@ -109,7 +109,7 @@ function RoomPage() {
     },
     {
       title: 'Card 6',
-      price:100,
+      price: 100,
 
       description: 'Description 6',
       imgSrc: 'https://i.pinimg.com/736x/3d/8b/e8/3d8be817b8a1b70452890e02c8279d1f.jpg'
@@ -127,7 +127,7 @@ function RoomPage() {
     // Optionally, refetch or reset data based on the default filters
     // fetchData(defaultFilters)
   }
-console.log("value form tư route", formValues.location, formValues.typeSpace)
+  console.log('value form tư route', formValues.location, formValues.typeSpace)
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
