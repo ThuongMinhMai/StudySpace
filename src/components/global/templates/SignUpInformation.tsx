@@ -1,17 +1,41 @@
-import { Button, ConfigProvider, Form, Input, Radio } from 'antd'
+import { Button, Col, ConfigProvider, DatePicker, Form, Input, Radio, Row } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios' // Assuming axios is used for making API requests
 import logoMini from '../../../assets/LOGO SS 04.png'
-
+import moment from 'moment'
 function SignUpInformation() {
-  const [role, setRole] = useState<'supplier' | 'user'>('user') // State for selected role
-
-  const onFinish = async (values: any) => {
-    console.log('Received values from form: ', values)
-    // Handle the form submission based on role
+  const [role, setRole] = useState<'supplier' | 'user'>('user')
+  const [loading, setLoading] = useState(false)
+  const disableDate = (current: any) => {
+    return current && current.isAfter(moment())
+  }
+  const onSupplierFinish = async (values: any) => {
+    console.log('Supplier Form Values: ', values)
+    setLoading(true)
+    try {
+      const response = await axios.post('/api/supplier/signup', values)
+      console.log('Supplier Signup Response: ', response.data)
+    } catch (error) {
+      console.error('Supplier Signup Failed:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  // Handle role change
+  const onUserFinish = async (values: any) => {
+    console.log('User Form Values: ', values)
+    setLoading(true)
+    try {
+      const response = await axios.post('/api/user/signup', values)
+      console.log('User Signup Response: ', response.data)
+    } catch (error) {
+      console.error('User Signup Failed:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const onRoleChange = (e: any) => {
     setRole(e.target.value)
   }
@@ -35,85 +59,198 @@ function SignUpInformation() {
         </div>
 
         {/* Form Section */}
-        <div className='flex-1 relative flex items-center justify-center p-8'>
-          <div className='w-1/2 max-w-md'>
+        <div className='flex-1 relative flex items-center justify-center p-8 '>
+          <div className='w-4/5'>
             <h2 className='text-3xl font-semibold text-center mb-4'>Sign Up</h2>
             <p className='flex text-center gap-2 justify-center items-start text-gray-500 mb-10'>
               to continue with <img className='w-5 h-5' src={logoMini} alt='logo' />
               <span>StudySpace</span>
             </p>
 
-            <Form name='sign_up' onFinish={onFinish} layout='vertical' className='space-y-8'>
-              {/* Role Selection */}
+            {/* Role Selection */}
+            <div className='flex justify-center items-center'>
               <Form.Item label='You sign up with the role:'>
                 <Radio.Group onChange={onRoleChange} value={role}>
                   <Radio value='user'>User</Radio>
                   <Radio value='supplier'>Supplier</Radio>
                 </Radio.Group>
               </Form.Item>
+            </div>
 
-              {/* Common Field for Both Roles */}
-              <Form.Item
-                label={<span className='font-medium'>Email</span>}
-                name='email'
-                rules={[
-                  { required: true, message: 'Please input your email!' },
-                  { type: 'email', message: 'Please enter a valid email!' }
-                ]}
-              >
-                <Input type='email' placeholder='Enter your email' size='large' />
-              </Form.Item>
+            {/* Supplier Form */}
+            {role === 'supplier' && (
+              <Form name='supplier_sign_up' onFinish={onSupplierFinish} layout='vertical' className=''>
+                <Form.Item
+                  label={<span className='font-medium'>Business Name</span>}
+                  name='businessName'
+                  rules={[{ required: true, message: 'Please input your business name!' }]}
+                >
+                  <Input placeholder='Enter your business name' size='middle' />
+                </Form.Item>
 
-              {/* Conditional Fields for Supplier */}
-              {role === 'supplier' && (
-                <>
-                  <Form.Item
-                    label={<span className='font-medium'>Business Name</span>}
-                    name='businessName'
-                    rules={[{ required: true, message: 'Please input your business name!' }]}
-                  >
-                    <Input placeholder='Enter your business name' size='large' />
-                  </Form.Item>
+                <Form.Item
+                  label={<span className='font-medium'>Business Address</span>}
+                  name='businessAddress'
+                  rules={[{ required: true, message: 'Please input your business address!' }]}
+                >
+                  <Input placeholder='Enter your business address' size='middle' />
+                </Form.Item>
 
-                  <Form.Item
-                    label={<span className='font-medium'>Business Address</span>}
-                    name='businessAddress'
-                    rules={[{ required: true, message: 'Please input your business address!' }]}
-                  >
-                    <Input placeholder='Enter your business address' size='large' />
-                  </Form.Item>
-                </>
-              )}
+                <Form.Item
+                  label={<span className='font-medium'>Email</span>}
+                  name='email'
+                  rules={[
+                    { required: true, message: 'Please input your email!' },
+                    { type: 'email', message: 'Please enter a valid email!' }
+                  ]}
+                >
+                  <Input type='email' placeholder='Enter your email' size='middle' />
+                </Form.Item>
 
-              {/* Conditional Fields for User */}
-              {role === 'user' && (
-                <>
-                  <Form.Item
-                    label={<span className='font-medium'>Full Name</span>}
-                    name='fullName'
-                    rules={[{ required: true, message: 'Please input your full name!' }]}
-                  >
-                    <Input placeholder='Enter your full name' size='large' />
-                  </Form.Item>
+                <Form.Item>
+                  <Button type='primary' htmlType='submit' size='middle' block loading={loading}>
+                    Sign Up as Supplier
+                  </Button>
+                </Form.Item>
+              </Form>
+            )}
 
-                  <Form.Item
-                    label={<span className='font-medium'>Phone Number</span>}
-                    name='phoneNumber'
-                    rules={[{ required: true, message: 'Please input your phone number!' }]}
-                  >
-                    <Input placeholder='Enter your phone number' size='large' />
-                  </Form.Item>
-                </>
-              )}
+            {/* User Form */}
+            {role === 'user' && (
+              <Form name='user_sign_up' onFinish={onUserFinish} layout='vertical'>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Full Name</span>}
+                      name='fullName'
+                      rules={[{ required: true, message: 'Please input your full name!' }]}
+                    >
+                      <Input placeholder='Enter your full name' size='middle' />
+                    </Form.Item>
+                  </Col>
 
-              <Form.Item>
-                <Button type='primary' htmlType='submit' size='large' block>
-                  Sign Up
-                </Button>
-              </Form.Item>
-            </Form>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Date of Birth</span>}
+                      name='dob'
+                      rules={[{ required: true, message: 'Please select your date of birth!' }]}
+                    >
+                      <DatePicker className='w-full' size='middle' disabledDate={disableDate} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Phone Number</span>}
+                      name='phone'
+                      rules={[
+                        { required: true, message: 'Please input your phone number!' },
+                        {
+                          pattern: /^0\d{9}$/,
+                          message: 'Phone number must start with 0 and contain 10 digits!'
+                        }
+                      ]}
+                    >
+                      <Input placeholder='Enter your phone number' size='middle' />
+                    </Form.Item>
+                  </Col>
 
-            <div className='text-center mt-6'>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Email</span>}
+                      name='email'
+                      rules={[
+                        { required: true, message: 'Please input your email!' },
+                        { type: 'email', message: 'Please enter a valid email!' }
+                      ]}
+                    >
+                      <Input type='email' placeholder='Enter your email' size='middle' />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Password</span>}
+                      name='password'
+                      rules={[
+                        { required: true, message: 'Please input your password!' },
+                        { min: 6, message: 'Password must be at least 6 characters long!' },
+                        {
+                          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                          message:
+                            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!'
+                        }
+                      ]}
+                      hasFeedback
+                    >
+                      <Input.Password placeholder='Enter your password' size='middle' />
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Confirm Password</span>}
+                      name='confirmPassword'
+                      dependencies={['password']}
+                      hasFeedback
+                      rules={[
+                        { required: true, message: 'Please confirm your password!' },
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                              return Promise.resolve()
+                            }
+                            return Promise.reject(new Error('Passwords do not match!'))
+                          }
+                        })
+                      ]}
+                    >
+                      <Input.Password placeholder='Confirm your password' size='middle' />
+                    </Form.Item>
+                  </Col>
+                </Row>
+
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Address</span>}
+                      name='address'
+                      rules={[{ required: true, message: 'Please input your address!' }]}
+                    >
+                      <Input placeholder='Enter your address' size='middle' />
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item
+                      label={<span className='font-medium'>Gender</span>}
+                      name='gender'
+                      rules={[{ required: true, message: 'Please select your gender!' }]}
+                    >
+                      <Radio.Group>
+                        <Radio value='male'>Male</Radio>
+                        <Radio value='female'>Female</Radio>
+                        <Radio value='other'>Other</Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16} justify='center' align='middle'>
+                  <Col span={12}>
+                    <Form.Item>
+                      <Button type='primary' htmlType='submit' size='middle' block loading={loading}>
+                        Sign Up as User
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            )}
+
+            <div className='text-center'>
               Already have an account?
               <Link to='/signin' className='text-[#647C6C] hover:underline'>
                 {' '}
