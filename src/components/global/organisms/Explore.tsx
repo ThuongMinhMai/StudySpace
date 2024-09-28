@@ -74,7 +74,7 @@ function Explore() {
               </h5>
 
               <button
-                onClick={() => handleExplore('Coffee Spaces')}
+                onClick={() => handleExplore('Coffee Space')}
                 className='group relative font-bold rounded-lg min-h-[50px] w-40 overflow-hidden border border-[#FFA800] bg-[#FFDFAE]/40 text-[#FFA800]  shadow-2xl transition-all before:absolute before:left-0 before:top-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:bottom-0 after:right-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white hover:before:h-full hover:after:h-full'
               >
                 <span className='top-0 flex h-full w-full items-center justify-center before:absolute before:bottom-0 before:left-1/4 before:z-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:right-1/4 after:top-0 after:z-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white group-hover:before:h-full group-hover:after:h-full'></span>
@@ -111,7 +111,7 @@ function Explore() {
               </h5>
 
               <button
-                onClick={() => handleExplore('Library Spaces')}
+                onClick={() => handleExplore('Library Space')}
                 className='group relative font-bold rounded-lg min-h-[50px] w-40 overflow-hidden border border-[#FFA800] bg-[#FFDFAE]/40 text-[#FFA800]  shadow-2xl transition-all before:absolute before:left-0 before:top-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:bottom-0 after:right-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white hover:before:h-full hover:after:h-full'
               >
                 <span className='top-0 flex h-full w-full items-center justify-center before:absolute before:bottom-0 before:left-1/4 before:z-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:right-1/4 after:top-0 after:z-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white group-hover:before:h-full group-hover:after:h-full'></span>
@@ -139,7 +139,7 @@ function Explore() {
               </div>
             </div>
             <div className='room__card__details p-4'>
-              <h4 className='mb-2 text-xl font-semibold'>Other Spaces</h4>
+              <h4 className='mb-2 text-xl font-semibold'>Meeting Room</h4>
               <p className='my-4 text-gray-600'>
               Discover versatile spaces offering tailored environments, from collaborative hubs to quiet zones, with amenities like Wi-Fi and flexible setups for meetings, events, or focused work.
               </p>
@@ -148,7 +148,7 @@ function Explore() {
               </h5>
 
               <button
-                onClick={() => handleExplore('Other Spaces')}
+                onClick={() => handleExplore('Meeting Room')}
                 className='group relative font-bold rounded-lg min-h-[50px] w-40 overflow-hidden border border-[#FFA800] bg-[#FFDFAE]/40 text-[#FFA800]  shadow-2xl transition-all before:absolute before:left-0 before:top-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:bottom-0 after:right-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white hover:before:h-full hover:after:h-full'
               >
                 <span className='top-0 flex h-full w-full items-center justify-center before:absolute before:bottom-0 before:left-1/4 before:z-0 before:h-0 before:w-1/4 before:bg-[#FFA800] before:duration-500 after:absolute after:right-1/4 after:top-0 after:z-0 after:h-0 after:w-1/4 after:bg-[#FFA800] after:duration-500 hover:text-white group-hover:before:h-full group-hover:after:h-full'></span>

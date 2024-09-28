@@ -4,22 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 export interface IUserDetail {
-  UserID: string,
-  UserName: string,
-  Password: string,
-  FullName: string,
-  Email: string,
-  Avatar: string,
-  Address: string,
-  OtpCode: string,
-  PhoneNumber: string,
-  Balance: number,
-  CreateDate: string,
-  IsVerified: boolean,
-  Status: string,
-  RoleID: string,
-  RoleName:string,
-  CompanyID:string
+  address: string;
+  avatarUrl: string;
+  dob: string; // Consider using Date type if you need to manipulate dates
+  email: string;
+  gender: string;
+  isActive: boolean;
+  name: string;
+  password: string; // You might want to avoid exposing sensitive data like passwords
+  phone: string;
+  roleName: string;
+  wallet: number;
 }
 // export const fetchUserDetail = async (userId: string): Promise<IUserDetail> => {
 //   const { data } = await busAPI.get<IUserDetail>(`/user-management/managed-users/${userId}/details`);
@@ -29,9 +24,8 @@ export const fetchUserDetail = (userId: string) => {
     return useQuery({
       queryKey: ['userDetail', userId],
       queryFn: async () => {
-        const { data } = await studySpaceAPI.get<IUserDetail>(`/user-management/managed-users/${userId}/details`);
-        console.log("tui ne", data)
-        return data;
+       const response = await studySpaceAPI.get<{ data: IUserDetail }>(`/Accounts/detail/${userId}`);
+        return response.data.data; // Extracting the user detail from the nested structure
       },
       enabled: !!userId,
     });

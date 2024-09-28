@@ -1,5 +1,5 @@
-import { CircleUser, FileBox, Search, Wallet } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { CircleUser, FileBox, LogOut, Search, Wallet } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import SearchPage from './SearchPage'
 import { useAuth } from '../../../auth/AuthProvider'
@@ -9,6 +9,7 @@ import { DownOutlined } from '@ant-design/icons'
 function Header({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
   console.log('user ơ header', user)
+  const navigate = useNavigate();
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -24,21 +25,33 @@ function Header({ isSearchOpen, toggleSearch }: any) {
     },
     {
       key: '2',
-      label: 'Profile',
-      icon:  <CircleUser strokeWidth={1} className='w-6 h-6'/>
+      label:  (
+        <div onClick={() => navigate('/profile')}> {/* Navigate to /profile */}
+          Profile
+        </div>
+      ),
+      icon:  <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5'/>
     },
     
     {
       key: '3',
       label: 'Booking',
-      icon:  <FileBox strokeWidth={1} className='w-6 h-6' />
+      icon:  <FileBox strokeWidth={1} className='w-5 h-5' />
     },
     {
       key: '4',
       label: 'Wallet',
-      icon:  <Wallet strokeWidth={1} className='w-6 h-6' />
+      icon:  <Wallet strokeWidth={1} className='w-5 h-5' />
      
-    }
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: '5',
+      label: (<div onClick={logout}>Logout</div>),
+      icon: <LogOut onClick={logout} strokeWidth={1} className='w-5 h-5' />
+    },
   ]
   // const { data, isLoading, isError, refetch } = fetchUserDetail(user?.UserID || "");
   return (

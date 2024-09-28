@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 const { Option } = Select
 
 function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initialPersons, onSearchChange }: any) {
+  console.log("nhan ơ form", initialTypeSpace)
   const [form] = Form.useForm() // Create a form instance
   const locations = [
     'All',
@@ -21,9 +22,9 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
   useEffect(() => {
     // Reset the form fields when props change
     form.resetFields()
-  }, [initialLocation, initialTypeSpace, initialTypeRoom, initialPersons])
-  const typeRoom = ['All', 'Office', 'Co-working', 'Meeting room']
-  const typeSpace = ['All', 'Library', 'Coffee', 'Other']
+  }, [initialLocation, initialTypeSpace, initialPersons])
+  // const typeRoom = ['All', 'Office', 'Co-working', 'Meeting room']
+  const typeSpace = ['All', 'Library Space', 'Coffee Space', 'Meeting Room']
 
   // Generate options for number of persons
   const numberOptions = Array.from({ length: 10 }, (_, i) => i + 1)
@@ -33,7 +34,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
     console.log('Form values:', values)
     // You can perform search or navigation based on form values here
   }
-  console.log('nhan duoc', initialLocation, initialTypeSpace, initialTypeRoom, initialPersons)
+  console.log('nhan duoc', initialLocation, initialTypeSpace, initialPersons)
   return (
     <ConfigProvider
       theme={{
@@ -42,8 +43,9 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
         }
       }}
     >
-      <div className='header_room w-3/5 mx-auto p-6 pr-20 bg-white shadow-lg rounded-lg sticky top-20'>
+      <div className='header_room w-3/5 mx-auto p-6 pr-20 bg-white shadow-lg flex justify-center items-center rounded-lg  '>
         <Form
+        className=' flex-1 lg:ml-10'
           form={form} // Assign the form instance to the Form component
           layout='vertical'
           onFinish={onFinish}
@@ -56,13 +58,13 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
           initialValues={{
             location: initialLocation || 'All', // Set initial value for Location
             typeSpace: initialTypeSpace || 'All', // Set initial value for Type Space
-            typeRoom: initialTypeRoom || 'All', // Set initial value for Type Room
+            // typeRoom: initialTypeRoom || 'All', // Set initial value for Type Room
             persons: initialPersons || 2 // Set initial value for Number of Persons
           }}
         >
           <Row gutter={[16, 16]} justify='center' align='middle'>
             {/* Location Select */}
-            <Col xs={24} sm={12} md={5} className='flex gap-1 justify-center items-center '>
+            <Col xs={24} sm={12} md={6} className='flex gap-1 justify-center items-center '>
               <div className=' '>
                 <MapPin className='w-8 h-8 mt-2' strokeWidth={1} fill='#647C6C' color='white' />
               </div>
@@ -86,7 +88,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                 </Select>
               </Form.Item>
             </Col>
-            <Col xs={24} sm={12} md={5} className='flex gap-1 justify-center items-center'>
+            <Col xs={24} sm={12} md={6} className='flex gap-1 justify-center items-center'>
               <div>
                 <Rocket className='w-8 h-8 mt-2' strokeWidth={1} fill='#647C6C' color='white' />
               </div>
@@ -105,7 +107,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
               </Form.Item>
             </Col>
             {/* Type Room Select */}
-            <Col xs={24} sm={12} md={5} className='flex gap-1 justify-center items-center'>
+            {/* <Col xs={24} sm={12} md={5} className='flex gap-1 justify-center items-center'>
               <div>
                 <Box className='w-8 h-8 mt-2' strokeWidth={1} fill='#647C6C' color='white' />
               </div>
@@ -122,12 +124,12 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                   ))}
                 </Select>
               </Form.Item>
-            </Col>
+            </Col> */}
 
             {/* Type Space Select */}
 
             {/* Number of Persons Select */}
-            <Col xs={24} sm={12} md={5} className='flex gap-1 justify-center items-center '>
+            <Col xs={24} sm={12} md={6} className='flex gap-1 justify-center items-center '>
               <div>
                 <UserRound className='w-8 h-8 mt-2' strokeWidth={1} fill='#647C6C' color='white' />
               </div>
@@ -147,7 +149,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
             </Col>
 
             {/* Submit Button */}
-            <Col xs={24} sm={12} md={4}>
+            <Col xs={24} sm={12} md={6}>
               <Button
                 type='primary'
                 htmlType='submit'

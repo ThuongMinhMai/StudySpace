@@ -24,7 +24,7 @@ function RoomPage() {
   const [formValues, setFormValues] = useState({
     location: searchParams.get('location') || 'All',
     typeSpace: searchParams.get('typeSpace') || 'All',
-    typeRoom: searchParams.get('typeRoom') || 'All',
+    // typeRoom: searchParams.get('typeRoom') || 'All',
     persons: parseInt(searchParams.get('persons') || '2', 10)
   })
 
@@ -34,7 +34,7 @@ function RoomPage() {
     setFormValues({
       location: searchParams.get('location') || 'All',
       typeSpace: searchParams.get('typeSpace') || 'All',
-      typeRoom: searchParams.get('typeRoom') || 'All',
+      // typeRoom: searchParams.get('typeRoom') || 'All',
       persons: parseInt(searchParams.get('persons') || '2', 10)
     })
   }, [location.search])
@@ -127,7 +127,7 @@ function RoomPage() {
     // Optionally, refetch or reset data based on the default filters
     // fetchData(defaultFilters)
   }
-
+console.log("value form tư route", formValues.location, formValues.typeSpace)
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
@@ -148,7 +148,7 @@ function RoomPage() {
           <FormSearch
             initialLocation={formValues.location}
             initialTypeSpace={formValues.typeSpace}
-            initialTypeRoom={formValues.typeRoom}
+            // initialTypeRoom={formValues.typeRoom}
             initialPersons={formValues.persons}
             onSearchChange={handleSearchChange}
           />

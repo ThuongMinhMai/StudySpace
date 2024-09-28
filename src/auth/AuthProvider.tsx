@@ -146,6 +146,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   const logout = () => {
+    console.log("log out")
     setToken(null)
     setUser(null)
     localStorage.removeItem('token')

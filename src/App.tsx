@@ -9,6 +9,7 @@ import SignIn from './components/global/templates/SignIn'
 import ProtectedRoute from './auth/ProtectedRoute'
 import SignUp from './components/global/templates/SignUp'
 import SignUpInformation from './components/global/templates/SignUpInformation'
+import ProfilePage from './components/global/organisms/ProfilePage'
 
 function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -22,6 +23,7 @@ function App() {
       <Route element={<RootLayout isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}>
         <Route path='/room' element={<RoomPage />} />
         <Route path='/detail' element={<Detail />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Route>
       <Route path='*' element={<NotFound />} />
       <Route

@@ -1,16 +1,18 @@
-import { CircleUser, FileBox, Search, TableOfContents, Wallet, X } from 'lucide-react'
+import { CircleUser, FileBox, LogOut, Search, TableOfContents, Wallet, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import logo1 from '../../../assets/LOGO SS-01.png'
 import SearchPage from './SearchPage'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../auth/AuthProvider'
 import { Dropdown, Space, type MenuProps } from 'antd'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
   console.log('user ơ header', user)
+  const navigate = useNavigate();
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -26,20 +28,32 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
     },
     {
       key: '2',
-      label: 'Profile',
-      icon: <CircleUser strokeWidth={1} className='w-6 h-6' />
+      label:  (
+        <div onClick={() => navigate('/profile')}> {/* Navigate to /profile */}
+          Profile
+        </div>
+      ),
+      icon:  <CircleUser onClick={() => navigate('/profile')} strokeWidth={1} className='w-5 h-5'/>
     },
 
     {
       key: '3',
       label: 'Booking',
-      icon: <FileBox strokeWidth={1} className='w-6 h-6' />
+      icon: <FileBox strokeWidth={1} className='w-5 h-5' />
     },
     {
       key: '4',
       label: 'Wallet',
-      icon: <Wallet strokeWidth={1} className='w-6 h-6' />
-    }
+      icon: <Wallet strokeWidth={1} className='w-5 h-5' />
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: '5',
+      label:  (<div onClick={logout}>Logout</div>),
+      icon: <LogOut strokeWidth={1} className='w-5 h-5' />
+    },
   ]
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [isSearchOpen, setIsSearchOpen] = useState(false)
