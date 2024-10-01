@@ -22,7 +22,7 @@ function SignUp() {
     setIsSending(true)  // Start loading
     try {
       // Send a POST request to the signup API
-      const response = await studySpaceAPI.post('/Accounts/send-confirm-mail', values.email )
+      const response = await studySpaceAPI.post('/Accounts/email-sending-confirmation', values.email )
       console.log(response.data)
 
       // Add slide-out animation for the form

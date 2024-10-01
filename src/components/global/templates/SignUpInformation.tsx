@@ -87,8 +87,8 @@ function SignUpInformation() {
     try {
       const response = await studySpaceAPI.post(`/Accounts?token=${token}`, payload)
       console.log('User Signup Response: ', response.data)
-      toast.success('Sign up successfully')
-      navigate('/')
+      toast.success('Sign up successfully. Please login to continue!')
+      navigate('/signin')
     } catch (error) {
       console.error('User Signup Failed:', error)
       toast.error('Sign Up Failed!Please try again!')

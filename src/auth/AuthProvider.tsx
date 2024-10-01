@@ -61,13 +61,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       console.log("refresh")
       if (token) {
         try {
-          const response = await studySpaceAPI.post<User>('/Accounts/decode', token)
+          const response = await studySpaceAPI.post<User>('/Accounts/token-decode', token)
           // const response = await studySpaceAPI.post<User>('/Accounts/decode', {
             //   headers: {
               //     Authorization: `Bearer ${token}`
               //   }
               // })
-              console.log("hfkjhsjhjk", response.data)
           setUser(response.data)
         } catch (error) {
           localStorage.removeItem('token')
@@ -83,7 +82,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string) => {
     try {
       setLoading(true)
-      const response = await studySpaceAPI.post('/Accounts/login', {
+      const response = await studySpaceAPI.post('/Accounts/login-authen', {
         email: email,
         password: password
       })
