@@ -10,6 +10,8 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import SignUp from './components/global/templates/SignUp'
 import SignUpInformation from './components/global/templates/SignUpInformation'
 import ProfilePage from './components/global/organisms/ProfilePage'
+import MyRoomPage from './components/global/organisms/MyRoomPage'
+import TransactionPage from './components/global/organisms/TransactionPage'
 
 function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -24,6 +26,8 @@ function App() {
         <Route path='/room' element={<RoomPage />} />
         <Route path='/detail' element={<Detail />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/booking' element={<MyRoomPage />} />
+        <Route path='/transaction' element={<TransactionPage />} />
       </Route>
       <Route path='*' element={<NotFound />} />
       <Route

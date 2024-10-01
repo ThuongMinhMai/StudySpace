@@ -40,13 +40,25 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
 
     {
       key: '3',
-      label: 'Booking',
-      icon: <FileBox strokeWidth={1} className='w-5 h-5' />
+      label: (
+        <div onClick={() => navigate('/booking')}>
+          {' '}
+          {/* Navigate to /profile */}
+          Booking
+        </div>
+      ),
+      icon: <FileBox onClick={() => navigate('/booking')} strokeWidth={1} className='w-5 h-5' />
     },
     {
       key: '4',
-      label: 'Wallet',
-      icon: <Wallet strokeWidth={1} className='w-5 h-5' />
+      label: (
+        <div onClick={() => navigate('/transaction')}>
+          {' '}
+          {/* Navigate to /profile */}
+          Wallet
+        </div>
+      ),
+      icon: <Wallet onClick={() => navigate('/transaction')} strokeWidth={1} className='w-5 h-5' />
     },
     {
       type: 'divider'
