@@ -1,12 +1,16 @@
 import { CircleCheck } from 'lucide-react'
 import './AboutUs.css'
+import { useEffect, useState } from 'react'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
+import OfferCard from '../molecules/OfferCard'
 
 function Offer() {
   return (
     <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF] mt-64'>
-        <div className='box absolute -top-64 left-0 ' ></div>
+      
+      <div className='box absolute -top-64 left-0 '></div>
 
-      <section className='room__container lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4' >
+      <section className='room__container lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4'>
         <div>
           <div className='bg-[#FFDFAE]/80 px-8 py-3 text-[#FFA800] font-bold rounded-lg w-fit'>Price Package</div>
         </div>
@@ -18,7 +22,7 @@ function Offer() {
           </h2>
         </div>
         <div className='room__grid mt-16 grid gap-4  '>
-          <div className='room__card bg-white overflow-hidden rounded-3xl shadow-md'>
+          {/* <div className='room__card bg-white overflow-hidden rounded-3xl shadow-md'>
             <div className='room__card__details p-4 flex flex-col justify-center items-center gap-10'>
               <h4 className='mt-8 text-center text-2xl font-bold '>Basic</h4>
               <h5 className='mb-4 text-base text-center  text-[#FFA800] '>
@@ -98,7 +102,8 @@ function Offer() {
                 Register
               </button>
             </div>
-          </div>
+          </div> */}
+          <OfferCard />
         </div>
       </section>
     </div>

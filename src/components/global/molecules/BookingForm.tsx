@@ -21,7 +21,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   const [form] = Form.useForm()
   const [isOvernight, setIsOvernight] = useState<boolean>(false)
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null)
-  const [selectedRangeDate, setSelectedRangeDate] = useState<[Dayjs | null, Dayjs | null] | null>(null);
+  const [selectedRangeDate, setSelectedRangeDate] = useState<[Dayjs | null, Dayjs | null] | null>(null)
   const [overlapWarning, setOverlapWarning] = useState<string | null>(null) // State to track overlap warning
   const [totalBill, setTotalBill] = useState<number>(0) // State to track total bill
   const handleDateChange = (date: Dayjs | null) => {
@@ -200,7 +200,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     return current.isBefore(dayjs().startOf('day'), 'day')
   }
   const onValuesChange = (changedValues: any) => {
-    console.log("form doi", changedValues)
+    console.log('form doi', changedValues)
     calculateTotalBill(form.getFieldsValue())
   }
 
@@ -263,7 +263,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             </Form.Item>
           </>
         )}
-   {selectedDate && !isOvernight && (
+        {selectedDate && !isOvernight && (
           <Form.Item>
             <Typography.Title level={4}>Booked Slots on {selectedDate.format('YYYY-MM-DD')}</Typography.Title>
             <Space direction='vertical'>
@@ -305,8 +305,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             Book Now
           </Button>
         </Form.Item>
-
-     
 
         {selectedRangeDate && isOvernight && (
           <>

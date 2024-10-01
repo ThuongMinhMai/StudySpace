@@ -45,6 +45,7 @@ function RoomPage() {
       const response = await axios.get('/api/spaces', {
         params: filters // Send the filter parameters to the API
       })
+      console.log("fetch")
       // setCardData(response.data); // Update card data with the fetched results
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -53,7 +54,7 @@ function RoomPage() {
   const handleSearchChange = (newValues: any) => {
     const updatedValues = { ...formValues, ...newValues }
     setFormValues(updatedValues)
-
+    console.log('nene', updatedValues)
     // Update query parameters
     const newParams = new URLSearchParams(updatedValues).toString()
     navigate(`?${newParams}`)
@@ -202,11 +203,10 @@ function RoomPage() {
           {cardData.map((card, index) => (
             <Col key={index} sm={24} md={12} lg={8}>
               <div className='mb-10'>
-              <SkeletonCarder/>
+                <SkeletonCarder />
               </div>
             </Col>
           ))}
-         
         </Row>
       </div>
     </div>
