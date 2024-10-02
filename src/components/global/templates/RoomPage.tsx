@@ -1,4 +1,4 @@
-import { Button, Col, ConfigProvider, Drawer, Row } from 'antd'
+import { Button, Col, ConfigProvider, Drawer, Pagination, Row } from 'antd'
 import axios from 'axios'
 import { SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import CardSpace from '../organisms/CardSpace'
 import FormSearch from '../organisms/FormSearch'
 import SkeletonCarder from '../organisms/SkeletonCarder'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
+
 interface Room {
   roomName: string
   storeName: string
@@ -19,6 +20,7 @@ interface Room {
   area: number
   type: string
 }
+
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -26,186 +28,98 @@ function RoomPage() {
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [cardData, setCardData] = useState<Room[]>([])
-  const searchParams = new URLSearchParams(location.search)
-  // Get the 'type', 'location', 'typeSpace', 'typeRoom', and 'persons' query parameters
-  // const locationParam = searchParams.get('location') || 'All'
-  // const typeSpace = searchParams.get('typeSpace') || 'All'
-  // const typeRoom = searchParams.get('typeRoom') || 'All'
-  // const persons = parseInt(searchParams.get('persons') || '2', 10)
+  const [currentPage, setCurrentPage] = useState<number>(1) // Current page state
+  const [totalPages, setTotalPages] = useState<number>(0) // Total pages state
+  const pageSize = 6 // Number of items per page
 
-  // Function to handle search selection changes
-  // State to manage form values
+  const searchParams = new URLSearchParams(location.search)
+
   const [formValues, setFormValues] = useState({
     location: searchParams.get('location') || 'All',
     typeSpace: searchParams.get('typeSpace') || 'All',
-    // typeRoom: searchParams.get('typeRoom') || 'All',
     persons: parseInt(searchParams.get('persons') || '2', 10)
   })
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    // Update state when query parameters change
-    // setFormValues({
-    //   location: searchParams.get('location') || 'All',
-    //   typeSpace: searchParams.get('typeSpace') || 'All',
-    //   // typeRoom: searchParams.get('typeRoom') || 'All',
-    //   persons: parseInt(searchParams.get('persons') || '2', 10)
-    // })
     const updatedFormValues = {
       location: searchParams.get('location') || 'All',
       typeSpace: searchParams.get('typeSpace') || 'All',
       persons: parseInt(searchParams.get('persons') || '2', 10)
     }
     setFormValues(updatedFormValues)
-    // Refetch the API data whenever location.search changes
-    fetchData(updatedFormValues)
+    fetchData(updatedFormValues, currentPage) // Fetch data with current page
     setFilters({
       priceSort: 'all',
       ratingSort: 'all',
       priceRange: [0, 1000],
       selectedUtilities: 'all'
     })
-  }, [location.search])
-  const fetchData = async (value: any) => {
+  }, [location.search, currentPage]) // Add currentPage to dependencies
+
+  const fetchData = async (value: any, page: number) => {
     setLoading(true)
     try {
       const response = await studySpaceAPI.get(
-        `/Room/available?pageNumber=1&pageSize=6&space=${value.typeSpace}&location=${value.location}&room=All&person=${value.persons}`
+        `/Room/available?pageNumber=${page}&pageSize=${pageSize}&space=${value.typeSpace}&location=${value.location}&room=All&person=${value.persons}`
       )
       console.log('Data fetched:', response.data.data)
       setCardData(response.data.data.rooms) // Update card data with the fetched results
+      setTotalPages(response.data.data.totalCount) // Assuming the response has totalPages
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
       setLoading(false)
     }
   }
-  const fetchDataWithFilter = async (search: any, filters: any) => {
-    try {
-      const response = await axios.get('/api/spaces', {
-        params: filters // Send the filter parameters to the API
-      })
-      console.log('fetch')
-      // setCardData(response.data); // Update card data with the fetched results
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  }
+
   const handleSearchChange = (newValues: any) => {
     const updatedValues = { ...formValues, ...newValues }
     setFormValues(updatedValues)
-    console.log('nene', updatedValues)
-    // Update query parameters
     const newParams = new URLSearchParams(updatedValues).toString()
     navigate(`?${newParams}`)
-    setFilters({
-      priceSort: 'all',
-      ratingSort: 'all',
-      priceRange: [0, 1000],
-      selectedUtilities: 'all'
-    })
-    fetchData(updatedValues)
-    fetchDataWithFilter(updatedValues, filters)
+    setCurrentPage(1) // Reset to first page on new search
+    fetchData(updatedValues, 1) // Fetch data for the first page
   }
 
   const handleFilterChange = (newFilters: any) => {
-    console.log(newFilters)
     setFilters(newFilters)
     setIsFilterDrawerOpen(false)
     // Logic to refetch or filter cards based on newFilters goes here
-    // You can call an API here to fetch the filtered results
   }
 
-  const toggleFilterDrawer = () => {
-    setIsFilterDrawerOpen(!isFilterDrawerOpen)
+  const handlePaginationChange = (page: number) => {
+    setCurrentPage(page)
+    fetchData(formValues, page) // Fetch data for the selected page
   }
-  const cardDatExample = [
-    {
-      title: 'Card 1',
-      description: 'Description 1',
-      price: 100,
-      imgSrc:
-        'https://www.eposaudio.com/contentassets/2af3669017f34ae58049ce43c127bd3b/expand_idealmeetingroom_still-life_01.jpg?width=1300'
-    },
-    {
-      title: 'Card 2',
-      price: 100,
 
-      description: 'Description 2',
-      imgSrc: 'https://zoomgov.com/docs/image/zoomrooms/overview-03.png'
-    },
-    {
-      title: 'Card 3',
-      description: 'Description 3',
-      price: 100,
-
-      imgSrc: 'https://media-cdn.tripadvisor.com/media/photo-s/1b/3f/c1/f1/kj-coffee-shop-es-un.jpg'
-    },
-    {
-      title: 'Card 4',
-      price: 100,
-
-      description: 'Description 4',
-      imgSrc: 'https://www.doanhchu.com/wp-content/uploads/2015/01/coffee-shop-1.jpg'
-    },
-    {
-      title: 'Card 5',
-      price: 100,
-
-      description: 'Description 5',
-      imgSrc:
-        'https://interiorai.com/cdn-cgi/image/format=jpeg,fit=cover,width=1536,quality=75/https://r2-us-west.interiorai.com/1706794679-afdb958b2cbdae693c621f5a1685e465-2.png'
-    },
-    {
-      title: 'Card 6',
-      price: 100,
-
-      description: 'Description 6',
-      imgSrc: 'https://i.pinimg.com/736x/3d/8b/e8/3d8be817b8a1b70452890e02c8279d1f.jpg'
-    }
-  ]
   const handleClearFilters = () => {
-    // Reset the filters to their default values
     setFilters({
       priceSort: 'all',
       ratingSort: 'all',
       priceRange: [0, 1000],
       selectedUtilities: 'all'
     })
-
-    // Optionally, refetch or reset data based on the default filters
-    // fetchData(defaultFilters)
   }
-  console.log('hello', cardData)
+
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
         <img src={ImgHeader} alt='imageheader' className='w-full  object-cover header__image' />
-
         <div className='lg:absolute inset-0 flex flex-col lg:gap-10 justify-center items-center'>
           <p className='lg:text-yellow-50 font-paytoneone text-5xl mb-10 text-center text mt-20 lg:mt-0 text-[#3D4449]'>
             Make Yourself At Home <br />
             In Our <span className='lg:text-[#d3ea98] text-[#80a12f] '>Spaces.</span>
           </p>
-
-          {/* <FormSearch
-            initialLocation={locationParam}
-            initialTypeSpace={typeSpace}
-            initialTypeRoom={typeRoom}
-            initialPersons={persons}
-          /> */}
           <FormSearch
             initialLocation={formValues.location}
             initialTypeSpace={formValues.typeSpace}
-            // initialTypeRoom={formValues.typeRoom}
             initialPersons={formValues.persons}
             onSearchChange={handleSearchChange}
           />
         </div>
       </div>
-      {/* Card space */}
 
-      {/* Card section */}
       <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
         <div className='flex justify-between  items-center lg:px-14 md:px-0 px-36 mb-10'>
           <h2 className='text-2xl font-semibold'>{cardData?.length || 0} Available Spaces</h2>
@@ -221,7 +135,7 @@ function RoomPage() {
               }
             }}
           >
-            <Button type='default' size='large' onClick={toggleFilterDrawer} className=''>
+            <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
               <SlidersHorizontal className='w-4 h-4' />
               Filter
             </Button>
@@ -231,7 +145,7 @@ function RoomPage() {
         <Drawer
           title='Filter Options'
           placement='right'
-          onClose={toggleFilterDrawer}
+          onClose={() => setIsFilterDrawerOpen(false)}
           open={isFilterDrawerOpen}
           width='40%'
           className='filter-drawer'
@@ -239,35 +153,17 @@ function RoomPage() {
           <FilterComponent onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
         </Drawer>
 
-        {/* <Row gutter={[32, 16]} justify='center'>
-          {cardDatExample.map((card, index) => (
-            <Col key={index} sm={24} md={12} lg={8}>
-              <div className='mb-10'>
-                <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} price={card.price} />
-              </div>
-            </Col>
-          ))}
-          {cardDatExample.map((card, index) => (
-            <Col key={index} sm={24} md={12} lg={8}>
-              <div className='mb-10'>
-                <SkeletonCarder />
-              </div>
-            </Col>
-          ))}
-        </Row> */}
         {loading ? (
           <Row gutter={[32, 16]} justify='center'>
-            {[...Array(6)].map((_, index) => (
+            {[...Array(pageSize)].map((_, index) => (
               <Col key={index} sm={24} md={12} lg={8}>
                 <SkeletonCarder />
               </Col>
             ))}
           </Row>
         ) : cardData?.length === 0 ? (
-          // Display message if no rooms are available
           <div className='text-center text-lg font-semibold'>No rooms available at the moment</div>
         ) : (
-          // Display rooms when data is available
           <Row gutter={[32, 16]} justify='center'>
             {cardData?.map((card, index) => (
               <Col key={index} sm={24} md={12} lg={8}>
@@ -287,6 +183,22 @@ function RoomPage() {
             ))}
           </Row>
         )}
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#647C6C'
+            }
+          }}
+        >
+          {/* Pagination Controls */}
+          <Pagination
+            current={currentPage}
+            total={totalPages * pageSize} // Assuming total number of items is totalPages * pageSize
+            pageSize={pageSize}
+            onChange={handlePaginationChange}
+            className='m-auto'
+          />
+        </ConfigProvider>
       </div>
     </div>
   )
