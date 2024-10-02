@@ -15,8 +15,17 @@ import space2 from '../../../assets/space2.jpg'
 import space3 from '../../../assets/space3.jpg'
 
 import './AboutUs.css'
-
+import { useEffect, useState } from 'react'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
+interface Space {
+  pricePerHour: number
+  description: string
+  status: boolean
+  type: string
+  image: string // New image field
+}
 function Explore() {
+  const [spaces, setSpaces] = useState<Space[]>([])
   const navigate = useNavigate()
   const location = useLocation() // Access current URL and search parameters
   // Function to navigate with typeRoom props
@@ -35,6 +44,35 @@ function Explore() {
     // Navigate to the new URL with updated query parameters
     navigate(`${location.pathname}room?${searchParams.toString()}`)
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await studySpaceAPI.get('/Space/popular') // Replace with your actual API URL
+        const data = response.data
+
+        // Add the corresponding image based on the space type
+        const spacesWithImages = data.data.map((space: any) => ({
+          ...space,
+          image:
+            space.type === 'Coffee Space'
+              ? space1
+              : space.type === 'Meeting Room'
+                ? space3
+                : space.type === 'Library Space'
+                  ? space2
+                  : '' // Default image if no match found
+        }))
+
+        setSpaces(spacesWithImages)
+      } catch (error) {
+        console.error('Error fetching spaces:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+  console.log('hehe', spaces)
   return (
     <div className='relative'>
       <section className='section__container room__container' id='explore'>
@@ -47,8 +85,7 @@ function Explore() {
           </p>
         </div>
 
-        <div className='room__grid mt-16 grid gap-4 mb-10'>
-          {/* Coffee Spaces Card */}
+        {/* <div className='room__grid mt-16 grid gap-4 mb-10'>
           <div className='room__card bg-white overflow-hidden rounded-lg shadow-md'>
             <div className='room__card__image'>
               <img src={space1} alt='room' />
@@ -67,7 +104,8 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Coffee Spaces</h4>
               <p className='my-4 text-gray-600'>
-              Enjoy a relaxed, creative environment with Wi-Fi, flexible seating,facilities, and the convenience of refreshments, ideal for meetings or solo work.
+                Enjoy a relaxed, creative environment with Wi-Fi, flexible seating,facilities, and the convenience of
+                refreshments, ideal for meetings or solo work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$299/hour</span>
@@ -85,7 +123,6 @@ function Explore() {
             </div>
           </div>
 
-          {/* Library Spaces Card */}
           <div className='room__card bg-white overflow-hidden rounded-lg shadow-md'>
             <div className='room__card__image'>
               <img src={space2} alt='room' />
@@ -104,7 +141,8 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Library Spaces</h4>
               <p className='my-4 text-gray-600'>
-              Access a quiet, focused environment with abundant resources, free Wi-Fi, and comfortable seating, perfect for studying or research.
+                Access a quiet, focused environment with abundant resources, free Wi-Fi, and comfortable seating,
+                perfect for studying or research.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$199/hour</span>
@@ -122,7 +160,6 @@ function Explore() {
             </div>
           </div>
 
-          {/* Other Spaces Card */}
           <div className='room__card bg-white overflow-hidden rounded-lg shadow-md'>
             <div className='room__card__image'>
               <img src={space3} alt='room' />
@@ -141,7 +178,8 @@ function Explore() {
             <div className='room__card__details p-4'>
               <h4 className='mb-2 text-xl font-semibold'>Meeting Room</h4>
               <p className='my-4 text-gray-600'>
-              Discover versatile spaces offering tailored environments, from collaborative hubs to quiet zones, with amenities like Wi-Fi and flexible setups for meetings, events, or focused work.
+                Discover versatile spaces offering tailored environments, from collaborative hubs to quiet zones, with
+                amenities like Wi-Fi and flexible setups for meetings, events, or focused work.
               </p>
               <h5 className='mb-4 text-base font-medium text-gray-400'>
                 Starting from <span className='text-xl text-[#FFA800] font-bold '>$249/hour</span>
@@ -158,6 +196,35 @@ function Explore() {
               </button>
             </div>
           </div>
+        </div> */}
+        <div className='room__grid mt-16 grid gap-4 mb-10'>
+          {/* Render spaces dynamically */}
+          {spaces.map((space, index) => (
+            <div key={index} className='room__card bg-white overflow-hidden rounded-lg shadow-md'>
+              <div className='room__card__image'>
+                <img src={space.image} alt={space.type} />
+                <div className='room__card__icons absolute right-4 bottom-4 w-full flex items-center justify-end flex-wrap gap-4 z-10'>
+                  <span className='inline-block px-2 py-2 text-2xl bg-white rounded-full shadow-lg cursor-pointer'>
+                    {/* Optional icon */}
+                  </span>
+                </div>
+              </div>
+              <div className='room__card__details p-4'>
+                <h4 className='mb-2 text-xl font-semibold'>{space.type}</h4>
+                <p className='my-4 text-gray-600'>{space.description}</p>
+                <h5 className='mb-4 text-base font-medium text-gray-400'>
+                  Starting from <span className='text-xl text-[#FFA800] font-bold '>${space.pricePerHour}/hour</span>
+                </h5>
+
+                <button
+                  onClick={() => handleExplore(space.type)}
+                  className='group relative font-bold rounded-lg min-h-[50px] w-40 overflow-hidden border border-[#FFA800] bg-[#FFDFAE]/40 text-[#FFA800] shadow-2xl transition-all hover:text-white hover:bg-[#FFA800]'
+                >
+                  Explore
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>
