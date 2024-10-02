@@ -8,11 +8,24 @@ import FilterComponent from '../molecules/FilterComponent'
 import CardSpace from '../organisms/CardSpace'
 import FormSearch from '../organisms/FormSearch'
 import SkeletonCarder from '../organisms/SkeletonCarder'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
+interface Room {
+  roomName: string
+  storeName: string
+  capacity: number
+  pricePerHour: number
+  description: string
+  status: boolean
+  area: number
+  type: string
+}
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const [filters, setFilters] = useState<any>('')
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [cardData, setCardData] = useState<Room[]>([])
   const searchParams = new URLSearchParams(location.search)
   // Get the 'type', 'location', 'typeSpace', 'typeRoom', and 'persons' query parameters
   // const locationParam = searchParams.get('location') || 'All'
@@ -32,20 +45,47 @@ function RoomPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
     // Update state when query parameters change
-    setFormValues({
+    // setFormValues({
+    //   location: searchParams.get('location') || 'All',
+    //   typeSpace: searchParams.get('typeSpace') || 'All',
+    //   // typeRoom: searchParams.get('typeRoom') || 'All',
+    //   persons: parseInt(searchParams.get('persons') || '2', 10)
+    // })
+    const updatedFormValues = {
       location: searchParams.get('location') || 'All',
       typeSpace: searchParams.get('typeSpace') || 'All',
-      // typeRoom: searchParams.get('typeRoom') || 'All',
       persons: parseInt(searchParams.get('persons') || '2', 10)
+    }
+    setFormValues(updatedFormValues)
+    // Refetch the API data whenever location.search changes
+    fetchData(updatedFormValues)
+    setFilters({
+      priceSort: 'all',
+      ratingSort: 'all',
+      priceRange: [0, 1000],
+      selectedUtilities: 'all'
     })
   }, [location.search])
-
-  const fetchData = async (filters: any) => {
+  const fetchData = async (value: any) => {
+    setLoading(true)
+    try {
+      const response = await studySpaceAPI.get(
+        `/Room/available?pageNumber=1&pageSize=6&space=${value.typeSpace}&location=${value.location}&room=All&person=${value.persons}`
+      )
+      console.log('Data fetched:', response.data.data)
+      setCardData(response.data.data.rooms) // Update card data with the fetched results
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const fetchDataWithFilter = async (search: any, filters: any) => {
     try {
       const response = await axios.get('/api/spaces', {
         params: filters // Send the filter parameters to the API
       })
-      console.log("fetch")
+      console.log('fetch')
       // setCardData(response.data); // Update card data with the fetched results
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -58,7 +98,14 @@ function RoomPage() {
     // Update query parameters
     const newParams = new URLSearchParams(updatedValues).toString()
     navigate(`?${newParams}`)
+    setFilters({
+      priceSort: 'all',
+      ratingSort: 'all',
+      priceRange: [0, 1000],
+      selectedUtilities: 'all'
+    })
     fetchData(updatedValues)
+    fetchDataWithFilter(updatedValues, filters)
   }
 
   const handleFilterChange = (newFilters: any) => {
@@ -72,7 +119,7 @@ function RoomPage() {
   const toggleFilterDrawer = () => {
     setIsFilterDrawerOpen(!isFilterDrawerOpen)
   }
-  const cardData = [
+  const cardDatExample = [
     {
       title: 'Card 1',
       description: 'Description 1',
@@ -129,7 +176,7 @@ function RoomPage() {
     // Optionally, refetch or reset data based on the default filters
     // fetchData(defaultFilters)
   }
-  console.log('value form tư route', formValues.location, formValues.typeSpace)
+  console.log('hello', cardData)
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
@@ -161,7 +208,7 @@ function RoomPage() {
       {/* Card section */}
       <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
         <div className='flex justify-between  items-center lg:px-14 md:px-0 px-36 mb-10'>
-          <h2 className='text-2xl font-semibold'>6 Available Spaces</h2>
+          <h2 className='text-2xl font-semibold'>{cardData?.length || 0} Available Spaces</h2>
           <ConfigProvider
             theme={{
               token: {
@@ -192,22 +239,54 @@ function RoomPage() {
           <FilterComponent onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
         </Drawer>
 
-        <Row gutter={[32, 16]} justify='center'>
-          {cardData.map((card, index) => (
+        {/* <Row gutter={[32, 16]} justify='center'>
+          {cardDatExample.map((card, index) => (
             <Col key={index} sm={24} md={12} lg={8}>
               <div className='mb-10'>
                 <CardSpace title={card.title} description={card.description} imgSrc={card.imgSrc} price={card.price} />
               </div>
             </Col>
           ))}
-          {cardData.map((card, index) => (
+          {cardDatExample.map((card, index) => (
             <Col key={index} sm={24} md={12} lg={8}>
               <div className='mb-10'>
                 <SkeletonCarder />
               </div>
             </Col>
           ))}
-        </Row>
+        </Row> */}
+        {loading ? (
+          <Row gutter={[32, 16]} justify='center'>
+            {[...Array(6)].map((_, index) => (
+              <Col key={index} sm={24} md={12} lg={8}>
+                <SkeletonCarder />
+              </Col>
+            ))}
+          </Row>
+        ) : cardData?.length === 0 ? (
+          // Display message if no rooms are available
+          <div className='text-center text-lg font-semibold'>No rooms available at the moment</div>
+        ) : (
+          // Display rooms when data is available
+          <Row gutter={[32, 16]} justify='center'>
+            {cardData?.map((card, index) => (
+              <Col key={index} sm={24} md={12} lg={8}>
+                <div className='mb-10'>
+                  <CardSpace
+                    storeName={card.storeName}
+                    roomName={card.roomName}
+                    description={card.description}
+                    imgSrc={ImgHeader}
+                    price={card.pricePerHour}
+                    capacity={card.capacity}
+                    area={card.area}
+                    type={card.type}
+                  />
+                </div>
+              </Col>
+            ))}
+          </Row>
+        )}
       </div>
     </div>
   )

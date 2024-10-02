@@ -3,7 +3,7 @@ import { Layers2, Scaling, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 const { Meta } = Card
 
-const CardSpace = ({ shopName, roomName, description, imgSrc, price, size, persons, type }: any) => {
+const CardSpace = ({ storeName, roomName, description, imgSrc, price, area, capacity, type }: any) => {
   return (
     <div className='relative min-w-80 mx-auto shadow-lg max-w-[350px]'>
       <ConfigProvider
@@ -36,11 +36,11 @@ const CardSpace = ({ shopName, roomName, description, imgSrc, price, size, perso
             <div className='flex items-center justify-between space-x-4 text-sm mb-4'>
               <div className='flex items-center space-x-1'>
                 <Scaling />
-                <span>{size || '10'}M2</span>
+                <span>{area || '10'}M2</span>
               </div>
               <div className='flex items-center space-x-1 border-l-2 border-r-2  px-7 border-black/50'>
                 <User />
-                <span>{persons} PERSON</span>
+                <span>{capacity} PERSON</span>
               </div>
               <div className='flex items-center space-x-1'>
                 <Layers2 />
@@ -49,7 +49,7 @@ const CardSpace = ({ shopName, roomName, description, imgSrc, price, size, perso
             </div>
             <div className='flex flex-col space-y-2 mb-4'>
               {/* Shop Name */}
-              <h3 className='text-lg font-bold text-[#1d9447]'>{shopName || 'Cloudy Coffee'}</h3>
+              <h3 className='text-lg font-bold text-[#1d9447]'>{storeName || 'Cloudy Coffee'}</h3>
 
               {/* Room Name */}
               <h2 className='text-2xl font-semibold'>{roomName || 'Room 023'}</h2>
