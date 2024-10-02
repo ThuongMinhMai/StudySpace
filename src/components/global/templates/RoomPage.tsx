@@ -135,10 +135,13 @@ function RoomPage() {
               }
             }}
           >
+           {cardData.length >0 && (
             <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
-              <SlidersHorizontal className='w-4 h-4' />
-              Filter
-            </Button>
+            <SlidersHorizontal className='w-4 h-4' />
+            Filter
+          </Button>
+          )}
+           
           </ConfigProvider>
         </div>
 
@@ -162,7 +165,15 @@ function RoomPage() {
             ))}
           </Row>
         ) : cardData?.length === 0 ? (
-          <div className='text-center text-lg font-semibold'>No rooms available at the moment</div>
+          <div className='flex justify-center items-center flex-col my-10'>
+            <img
+              className='w-96'
+              src='https://cdni.iconscout.com/illustration/premium/thumb/no-search-found-illustration-download-in-svg-png-gif-file-formats--not-seach-available-nothing-error-state-pack-seo-web-illustrations-2133696.png?f=webp'
+              alt='not available search'
+            />
+            <div className='text-center text-lg font-semibold text-gray-500'>No rooms available at the moment. </div>
+            <div className='text-center text-xl font-bold text-[#647C6C]'>Please change your search conditions!</div>
+          </div>
         ) : (
           <Row gutter={[32, 16]} justify='center'>
             {cardData?.map((card, index) => (
@@ -191,13 +202,15 @@ function RoomPage() {
           }}
         >
           {/* Pagination Controls */}
-          <Pagination
-            current={currentPage}
-            total={totalPages * pageSize} // Assuming total number of items is totalPages * pageSize
-            pageSize={pageSize}
-            onChange={handlePaginationChange}
-            className='m-auto'
-          />
+          {cardData.length >0 && (
+            <Pagination
+              current={currentPage}
+              total={totalPages * pageSize} // Assuming total number of items is totalPages * pageSize
+              pageSize={pageSize}
+              onChange={handlePaginationChange}
+              className='m-auto'
+            />
+          )}
         </ConfigProvider>
       </div>
     </div>
