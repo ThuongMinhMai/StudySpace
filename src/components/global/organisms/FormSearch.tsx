@@ -1,30 +1,65 @@
-import { Button, Col, ConfigProvider, Form, Row, Select } from 'antd'
+import { Button, Col, ConfigProvider, Form, Row, Select, Spin } from 'antd'
 import { Box, MapPin, Rocket, SearchCheck, UserRound } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 const { Option } = Select
 
 function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initialPersons, onSearchChange }: any) {
   console.log("nhan ơ form", initialTypeSpace)
   const [form] = Form.useForm() // Create a form instance
-  const locations = [
-    'All',
-    'District 1',
-    'District 2',
-    'District 3',
-    'District Bình Thạnh',
-    'Thủ Đức City',
-    'District 9',
-    'District 7',
-    'District 10',
-    'District 8',
-    'District 5'
-  ]
+  const [locations, setLocations] = useState<string[]>([])
+  const [typeSpace, setTypeSpace] = useState<string[]>([])
+  const [loadingLocations, setLoadingLocations] = useState(true)
+  const [loadingTypeSpace, setLoadingTypeSpace] = useState(true)
+  // const locations = [
+  //   'All',
+  //   'District 1',
+  //   'District 2',
+  //   'District 3',
+  //   'District Bình Thạnh',
+  //   'Thủ Đức City',
+  //   'District 9',
+  //   'District 7',
+  //   'District 10',
+  //   'District 8',
+  //   'District 5'
+  // ]
+  useEffect(() => {
+    // Fetch locations from API
+    setLoadingLocations(true)
+    studySpaceAPI.get('/Stores/address')
+      .then(response => {
+        setLocations(response.data.data)
+        console.log("loation", response.data.data)
+      })
+      
+      .catch(error => {
+        console.error('Error fetching locations:', error)
+      })
+      .finally(() => {
+        setLoadingLocations(false)
+      })
+
+    // Fetch typeSpace from API
+    setLoadingTypeSpace(true)
+    studySpaceAPI.get('/Space/name')
+      .then(response => {
+        setTypeSpace(response.data.data)
+      })
+      .catch(error => {
+        console.error('Error fetching typeSpace:', error)
+      })
+      .finally(() => {
+        setLoadingTypeSpace(false)
+      })
+  }, [])
+
   useEffect(() => {
     // Reset the form fields when props change
     form.resetFields()
   }, [initialLocation, initialTypeSpace, initialPersons])
   // const typeRoom = ['All', 'Office', 'Co-working', 'Meeting room']
-  const typeSpace = ['All', 'Library Space', 'Coffee Space', 'Meeting Room']
+  // const typeSpace = ['All', 'Library Space', 'Coffee Space', 'Meeting Room']
 
   // Generate options for number of persons
   const numberOptions = Array.from({ length: 10 }, (_, i) => i + 1)
@@ -73,7 +108,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                 name='location'
                 className='w-full m-auto'
               >
-                <Select
+                {/* <Select
                   showSearch
                   placeholder='Select Location'
                   optionFilterProp='children'
@@ -85,7 +120,26 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                       {location}
                     </Option>
                   ))}
-                </Select>
+                </Select> */}
+                 {loadingLocations ? (
+                  <Spin /> // Loading spinner for locations
+                ) : (
+                  <Select
+                    showSearch
+                    placeholder='Select Location'
+                    optionFilterProp='children'
+                    filterOption={(input, option: any) =>
+                      option.children.toLowerCase().includes(input.toLowerCase())
+                    }
+                    className='rounded-lg w-full'
+                  >
+                    {locations?.map(location => (
+                      <Option key={location} value={location}>
+                        {location}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </Form.Item>
             </Col>
             <Col xs={24} sm={12} md={6} className='flex gap-1 justify-center items-center'>
@@ -97,13 +151,24 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                 name='typeSpace'
                 className='w-full m-auto'
               >
-                <Select placeholder='Select Type' className='rounded-lg w-full'>
+                {/* <Select placeholder='Select Type' className='rounded-lg w-full'>
                   {typeSpace.map((typeSpace) => (
                     <Option key={typeSpace} value={typeSpace}>
                       {typeSpace}
                     </Option>
                   ))}
-                </Select>
+                </Select> */}
+                  {loadingTypeSpace ? (
+                  <Spin /> // Loading spinner for typeSpace
+                ) : (
+                  <Select placeholder='Select Type' className='rounded-lg w-full'>
+                    {typeSpace?.map(space => (
+                      <Option key={space} value={space}>
+                        {space}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </Form.Item>
             </Col>
             {/* Type Room Select */}
