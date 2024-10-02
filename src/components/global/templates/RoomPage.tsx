@@ -54,10 +54,10 @@ function RoomPage() {
     setFormValues(updatedFormValues)
     fetchData(updatedFormValues, currentPage) // Fetch data with current page
     setFilters({
-      priceSort: 'all',
-      ratingSort: 'all',
+      priceSort: 'All',
+      ratingSort: 'All',
       priceRange: [0, 1000],
-      selectedUtilities: 'all'
+      selectedUtilities: 'All'
     })
   }, [location.search, currentPage]) // Add currentPage to dependencies
 
@@ -99,10 +99,10 @@ function RoomPage() {
 
   const handleClearFilters = () => {
     setFilters({
-      priceSort: 'all',
-      ratingSort: 'all',
+      priceSort: 'All',
+      ratingSort: 'All',
       priceRange: [0, 1000],
-      selectedUtilities: 'all'
+      selectedUtilities: 'All'
     })
   }
 

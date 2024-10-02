@@ -1,5 +1,6 @@
-import { Radio, Checkbox, Slider, Button, ConfigProvider } from 'antd'
-import { useState } from 'react'
+import { Radio, Checkbox, Slider, Button, ConfigProvider, Spin, Alert } from 'antd'
+import { useEffect, useState } from 'react'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 
 const utilitiesOptions = ['WiFi', 'Water', 'Air Conditioning', 'Heating', 'Parking']
 
@@ -9,13 +10,33 @@ interface FilterComponentProps {
 }
 
 const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onClearFilters }) => {
-  const [priceSort, setPriceSort] = useState<'highest' | 'lowest' | 'all'>('all')
+  const [priceSort, setPriceSort] = useState<'highest' | 'lowest' | 'All'>('All')
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
-  const [selectedUtilities, setSelectedUtilities] = useState<string[]>(utilitiesOptions) // Set default to all utilities
+  // const [selectedUtilities, setSelectedUtilities] = useState<string[]>(utilitiesOptions) // Set default to all utilities
+  const [selectedUtilities, setSelectedUtilities] = useState<string[]>([]); // Updated to initialize as empty
+  const [utilitiesOptions, setUtilitiesOptions] = useState<string[]>([]); // State to hold fetched utilities
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [error, setError] = useState<string | null>(null); // Error state
 
+  useEffect(() => {
+    const fetchUtilities = async () => {
+      try {
+        setLoading(true);
+        const response = await studySpaceAPI.get('/Amity/name'); 
+        setUtilitiesOptions(response.data.data); 
+        setSelectedUtilities(response.data.data); 
+      } catch (err) {
+        setError('Failed to fetch utilities.'); // Handle error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUtilities();
+  }, []);
   const handleApplyFilters = () => {
     const filters = {
-      priceSort: priceSort === 'all' ? 'all' : priceSort,
+      priceSort: priceSort === 'All' ? 'All' : priceSort,
       priceRange,
       selectedUtilities: selectedUtilities.length === 0 ? utilitiesOptions : selectedUtilities, // Ensure it defaults to all
     }
@@ -24,7 +45,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onCle
   }
 
   const handleClearFilters = () => {
-    setPriceSort('all')
+    setPriceSort('All')
     setPriceRange([0, 1000])
     setSelectedUtilities(utilitiesOptions) // Reset to all utilities on clear
 
@@ -40,17 +61,18 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onCle
           },
           components: {
             Button: {
-              colorTextLightSolid: '#647C6C',
             },
           },
         }}
       >
         <div className="filter-container w-4/5 flex flex-col gap-5 text-lg">
+        {loading && <Spin tip="Loading utilities..." />}
+        {error && <Alert message={error} type="error" showIcon closable />}
           {/* Price Sorting */}
           <div className="filter-section">
             <p>Sort by Price:</p>
             <Radio.Group value={priceSort} onChange={(e) => setPriceSort(e.target.value)}>
-              <Radio value="all">All</Radio>
+              <Radio value="All">All</Radio>
               <Radio value="highest">Highest Price</Radio>
               <Radio value="lowest">Lowest Price</Radio>
             </Radio.Group>
