@@ -1,9 +1,9 @@
 import { Card, ConfigProvider } from 'antd'
-import { Layers2, Scaling, User } from 'lucide-react'
+import { Layers2, MapPin, Scaling, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 const { Meta } = Card
 
-const CardSpace = ({ storeName, roomName, description, imgSrc, price, area, capacity, type }: any) => {
+const CardSpace = ({roomId, storeName, roomName, description, imgSrc, price, area, capacity, type, address }: any) => {
   return (
     <div className='relative min-w-80 mx-auto shadow-lg max-w-[350px]'>
       <ConfigProvider
@@ -53,6 +53,11 @@ const CardSpace = ({ storeName, roomName, description, imgSrc, price, area, capa
 
               {/* Room Name */}
               <h2 className='text-2xl font-semibold'>{roomName || 'Room 023'}</h2>
+              <div className='flex justify-start items-center gap-2 font-medium'>
+
+              <MapPin className='w-5 h-5' color='red'/>
+              <p>{address}</p>
+              </div>
             </div>
 
             {/* Description */}

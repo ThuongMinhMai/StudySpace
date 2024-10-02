@@ -11,6 +11,7 @@ import SkeletonCarder from '../organisms/SkeletonCarder'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 
 interface Room {
+  roomId: number
   roomName: string
   storeName: string
   capacity: number
@@ -19,6 +20,8 @@ interface Room {
   status: boolean
   area: number
   type: string
+  address: string
+  image: string
 }
 
 function RoomPage() {
@@ -37,7 +40,7 @@ function RoomPage() {
   const [formValues, setFormValues] = useState({
     location: searchParams.get('location') || 'All',
     typeSpace: searchParams.get('typeSpace') || 'All',
-    persons: parseInt(searchParams.get('persons') || '2', 10)
+    persons: parseInt(searchParams.get('persons') || '0', 10)
   })
 
   useEffect(() => {
@@ -45,8 +48,9 @@ function RoomPage() {
     const updatedFormValues = {
       location: searchParams.get('location') || 'All',
       typeSpace: searchParams.get('typeSpace') || 'All',
-      persons: parseInt(searchParams.get('persons') || '2', 10)
+      persons: parseInt(searchParams.get('persons') || '0', 10)
     }
+    console.log(updatedFormValues.persons)
     setFormValues(updatedFormValues)
     fetchData(updatedFormValues, currentPage) // Fetch data with current page
     setFilters({
@@ -135,13 +139,12 @@ function RoomPage() {
               }
             }}
           >
-           {cardData.length >0 && (
-            <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
-            <SlidersHorizontal className='w-4 h-4' />
-            Filter
-          </Button>
-          )}
-           
+            {cardData.length > 0 && (
+              <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
+                <SlidersHorizontal className='w-4 h-4' />
+                Filter
+              </Button>
+            )}
           </ConfigProvider>
         </div>
 
@@ -180,10 +183,12 @@ function RoomPage() {
               <Col key={index} sm={24} md={12} lg={8}>
                 <div className='mb-10'>
                   <CardSpace
+                    roomId={card.roomId}
+                    address={card.address}
                     storeName={card.storeName}
                     roomName={card.roomName}
                     description={card.description}
-                    imgSrc={ImgHeader}
+                    imgSrc={card.image}
                     price={card.pricePerHour}
                     capacity={card.capacity}
                     area={card.area}
@@ -202,7 +207,7 @@ function RoomPage() {
           }}
         >
           {/* Pagination Controls */}
-          {cardData.length >0 && (
+          {cardData.length > 0 && (
             <Pagination
               current={currentPage}
               total={totalPages * pageSize} // Assuming total number of items is totalPages * pageSize

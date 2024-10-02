@@ -5,7 +5,7 @@ import studySpaceAPI from '../../../lib/studySpaceAPI'
 const { Option } = Select
 
 function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initialPersons, onSearchChange }: any) {
-  console.log("nhan ơ form", initialTypeSpace)
+  console.log('nhan ơ form', initialPersons)
   const [form] = Form.useForm() // Create a form instance
   const [locations, setLocations] = useState<string[]>([])
   const [typeSpace, setTypeSpace] = useState<string[]>([])
@@ -27,13 +27,14 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
   useEffect(() => {
     // Fetch locations from API
     setLoadingLocations(true)
-    studySpaceAPI.get('/Stores/address')
-      .then(response => {
+    studySpaceAPI
+      .get('/Stores/address')
+      .then((response) => {
         setLocations(response.data.data)
-        console.log("loation", response.data.data)
+        console.log('loation', response.data.data)
       })
-      
-      .catch(error => {
+
+      .catch((error) => {
         console.error('Error fetching locations:', error)
       })
       .finally(() => {
@@ -42,11 +43,12 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
 
     // Fetch typeSpace from API
     setLoadingTypeSpace(true)
-    studySpaceAPI.get('/Space/name')
-      .then(response => {
+    studySpaceAPI
+      .get('/Space/name')
+      .then((response) => {
         setTypeSpace(response.data.data)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching typeSpace:', error)
       })
       .finally(() => {
@@ -62,7 +64,11 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
   // const typeSpace = ['All', 'Library Space', 'Coffee Space', 'Meeting Room']
 
   // Generate options for number of persons
-  const numberOptions = Array.from({ length: 10 }, (_, i) => i + 1)
+  // const numberOptions = Array.from({ length: 10 }, (_, i) => i + 1)
+  const numberOptions = [
+    { value: 0, label: 'All' }, // Add this line
+    ...Array.from({ length: 10 }, (_, i) => ({ value: i + 1, label: (i + 1).toString() }))
+  ]
 
   const onFinish = (values: any) => {
     onSearchChange(values)
@@ -80,7 +86,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
     >
       <div className='header_room w-3/5 mx-auto p-6 pr-20 bg-white shadow-lg flex justify-center items-center rounded-lg  '>
         <Form
-        className=' flex-1 lg:ml-10'
+          className=' flex-1 lg:ml-10'
           form={form} // Assign the form instance to the Form component
           layout='vertical'
           onFinish={onFinish}
@@ -94,7 +100,7 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
             location: initialLocation || 'All', // Set initial value for Location
             typeSpace: initialTypeSpace || 'All', // Set initial value for Type Space
             // typeRoom: initialTypeRoom || 'All', // Set initial value for Type Room
-            persons: initialPersons || 2 // Set initial value for Number of Persons
+            persons: initialPersons || 0 // Set initial value for Number of Persons
           }}
         >
           <Row gutter={[16, 16]} justify='center' align='middle'>
@@ -108,32 +114,17 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                 name='location'
                 className='w-full m-auto'
               >
-                {/* <Select
-                  showSearch
-                  placeholder='Select Location'
-                  optionFilterProp='children'
-                  filterOption={(input, option: any) => option.children.toLowerCase().includes(input.toLowerCase())}
-                  className='rounded-lg w-full'
-                >
-                  {locations.map((location) => (
-                    <Option key={location} value={location}>
-                      {location}
-                    </Option>
-                  ))}
-                </Select> */}
-                 {loadingLocations ? (
+                {loadingLocations ? (
                   <Spin /> // Loading spinner for locations
                 ) : (
                   <Select
                     showSearch
                     placeholder='Select Location'
                     optionFilterProp='children'
-                    filterOption={(input, option: any) =>
-                      option.children.toLowerCase().includes(input.toLowerCase())
-                    }
+                    filterOption={(input, option: any) => option.children.toLowerCase().includes(input.toLowerCase())}
                     className='rounded-lg w-full'
                   >
-                    {locations?.map(location => (
+                    {locations?.map((location) => (
                       <Option key={location} value={location}>
                         {location}
                       </Option>
@@ -158,11 +149,11 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                     </Option>
                   ))}
                 </Select> */}
-                  {loadingTypeSpace ? (
+                {loadingTypeSpace ? (
                   <Spin /> // Loading spinner for typeSpace
                 ) : (
                   <Select placeholder='Select Type' className='rounded-lg w-full'>
-                    {typeSpace?.map(space => (
+                    {typeSpace?.map((space) => (
                       <Option key={space} value={space}>
                         {space}
                       </Option>
@@ -204,9 +195,9 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
                 className='w-full m-auto'
               >
                 <Select placeholder='Select Number' className='rounded-lg w-full'>
-                  {numberOptions.map((number) => (
-                    <Option key={number} value={number}>
-                      {number}
+                  {numberOptions.map((option) => (
+                    <Option key={option.value} value={option.value} >
+                      {option.label}
                     </Option>
                   ))}
                 </Select>
