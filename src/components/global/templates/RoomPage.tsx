@@ -33,7 +33,7 @@ function RoomPage() {
   const [cardData, setCardData] = useState<Room[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1) // Current page state
   const [totalPages, setTotalPages] = useState<number>(0) // Total pages state
-  const pageSize = 6 // Number of items per page
+  const pageSize = 2 // Number of items per page
 
   const searchParams = new URLSearchParams(location.search)
 
@@ -64,7 +64,7 @@ function RoomPage() {
 
   useEffect(() => {
     fetchDataFilter(formValues, currentPage, filters)
-  }, [currentPage])
+  }, [currentPage,filters])
 
   const fetchData = async (value: any, page: number) => {
     setLoading(true)
@@ -163,7 +163,7 @@ function RoomPage() {
 
   const handlePaginationChange = (page: number) => {
     setCurrentPage(page)
-    fetchData(formValues, page) // Fetch data for the selected page
+    // fetchData(formValues, page) // Fetch data for the selected page
   }
 
   const handleClearFilters = () => {
