@@ -13,7 +13,7 @@ const CardSpace = ({roomId, storeName, roomName, description, imgSrc, price, are
           }
         }}
       >
-        <Link to='/detail'>
+        <Link to={`/detail/${roomId}`} >
           <Card
             hoverable
             cover={

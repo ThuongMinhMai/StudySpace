@@ -1,22 +1,22 @@
-import { CigaretteOff, MilkOff, Speech } from 'lucide-react'
+// Assuming you are using React
+import { TriangleAlert } from 'lucide-react'
+import React from 'react'
 
-function HouseRule() {
+interface HouseRuleProps {
+  houseRule: string[]
+}
+
+const HouseRule: React.FC<HouseRuleProps> = ({ houseRule }) => {
   return (
     <div>
       <div className='text-2xl mb-6 font-medium'>House Rules</div>
       <div className='flex flex-col gap-5'>
-        <div className='flex justify-start items-center'>
-          <CigaretteOff className='mr-2' color='#647C6C' fill='#647C6C' />
-          <p>No smoking area</p>
-        </div>
-        <div className='flex justify-start items-center'>
-          <Speech className='mr-2' color='#647C6C' fill='#647C6C' />
-          <p>Don’t talk too loudly</p>
-        </div>
-        <div className='flex justify-start items-center'>
-          <MilkOff className='mr-2' color='#647C6C' fill='#647C6C' />
-          <p>No food from outside</p>
-        </div>
+        {houseRule.map((rule, index) => (
+          <div className='flex justify-start items-center' key={index}>
+            <TriangleAlert className='mr-2' color='white' fill='#647C6C' />
+            <p>{rule}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

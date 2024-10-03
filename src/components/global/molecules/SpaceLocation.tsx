@@ -1,22 +1,20 @@
 import React from 'react'
 
 interface SpaceLocationProps {
-  name: string
   address: string
-  city: string
-  postalCode: string
+  storeName: string
   latitude: number
-  longitude: number
+  longtitude: number
 }
 
-const SpaceLocation: React.FC<SpaceLocationProps> = ({ name, address, city, postalCode, latitude, longitude }) => {
-  const googleMapsUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=en&z=14&output=embed`
+const SpaceLocation: React.FC<SpaceLocationProps> = ({ storeName, address, latitude, longtitude }) => {
+  const googleMapsUrl = `https://maps.google.com/maps?q=${latitude},${longtitude}&hl=en&z=14&output=embed`
 
   return (
     <div className='flex flex-col md:flex-row gap-5'>
       <div className='flex flex-col gap-5 w-full md:w-1/2'>
-        <p className='text-2xl font-medium'>{name} Location</p>
-        <p>{address}, {city}, {postalCode}</p>
+        <p className='text-2xl font-medium'>{storeName} Location</p>
+        <p>{address} </p>
         {/* <p className='text-2xl font-medium'>What’s nearby</p>
         <div className='flex flex-col gap-2'>
           <p>
