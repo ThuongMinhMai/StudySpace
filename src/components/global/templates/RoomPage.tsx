@@ -228,7 +228,7 @@ function RoomPage() {
           width='40%'
           className='filter-drawer'
         >
-          <FilterComponent onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
+          <FilterComponent currentFilters={filters}  onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
         </Drawer>
 
         {loading ? (

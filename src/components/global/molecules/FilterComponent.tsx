@@ -7,9 +7,10 @@ const utilitiesOptions = ['WiFi', 'Water', 'Air Conditioning', 'Heating', 'Parki
 interface FilterComponentProps {
   onFilterChange: (filters: any) => void
   onClearFilters: () => void
+  currentFilters: any
 }
 
-const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onClearFilters }) => {
+const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onClearFilters,currentFilters }) => {
   const [priceSort, setPriceSort] = useState<'highest' | 'lowest' | 'All'>('All')
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
   // const [selectedUtilities, setSelectedUtilities] = useState<string[]>(utilitiesOptions) // Set default to all utilities
@@ -17,7 +18,11 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onCle
   const [utilitiesOptions, setUtilitiesOptions] = useState<string[]>([]); // State to hold fetched utilities
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const [error, setError] = useState<string | null>(null); // Error state
-
+  useEffect(() => {
+    setPriceSort(currentFilters.priceSort || 'All')
+    setPriceRange(currentFilters.priceRange || [0, 1000])
+    setSelectedUtilities(currentFilters.selectedUtilities || [])
+  }, [currentFilters])
   useEffect(() => {
     const fetchUtilities = async () => {
       try {
