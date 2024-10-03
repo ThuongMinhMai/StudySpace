@@ -6,13 +6,13 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import star from '../../../assets/star-fill.svg'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 import Amentities from '../molecules/Amentities'
 import BookingForm from '../molecules/BookingForm'
 import FeedbackGallery from '../molecules/FeedbackGallery'
 import HouseRule from '../molecules/HouseRule'
 import RelatedRoom from '../molecules/RelatedRoom'
 import SpaceLocation from '../molecules/SpaceLocation'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
 interface RelatedRoom {
   roomId: number
   roomName: string
@@ -222,7 +222,7 @@ function Detail() {
             </p> */}
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
-            <Amentities aminities={roomDetail?.aminities||[]} />
+            <Amentities aminities={roomDetail?.aminities || []} />
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
             <HouseRule houseRule={roomDetail?.houseRule.split(',') || []} />

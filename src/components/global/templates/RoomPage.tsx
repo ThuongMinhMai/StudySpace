@@ -1,14 +1,13 @@
 import { Button, Col, ConfigProvider, Drawer, Pagination, Row } from 'antd'
-import axios from 'axios'
 import { SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ImgHeader from '../../../assets/ImagerHeader.png'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 import FilterComponent from '../molecules/FilterComponent'
 import CardSpace from '../organisms/CardSpace'
 import FormSearch from '../organisms/FormSearch'
 import SkeletonCarder from '../organisms/SkeletonCarder'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
 
 interface Room {
   roomId: number
@@ -60,11 +59,11 @@ function RoomPage() {
     })
     fetchData(updatedFormValues, currentPage) // Fetch data with current page
   }, [location.search]) // Add currentPage to dependencies
-  console.log("locationsearch", filters)
+  console.log('locationsearch', filters)
 
   useEffect(() => {
     fetchDataFilter(formValues, currentPage, filters)
-  }, [currentPage,filters])
+  }, [currentPage, filters])
 
   const fetchData = async (value: any, page: number) => {
     setLoading(true)
@@ -229,7 +228,11 @@ function RoomPage() {
           width='40%'
           className='filter-drawer'
         >
-          <FilterComponent currentFilters={filters}  onFilterChange={handleFilterChange} onClearFilters={handleClearFilters} />
+          <FilterComponent
+            currentFilters={filters}
+            onFilterChange={handleFilterChange}
+            onClearFilters={handleClearFilters}
+          />
         </Drawer>
 
         {loading ? (

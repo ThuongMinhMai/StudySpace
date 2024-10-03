@@ -9,7 +9,7 @@ import Footer from '../organisms/FooterForHomePage'
 import HeaderHomePage from '../organisms/HeaderHomePage'
 import Offer from '../organisms/Offer'
 import Test from '../organisms/Test'
-const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
+const HomePage = ({ isSearchOpen, toggleSearch }: any) => {
   React.useEffect(() => {
     const scrollRevealOption = {
       distance: '50px',
@@ -48,18 +48,16 @@ const HomePage = ({ isSearchOpen, toggleSearch }:any) => {
 
   return (
     <div className='body'>
-      
-     
-      <HeaderHomePage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch}  />
-     
+      <HeaderHomePage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />
+
       {/* <FormSearch /> */}
       <AboutUs />
       <Feature />
       <Explore />
       <Offer />
       {/* <Testimonial /> */}
-      <Test/>
-      <Faq/>
+      <Test />
+      <Faq />
       <Footer />
     </div>
   )

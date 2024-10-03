@@ -1,13 +1,9 @@
-import { CircleCheck } from 'lucide-react'
-import './AboutUs.css'
-import { useEffect, useState } from 'react'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
 import OfferCard from '../molecules/OfferCard'
+import './AboutUs.css'
 
 function Offer() {
   return (
     <div className='relative bg-gradient-to-r from-[#ffefbd] to-[#FFFFFF] mt-64'>
-      
       <div className='box absolute -top-64 left-0 '></div>
 
       <section className='room__container lg:px-44 lg:py-20 md:px-6 md:py-10 sm:p-6 p-4'>

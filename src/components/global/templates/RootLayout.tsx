@@ -1,10 +1,10 @@
+import React from 'react'
 import { Outlet } from 'react-router-dom'
+import ScrollReveal from 'scrollreveal'
 import Header from '../../../components/global/organisms/Header'
 import Footer from '../organisms/Footer'
-import React from 'react'
-import ScrollReveal from 'scrollreveal'
 
-function RootLayout({ isSearchOpen, toggleSearch }:any) {
+function RootLayout({ isSearchOpen, toggleSearch }: any) {
   React.useEffect(() => {
     const scrollRevealOption = {
       distance: '50px',
@@ -13,7 +13,7 @@ function RootLayout({ isSearchOpen, toggleSearch }:any) {
     }
     const revealElements = [
       { selector: '.header__image', options: { ...scrollRevealOption } },
-      { selector: '.header_room', options: { ...scrollRevealOption ,delay:300} },
+      { selector: '.header_room', options: { ...scrollRevealOption, delay: 300 } },
       { selector: '.header__container h1', options: { ...scrollRevealOption, delay: 500 } },
       { selector: '.about__image img', options: { ...scrollRevealOption, origin: 'left' } },
       { selector: '.about__content .section__subheader', options: { ...scrollRevealOption, delay: 500 } },
@@ -42,16 +42,16 @@ function RootLayout({ isSearchOpen, toggleSearch }:any) {
   }, [])
 
   return (
-    <div className="h-screen relative">
+    <div className='h-screen relative'>
       {/* Pass isSearchOpen and toggleSearch to Header */}
       <Header isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />
-      <div className="flex min-h-[70%] pt-10">
+      <div className='flex min-h-[70%] pt-10'>
         {/* The Outlet will pass context to nested routes like RoomPage */}
         <Outlet context={{ isSearchOpen, toggleSearch }} />
       </div>
       <Footer />
     </div>
-  );
+  )
 }
 
 export default RootLayout

@@ -1,11 +1,11 @@
 import { Button, Col, ConfigProvider, DatePicker, Form, Input, Radio, Row, TimePicker } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios' // Assuming axios is used for making API requests
-import logoMini from '../../../assets/LOGO SS 04.png'
+import axios from 'axios'; // Assuming axios is used for making API requests
 import moment from 'moment'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import logoMini from '../../../assets/LOGO SS 04.png'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 function SignUpInformation() {
   const [role, setRole] = useState<'supplier' | 'user'>('user')
   const [loading, setLoading] = useState(false)

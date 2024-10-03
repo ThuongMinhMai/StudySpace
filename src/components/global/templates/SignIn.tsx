@@ -1,10 +1,8 @@
-import React from 'react'
-import { Form, Input, Button, ConfigProvider, Tooltip } from 'antd'
+import { Button, ConfigProvider, Form, Input, Tooltip } from 'antd'
+import { Undo2 } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import logoMini from '../../../assets/LOGO SS 04.png'
 import { useAuth } from '../../../auth/AuthProvider'
-import axios from 'axios'
-import { Home, Undo2 } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
 function SignIn() {
   const { login, loginWithGG, loadingGG, loading } = useAuth()
   const navigate = useNavigate()
@@ -47,9 +45,12 @@ function SignIn() {
 
         {/* Form Section */}
         <div className='flex-1 relative flex items-center justify-center p-8'>
-          <Tooltip title='Return' color='#647C6C'
-          >
-            <Undo2  strokeWidth={1} className='absolute right-10 top-10 hover:text-[#647C6C] cursor-pointer'   onClick={handleReturn}/>
+          <Tooltip title='Return' color='#647C6C'>
+            <Undo2
+              strokeWidth={1}
+              className='absolute right-10 top-10 hover:text-[#647C6C] cursor-pointer'
+              onClick={handleReturn}
+            />
           </Tooltip>
 
           <div className='w-1/2 max-w-md'>
@@ -91,7 +92,13 @@ function SignIn() {
                 </Button>
               </Form.Item>
             </Form>
-            <div className='text-center mt-6'>You don't have an account yet?<Link to="/signup" className='text-[#647C6C] hover:underline '> Sign Up</Link></div>
+            <div className='text-center mt-6'>
+              You don't have an account yet?
+              <Link to='/signup' className='text-[#647C6C] hover:underline '>
+                {' '}
+                Sign Up
+              </Link>
+            </div>
           </div>
         </div>
       </div>

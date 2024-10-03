@@ -18,37 +18,37 @@ function SignUp() {
 
   // Handle form submission
   const onFinish = async (values: any) => {
-    setEmail(values.email)  // Store the email to use for resending
-    setIsSending(true)  // Start loading
+    setEmail(values.email) // Store the email to use for resending
+    setIsSending(true) // Start loading
     try {
       // Send a POST request to the signup API
-      const response = await studySpaceAPI.post('/Accounts/email-sending-confirmation', values.email )
+      const response = await studySpaceAPI.post('/Accounts/email-sending-confirmation', values.email)
       console.log(response.data)
 
       // Add slide-out animation for the form
       setSlideOut(true)
       setTimeout(() => {
         setIsSignedUp(true)
-        setIsSending(false)  // Stop loading
+        setIsSending(false) // Stop loading
       }, 500) // Wait for the form to slide out before showing success
     } catch (error) {
       console.error('Signup failed', error)
-      setIsSending(false)  // Stop loading
+      setIsSending(false) // Stop loading
     }
   }
 
   // Handle resend email action
   const handleResendEmail = async () => {
-    setIsResending(true)  // Start loading
+    setIsResending(true) // Start loading
     try {
       // Send a POST request to resend confirmation email
-      const response = await studySpaceAPI.post('/Accounts/send-confirm-mail',  email )
-      toast.success("Email resent successfully")
+      const response = await studySpaceAPI.post('/Accounts/send-confirm-mail', email)
+      toast.success('Email resent successfully')
       console.log('Resend email response:', response.data)
-      setIsResending(false)  // Stop loading
+      setIsResending(false) // Stop loading
     } catch (error) {
       console.error('Resend email failed', error)
-      setIsResending(false)  // Stop loading
+      setIsResending(false) // Stop loading
     }
   }
 
@@ -78,12 +78,9 @@ function SignUp() {
               </div>
 
               <div className='flex flex-col justify-center items-center mt-10 '>
-                <h2 className='text-4xl font-semibold text-gray-800 mb-4 animate-slide-in'>
-                  Sign Up Successful!
-                </h2>
+                <h2 className='text-4xl font-semibold text-gray-800 mb-4 animate-slide-in'>Sign Up Successful!</h2>
                 <p className='text-gray-600 text-lg mb-6'>
-                  Thank you for signing up! Please check your email to confirm your registration and
-                  complete the setup.
+                  Thank you for signing up! Please check your email to confirm your registration and complete the setup.
                 </p>
                 <p className='text-gray-500'>
                   Didn’t receive the email? Check your spam folder or{' '}
