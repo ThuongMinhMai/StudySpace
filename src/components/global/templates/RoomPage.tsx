@@ -33,7 +33,7 @@ function RoomPage() {
   const [cardData, setCardData] = useState<Room[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1) // Current page state
   const [totalPages, setTotalPages] = useState<number>(0) // Total pages state
-  const pageSize = 2 // Number of items per page
+  const pageSize = 6 // Number of items per page
 
   const searchParams = new URLSearchParams(location.search)
 
@@ -200,7 +200,8 @@ function RoomPage() {
 
       <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
         <div className='flex justify-between  items-center lg:px-14 md:px-0 px-36 mb-10'>
-          <h2 className='text-2xl font-semibold'>{cardData?.length || 0} Available Spaces</h2>
+          {/* <h2 className='text-2xl font-semibold'>{cardData?.length || 0} Available Spaces</h2> */}
+          <h2 className='text-2xl font-semibold'>Available Spaces</h2>
           <ConfigProvider
             theme={{
               token: {
