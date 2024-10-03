@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { CircleCheck } from 'lucide-react'
 import Loader from '../organisms/Loader'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../../auth/AuthProvider'
 interface OfferData {
   id: number
   name: string
@@ -16,6 +18,8 @@ interface ApiResponse {
   data: OfferData[]
 }
 function OfferCard() {
+  const { user } = useAuth()
+
   const [offers, setOffers] = useState<OfferData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
@@ -47,7 +51,7 @@ function OfferCard() {
     return <div>{error}</div>
   }
   return (
-        <>
+    <>
       {offers.map((offer) => (
         <div key={offer.id} className='room__card bg-white overflow-hidden rounded-3xl shadow-md'>
           <div className='room__card__details p-4 flex flex-col justify-center items-center gap-10'>
@@ -65,14 +69,15 @@ function OfferCard() {
                 </li>
               ))}
             </ul>
-            <button className='mb-8 px-14 py-3 bg-[#FFA800] text-base rounded-lg text-white font-semibold'>
-              Register
-            </button>
+            {!user && (
+              <Link to='/signup' className='mb-8 px-14 py-3 bg-[#FFA800] text-base rounded-lg text-white font-semibold'>
+                Register
+              </Link>
+            )}
           </div>
         </div>
       ))}
-        </>
-
+    </>
   )
 }
 

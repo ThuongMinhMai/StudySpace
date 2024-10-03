@@ -96,7 +96,13 @@ function Header({ isSearchOpen, toggleSearch }: any) {
                     src={'https://m.media-amazon.com/images/I/51ID6ovRfCL._AC_UF1000,1000_QL80_.jpg'}
                     alt='User avatar'
                   />
-                  <p className='font-medium'>{user?.name}</p>
+                  {/* <p className='font-medium'>{user?.name}</p> */}
+                  <p className='font-medium'>
+                    {user?.name
+                      ?.split(' ')
+                      .filter((_, index, arr) => index === 0 || index === arr.length - 1)
+                      .join(' ')}
+                  </p>
                 </div>
               </Space>
             </a>

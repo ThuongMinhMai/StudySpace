@@ -33,7 +33,7 @@ function RoomPage() {
   const [cardData, setCardData] = useState<Room[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1) // Current page state
   const [totalPages, setTotalPages] = useState<number>(0) // Total pages state
-  const pageSize = 6 // Number of items per page
+  const pageSize = 2 // Number of items per page
 
   const searchParams = new URLSearchParams(location.search)
 
@@ -52,14 +52,19 @@ function RoomPage() {
     }
     console.log(updatedFormValues.persons)
     setFormValues(updatedFormValues)
-    fetchData(updatedFormValues, currentPage) // Fetch data with current page
     setFilters({
       priceSort: 'All',
-      ratingSort: 'All',
+      // ratingSort: 'All',
       priceRange: [0, 1000],
       selectedUtilities: 'All'
     })
-  }, [location.search, currentPage]) // Add currentPage to dependencies
+    fetchData(updatedFormValues, currentPage) // Fetch data with current page
+  }, [location.search]) // Add currentPage to dependencies
+  console.log("locationsearch", filters)
+
+  useEffect(() => {
+    fetchDataFilter(formValues, currentPage, filters)
+  }, [currentPage])
 
   const fetchData = async (value: any, page: number) => {
     setLoading(true)
@@ -70,6 +75,12 @@ function RoomPage() {
       console.log('Data fetched:', response.data.data)
       setCardData(response.data.data.rooms) // Update card data with the fetched results
       setTotalPages(response.data.data.totalCount) // Assuming the response has totalPages
+      setFilters({
+        priceSort: 'All',
+        // ratingSort: 'All',
+        priceRange: [0, 1000],
+        selectedUtilities: 'All'
+      })
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
@@ -84,12 +95,70 @@ function RoomPage() {
     navigate(`?${newParams}`)
     setCurrentPage(1) // Reset to first page on new search
     fetchData(updatedValues, 1) // Fetch data for the first page
+    setFilters({
+      priceSort: 'All',
+      // ratingSort: 'All',
+      priceRange: [0, 1000],
+      selectedUtilities: 'All'
+    })
   }
 
   const handleFilterChange = (newFilters: any) => {
-    setFilters(newFilters)
+    // setFilters(newFilters)
+    const updatedFilters = { ...filters, ...newFilters }
+    setFilters(updatedFilters)
+    console.log('udate filter ơ room page', updatedFilters)
+
     setIsFilterDrawerOpen(false)
+    setCurrentPage(1) // Reset to first page on new search
+
     // Logic to refetch or filter cards based on newFilters goes here
+    fetchDataFilter(formValues, 1, updatedFilters)
+  }
+  const fetchDataFilter = async (value: any, page: number, filterOptions: any) => {
+    setLoading(true)
+    try {
+      // Start building query string
+      const queryParams = new URLSearchParams({
+        pageNumber: page.toString(),
+        pageSize: pageSize.toString(),
+        space: value.typeSpace || 'All',
+        location: value.location || 'All',
+        room: 'All',
+        person: value.persons.toString(),
+        price: filterOptions.priceSort || 'All'
+      })
+
+      // Manually append priceRange values as separate parameters if they exist
+      if (filterOptions.priceRange && Array.isArray(filterOptions.priceRange)) {
+        queryParams.append('priceRange', filterOptions.priceRange[0].toString())
+        queryParams.append('priceRange', filterOptions.priceRange[1].toString())
+      } else {
+        queryParams.append('priceRange', '0')
+        queryParams.append('priceRange', '1000')
+      }
+
+      // Manually add multiple utilities with proper encoding
+      if (Array.isArray(filterOptions.selectedUtilities) && filterOptions.selectedUtilities.length > 0) {
+        filterOptions.selectedUtilities.forEach((utility: string) => {
+          queryParams.append('utilities', encodeURIComponent(utility)) // Properly encode spaces as %20
+        })
+      }
+
+      const queryString = queryParams.toString()
+
+      console.log('Query String:', queryString)
+
+      const response = await studySpaceAPI.get(`/Room/filter?${queryParams}`)
+
+      // Update card data with the fetched results
+      setCardData(response.data.data.rooms)
+      setTotalPages(response.data.data.totalCount) // Assuming the response has total pages
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handlePaginationChange = (page: number) => {
@@ -98,14 +167,19 @@ function RoomPage() {
   }
 
   const handleClearFilters = () => {
-    setFilters({
+    const updatedFilters = {
       priceSort: 'All',
-      ratingSort: 'All',
+      // ratingSort: 'All',
       priceRange: [0, 1000],
       selectedUtilities: 'All'
-    })
-  }
+    }
+    setFilters(updatedFilters)
+    setIsFilterDrawerOpen(false)
+    setCurrentPage(1) // Reset to first page on new search
 
+    // Logic to refetch or filter cards based on newFilters goes here
+    fetchDataFilter(formValues, 1, updatedFilters)
+  }
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
@@ -139,12 +213,10 @@ function RoomPage() {
               }
             }}
           >
-            {cardData.length > 0 && (
-              <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
-                <SlidersHorizontal className='w-4 h-4' />
-                Filter
-              </Button>
-            )}
+            <Button type='default' size='large' onClick={() => setIsFilterDrawerOpen(true)}>
+              <SlidersHorizontal className='w-4 h-4' />
+              Filter
+            </Button>
           </ConfigProvider>
         </div>
 

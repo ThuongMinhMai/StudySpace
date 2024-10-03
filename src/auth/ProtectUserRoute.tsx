@@ -11,7 +11,7 @@ const ProtectUserRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   if (!token) {
     // If token exists, navigate back to the previous page or to the home page as a fallback
     toast.error('Vui lòng đăng nhập để tiếp tục')
-    return <Navigate to={'/login'} replace />
+    return <Navigate to={'/signin'} replace />
   } 
   return <>{children}</>
 }
