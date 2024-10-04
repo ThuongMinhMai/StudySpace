@@ -308,7 +308,7 @@ function Detail() {
             <BookingForm storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
           </div>
         </div>
-        <RelatedRoom />
+        <RelatedRoom relatedRooms ={roomDetail?.relatedRoom}/>
 
         {/* Modal for showing menu images */}
         <Modal
