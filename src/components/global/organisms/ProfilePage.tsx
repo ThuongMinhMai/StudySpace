@@ -67,19 +67,20 @@ function ProfilePage() {
   })
 
   const onSubmit = async (values: any) => {
+    console.log("value ne", values)
     const formData = new FormData()
-    formData.append('name', values.UserName || data?.name)
+    formData.append('name', values.name || data?.name)
     // formData.append('FullName', values.FullName || data?.FullName)
-    formData.append('address', values.Address || data?.address)
-    formData.append('phone', values.PhoneNumber || data?.phone)
+    formData.append('address', values.address || data?.address)
+    formData.append('phone', values.phone || data?.phone)
     formData.append('Password', values.Password)
     formData.append('NewPassword', values.NewPassword)
     formData.append('ConfirmPassword', values.ConfirmPassword)
 
     if (file) {
-      formData.append('Avatar', file)
+      formData.append('AvatarUrl', file)
     } else {
-      formData.append('Avatar', '')
+      formData.append('AvatarUrl', '')
     }
     // Logging form data
     for (let [key, value] of formData.entries()) {
@@ -88,7 +89,7 @@ function ProfilePage() {
     try {
       const response = await updateUserProfile(user?.userID || '', formData)
       setLoading(false)
-      toast.success('Cập nhật profile thành công')
+      // toast.success('Cập nhật profile thành công')
 
       console.log('Profile updated successfully:', response)
       console.log('Profile updated successfully:', response.data)
@@ -97,7 +98,7 @@ function ProfilePage() {
       queryClient.invalidateQueries({ queryKey: ['userDetail', user?.userID] })
     } catch (error: any) {
       setLoading(false)
-      toast.error(error.response?.data?.result?.message || 'Mật khẩu cũ không chính xác!')
+      // toast.error(error.response?.data?.result?.message || 'Mật khẩu cũ không chính xác!')
       console.error('Error updating profile:', error)
     }
   }

@@ -2,8 +2,10 @@ import axios from 'axios';
 import studySpaceAPI from '../lib/studySpaceAPI';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export interface IUserDetail {
+  id:string
   address: string;
   avatarUrl: string;
   dob: string; // Consider using Date type if you need to manipulate dates
@@ -16,6 +18,7 @@ export interface IUserDetail {
   roleName: string;
   wallet: number;
 }
+
 // export const fetchUserDetail = async (userId: string): Promise<IUserDetail> => {
 //   const { data } = await busAPI.get<IUserDetail>(`/user-management/managed-users/${userId}/details`);
 //   return data;
@@ -30,11 +33,35 @@ export const fetchUserDetail = (userId: string) => {
       enabled: !!userId,
     });
   };
-  export const updateUserProfile = async (userId:string,formData: any) => {
+  // export const updateUserProfile = async (userId:string,formData: any) => {
+  //   try {
+  //     const response = await studySpaceAPI.put(`/Accounts/${userId}`, formData); 
+  //     if (response.data.data == null) {
+  //       console.log("me", response.data.message)
+  //       toast.error(response.data.message); // Display error message if no data returned
+  //       return;
+  //     }
+  //     console.log("update", response.data.message)
+  //     return response.data; 
+  //   } catch (error) {
+  //     throw new Error('Error updating user profile'); // Handle errors appropriately in your application
+  //   }
+  // };
+
+  export const updateUserProfile = async (userId: string, formData: any) => {
     try {
-      const response = await studySpaceAPI.put(`/user-management/managed-users/${userId}`, formData); // Adjust the API endpoint and method as per your backend API
-      return response.data; // Assuming the API returns updated user data
+      const response = await studySpaceAPI.put(`/Accounts/${userId}`, formData);
+      
+      // Check if response data is null
+      if (response.data.data == null) {
+        toast.error(response.data.message); // Display error message if no data returned
+      } else {
+        toast.success('User profile updated successfully!'); // Display success message if data is returned
+      }
+      
+      return response.data; // Always return the response data regardless
     } catch (error) {
-      throw new Error('Error updating user profile'); // Handle errors appropriately in your application
+      toast.error('Error updating user profile'); // Handle errors appropriately in your application
+      throw error; // Optional: Re-throw the error for further handling
     }
   };
