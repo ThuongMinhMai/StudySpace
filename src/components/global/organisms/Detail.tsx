@@ -30,7 +30,15 @@ interface ListImages {
   imageMenu: string | null
   imageList: string[]
 }
+interface BookedSlot {
+  start: string; 
+  end: string;   
+}
 
+interface DailyBookedSlots {
+  date: string;        
+  slots: BookedSlot[]; 
+}
 interface RoomDetail {
   roomName: string
   storeName: string
@@ -46,6 +54,7 @@ interface RoomDetail {
   listImages: ListImages
   aminities: string[]
   address: string
+  bookedSlots: DailyBookedSlots[];
   relatedRoom: RelatedRoom[]
 }
 interface ApiResponse<T> {
@@ -115,11 +124,11 @@ function Detail() {
   //   // 'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg'
   //   // 'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
   // ]
-  const images = [
-    'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-    'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
-    'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  ]
+  // const images = [
+  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
+  //   'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
+  //   'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
+  // ]
 
   // const menuImages = [
   //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
@@ -149,16 +158,16 @@ function Detail() {
   //     { start: '14:00', end: '15:00' }
   //   ]
   // }
-  const bookedSlots = [
-    {
-      date: '2024-10-22',
-      slots: [
-        { start: '10:30', end: '11:30' },
-        { start: '14:00', end: '15:00' }
-      ]
-    },
-    { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
-  ]
+  // const bookedSlots = [
+  //   {
+  //     date: '2024-10-22',
+  //     slots: [
+  //       { start: '10:30', end: '11:30' },
+  //       { start: '14:00', end: '15:00' }
+  //     ]
+  //   },
+  //   { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
+  // ]
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>
@@ -239,7 +248,7 @@ function Detail() {
                 <img className='w-8 h-8' src={star} alt='star icon' />
               </div>
             </div>
-            <FeedbackGallery images={images} />
+            {/* <FeedbackGallery images={images} /> */}
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
             <div>
@@ -254,14 +263,14 @@ function Detail() {
           </div>
 
           <div className='flex-[2.5] h-fit sticky top-[95px]'>
-            <BookingForm storeOpenTime='09:00' storeCloseTime='18:00' bookedSlots={bookedSlots} />,
+            <BookingForm storeOpenTime='09:00' storeCloseTime='18:00' bookedSlots={roomDetail?.bookedSlots} />,
           </div>
         </div>
         <RelatedRoom />
 
         {/* Modal for showing menu images */}
         <Modal
-          title={<span className='text-[#647C6C] text-2xl'>{roomDetail?.storeName} Menu</span>}
+          title={<span className='text-[#647C6C] text-2xl'>{roomDetail?.storeName}'s Menu</span>}
           visible={isModalVisible}
           onCancel={handleCancel}
           footer={null}
