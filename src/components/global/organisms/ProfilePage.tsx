@@ -11,6 +11,7 @@ import { useDropzone } from 'react-dropzone'
 import { toast } from 'sonner'
 import avaDefaul from '../../../assets/whychooseus.png'
 import { formatPrice } from '../../../lib/utils'
+import Loaderr from './Loader'
 // import Loading from '@/components/local/login/Loading'
 function ProfilePage() {
   const { user } = useAuth()
@@ -140,9 +141,9 @@ function ProfilePage() {
 
   if (isLoading) {
     return (
-      <div className='flex justify-center items-center min-h-screen w-full'>
-        {/* <Loader /> */}
-        Loading....
+      <div className='flex flex-col justify-center items-center min-h-screen w-full gap-10'>
+        <Loaderr />
+        <p>Loading...</p>
       </div>
     )
   }
@@ -165,7 +166,6 @@ function ProfilePage() {
             },
             components: {
               Button: {
-                colorTextLightSolid: '#000000'
               }
             }
           }}
