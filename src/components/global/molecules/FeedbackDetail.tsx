@@ -4,12 +4,12 @@ import starFillIcon from '@/assets/star-fill.svg'
 import Slider from 'react-slick'
 
 interface Feedback {
-  UserName: string
-  Date: string
-  Desciption: string
-  ImageUrl: string[]
-  Rating: number
-  Avt: string
+  userName: string
+  bookingDate: string
+  reviewText: string
+  images: string[]
+  star: number
+  avatar: string
 }
 
 interface RatingDetailProps {
@@ -57,10 +57,10 @@ function FeedbackDetail({ feedback }: RatingDetailProps) {
             </div>
 
             <div className='flex flex-col justify-center items-start'>
-              <strong className='text-md'>{feedback.UserName}</strong>
+              <strong className='text-md'>{feedback.userName}</strong>
               <div className='text-muted-foreground text-sm flex justify-center items-center gap-1'>
                 <span>Đặt ngày: </span>
-                <span>{formatDate(feedback.Date)}</span>
+                <span>{formatDate(feedback.bookingDate)}</span>
               </div>
             </div>
           </div>
@@ -71,16 +71,16 @@ function FeedbackDetail({ feedback }: RatingDetailProps) {
               .map((_, index) => (
                 <img key={index} src={starFillIcon} className='w-5 h-5' alt='star' />
               ))} */}
-            <Rate allowHalf disabled defaultValue={feedback.Rating} style={{ color: '#e8c915' }} />
+            <Rate allowHalf disabled defaultValue={feedback.star} style={{ color: '#e8c915' }} />
           </div>
         </div>
 
-        <div className='text-foreground text-base text-start'>{feedback.Desciption}</div>
+        <div className='text-foreground text-base text-start'>{feedback.reviewText}</div>
 
         <div className='flex gap-2 mt-2'>
-          {feedback.ImageUrl && feedback.ImageUrl.length > 0 && (
+          {feedback.images && feedback.images.length > 0 && (
             <>
-              {feedback.ImageUrl.map((img, index) => (
+              {feedback.images.map((img, index) => (
                 <img
                   key={index}
                   className='object-cover w-24 h-32 rounded cursor-pointer aspect-square'
@@ -93,7 +93,7 @@ function FeedbackDetail({ feedback }: RatingDetailProps) {
               {/* Modal for image gallery */}
               <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} centered width={800}>
                 <Slider {...settings}>
-                  {feedback.ImageUrl.map((img, index) => (
+                  {feedback.images.map((img, index) => (
                     <div key={index} className='flex justify-center items-center '>
                       <img
                         src={img}

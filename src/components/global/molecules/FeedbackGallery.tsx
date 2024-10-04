@@ -1,19 +1,32 @@
 import { Modal, Popover, Rate, Tooltip } from 'antd'
 import { ArrowLeft, ArrowRight, ExternalLink, Maximize, Minimize, Minimize2 } from 'lucide-react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import FeedbackDetail from './FeedbackDetail'
-
-const FeedbackGallery = ({images }: any) => {
+import studySpaceAPI from '../../../lib/studySpaceAPI'
+interface FeedbackDetailData {
+  feedbackId: number
+  status: boolean
+  star: number
+  userName: string
+  userAvaUrl: string
+  reviewText: string
+  bookingDate: string
+  feedbackImages: string[]
+}
+const FeedbackGallery = ({ images }: any) => {
+  const {id} = useParams()
   const totalImages = images.length
-  console.log("anhd", images[0])
+  console.log('anhd', images[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false) // State to track if "See All" is clicked
   const [modalImage, setModalImage] = useState('')
   const [modalText, setModalText] = useState('')
-
+  const [modalFeedback, setModalFeedback] = useState<FeedbackDetailData | null>(null)
+  const [allFeedback, setAllFeedback] = useState<FeedbackDetailData[]>([])
+  const [totalFeedback, setTotalFeedback] = useState("")
   // Sample ratings for the expanded cards
   // const ratings = [
   //   { image: images[0], rating: 4.5, feedback: 'Great service and comfortable trip!' },
@@ -52,9 +65,19 @@ const FeedbackGallery = ({images }: any) => {
     }
   }
 
-  const showModal = (image: string) => {
-    setModalImage(image)
-    setModalText('Additional information about this image')
+  const showModal = async (id: string) => {
+    // setModalImage(image)
+    // setModalText('Additional information about this image')
+
+    try {
+      // Assuming your API endpoint is something like /api/feedback/:fbid
+      const response = await studySpaceAPI.get(`/Feedback/detail/${id}`)
+      setModalFeedback(response.data.data) // Set fetched feedback details
+      // setModalText(response.data.feedback) // Set feedback text (optional)
+      console.log('fb detail', response.data.data)
+    } catch (error) {
+      console.error('Error fetching feedback details:', error)
+    }
     setIsModalVisible(true)
   }
 
@@ -62,8 +85,18 @@ const FeedbackGallery = ({images }: any) => {
     setIsModalVisible(false)
   }
 
-  const toggleExpanded = () => {
+  const toggleExpanded =async () => {
+
     setIsExpanded(!isExpanded)
+    if (!isExpanded) {
+      try {
+        const response = await studySpaceAPI.get(`/Feedback/detail/room/${id}?pageNumber=1&pageSize=6`) // Fetch all feedbacks
+        setAllFeedback(response.data.data.feedbackResponses) // Store all feedbacks
+        setTotalFeedback(response.data.data.todalFeedback) // Store all feedbacks
+      } catch (error) {
+        console.error('Error fetching all feedback:', error)
+      }
+    }
   }
 
   return (
@@ -71,25 +104,25 @@ const FeedbackGallery = ({images }: any) => {
       {/* Display current image */}
       <Popover title={<span className='text-[#647C6C]'>Click on the photo to see detailed review</span>}>
         <img
-        src={images[currentImageIndex]?.feedbackImage[0] || ''}
+          src={images[currentImageIndex]?.feedbackImage[0] || ''}
           alt={`Feedback ${currentImageIndex + 1}`}
           className='w-full h-[400px] object-cover mb-4 cursor-pointer'
-          onClick={() => showModal(images[currentImageIndex]?.feedbackImage[0])}
+          // onClick={() => showModal(images[currentImageIndex]?.feedbackImage[0])}
+          onClick={() => showModal(images[currentImageIndex]?.feedbackId)}
         />
-      
       </Popover>
       <div className='absolute top-5 right-5 bg-[#647C6C] text-white px-3 py-1 rounded-full'>
         {currentImageIndex + 1}/{totalImages}
       </div>
       {/* Previous and Next Icons */}
       <div>
-      <Tooltip title={<span className='text-white'>{images[currentImageIndex].userName}</span>}>
-
-        <img
-          src={images[currentImageIndex]?.userAvatarUrl} alt={images[currentImageIndex].userName}
-          className='absolute top-[360px] w-12 h-12 object-cover left-6 transform -translate-y-1/2 p-1 bg-[#fcf6f0]  rounded-full'
-        />
-      </Tooltip>
+        <Tooltip title={<span className='text-white'>{images[currentImageIndex].userName}</span>}>
+          <img
+            src={images[currentImageIndex]?.userAvatarUrl}
+            alt={images[currentImageIndex].userName}
+            className='absolute top-[360px] w-12 h-12 object-cover left-6 transform -translate-y-1/2 p-1 bg-[#fcf6f0]  rounded-full'
+          />
+        </Tooltip>
 
         <ArrowLeft
           onClick={handlePrev}
@@ -110,7 +143,7 @@ const FeedbackGallery = ({images }: any) => {
           <p className='cursor-pointer text-[#647C6C] hover:underline transition-all transform'>
             {isExpanded ? 'Hidden' : 'See all'}
           </p>
-          {isExpanded ? <Minimize color='#647C6C' className='ml-1'/> : <Maximize color='#647C6C' className='ml-1' />}
+          {isExpanded ? <Minimize color='#647C6C' className='ml-1' /> : <Maximize color='#647C6C' className='ml-1' />}
         </Link>
       </div>
       {/* Expandable section with cards showing ratings */}
@@ -120,25 +153,53 @@ const FeedbackGallery = ({images }: any) => {
         transition={{ duration: 0.5 }}
         className={`overflow-hidden mt-14 h-98`}
       >
-        <div className='text-start text-xl font-medium my-4 text-[#647C6C]'>
-          28 Feedbacks 
-        </div>
+        <div className='text-start text-xl font-medium my-4 text-[#647C6C]'>{totalFeedback} Feedbacks</div>
         <div className='h-[700px] overflow-auto'>
-          {/* {ratings.map((item, index) => (
+          {allFeedback.map((feedback, index) => (
           
             <FeedbackDetail feedback={feedback} />
-          ))} */}
-         
-         
+          ))}
         </div>
       </motion.div>
 
       {/* Modal for showing large image */}
       <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} centered width={800}>
-        <div className='flex flex-col items-center'>
+        {/* <div className='flex flex-col items-center'>
           <img src={modalImage} alt='Modal Content' className='w-full h-[500px] object-cover mb-4' />
           <p>{modalText}</p>
-        </div>
+        </div> */}
+
+        {modalFeedback && (
+          <div className='feedback-detail w-4/5 m-auto'>
+            <div className='flex items-center mb-4'>
+              <img
+                src={modalFeedback.userAvaUrl}
+                alt={modalFeedback.userName}
+                className='w-12 h-12 rounded-full mr-4'
+              />
+              <div className='flex justify-between items-center w-full'>
+                <div>
+                  <h3 className='font-bold text-[#647C6C]'>{modalFeedback.userName}</h3>
+                  <p>{new Date(modalFeedback.bookingDate).toLocaleDateString()}</p>
+                </div>
+                <Rate disabled value={modalFeedback.star} />
+              </div>
+            </div>
+            <p className='text-lg '>{modalFeedback.reviewText}</p>
+            {modalFeedback.feedbackImages.length > 0 && (
+              <div className='feedback-images mt-4'>
+                {modalFeedback.feedbackImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Feedback Image ${index + 1}`}
+                    className='w-32 h-32 object-cover mr-2 rounded-md'
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </Modal>
     </div>
   )
