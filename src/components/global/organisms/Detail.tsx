@@ -1,5 +1,5 @@
 import { Image, Modal, Tooltip } from 'antd'
-import { Layers2, Scaling, Undo2, User } from 'lucide-react'
+import { Layers2, Moon, Scaling, Undo2, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Slider from 'react-slick'
@@ -56,6 +56,7 @@ interface RoomDetail {
   address: string
   bookedSlots: DailyBookedSlots[]
   relatedRoom: RelatedRoom[]
+  isOvernight: boolean
 }
 interface ApiResponse<T> {
   data: T
@@ -236,8 +237,17 @@ function Detail() {
                 See Menu
               </div>
             </div>
-            <div className='text-4xl font-bold text-gray-800 mb-2'>{roomDetail?.roomName}</div>
+            <div className='flex justify-between items-center'>
+              <div className='text-4xl font-bold text-gray-800 mb-2'>{roomDetail?.roomName}</div>
+              {roomDetail?.isOvernight && (
+                <div className='flex justify-start items-center text-lg font-medium'>
+                  <Moon size={20} className='text-blue-900' /> {/* Set icon color */}
+                  <p className='text-blue-900 ml-2'>Overnight</p> {/* Set text color and spacing */}
+                </div>
+              )}
+            </div>
             <div className='text-2xl font-bold text-[#647C6C] mb-2'>{roomDetail?.storeName}</div>
+
             <div className='flex items-center justify-start gap-10 mt-4 text-sm mb-4'>
               <div className='flex items-center space-x-2'>
                 <Scaling />
@@ -278,9 +288,7 @@ function Detail() {
             {feedback?.imageFeedbackModels && feedback?.imageFeedbackModels.length > 0 && (
               <FeedbackGallery images={feedback?.imageFeedbackModels} />
             )}
-            {!feedback?.imageFeedbackModels && (
-              <div>No have feedback for this room</div>
-            )}
+            {!feedback?.imageFeedbackModels && <div>No have feedback for this room</div>}
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
             <div>

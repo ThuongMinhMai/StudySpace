@@ -21,8 +21,8 @@ interface Room {
   type: string
   address: string
   image: string
+  isOvernight:boolean
 }
-
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -272,6 +272,7 @@ function RoomPage() {
                     capacity={card.capacity}
                     area={card.area}
                     type={card.type}
+                    isOvernight={card.isOvernight}
                   />
                 </div>
               </Col>

@@ -18,7 +18,7 @@ import './AboutUs.css'
 import { useEffect, useState } from 'react'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 interface Space {
-  pricePerHour: number
+  minimumPricePerHour: number
   description: string
   status: boolean
   type: string
@@ -213,7 +213,7 @@ function Explore() {
                 <h4 className='mb-2 text-xl font-semibold'>{space.type}</h4>
                 <p className='my-4 text-gray-600'>{space.description}</p>
                 <h5 className='mb-4 text-base font-medium text-gray-400'>
-                  Starting from <span className='text-xl text-[#FFA800] font-bold '>${space.pricePerHour}/hour</span>
+                  Starting from <span className='text-xl text-[#FFA800] font-bold '>${space.minimumPricePerHour}/hour</span>
                 </h5>
 
                 <button

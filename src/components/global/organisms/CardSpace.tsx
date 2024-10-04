@@ -1,9 +1,22 @@
 import { Card, ConfigProvider } from 'antd'
-import { Layers2, MapPin, Scaling, User } from 'lucide-react'
+import { Layers2, MapPin, Moon, Scaling, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 const { Meta } = Card
 
-const CardSpace = ({ roomId, storeName, roomName, description, imgSrc, price, area, capacity, type, address }: any) => {
+const CardSpace = ({
+  roomId,
+  storeName,
+  roomName,
+  description,
+  imgSrc,
+  price,
+  area,
+  capacity,
+  type,
+  address,
+  isOvernight
+}: any) => {
+  console.log('is overnigth', isOvernight)
   return (
     <div className='relative min-w-80 mx-auto shadow-lg max-w-[350px]'>
       <ConfigProvider
@@ -49,10 +62,19 @@ const CardSpace = ({ roomId, storeName, roomName, description, imgSrc, price, ar
             </div>
             <div className='flex flex-col space-y-2 mb-4'>
               {/* Shop Name */}
-              <h3 className='text-lg font-bold text-[#1d9447]'>{storeName || 'Cloudy Coffee'}</h3>
+              <div className='flex justify-between items-center'>
 
+              <h3 className='text-lg font-bold text-[#1d9447]'>{storeName || 'Cloudy Coffee'}</h3>
+              {isOvernight && (
+                <div className='flex justify-start items-center'>
+                  <Moon size={20} className='text-blue-900' /> {/* Set icon color */}
+                  <p className='text-blue-900 ml-2'>Overnight</p> {/* Set text color and spacing */}
+                </div>
+              )}
+              </div>
               {/* Room Name */}
               <h2 className='text-2xl font-semibold'>{roomName || 'Room 023'}</h2>
+
               <div className='flex justify-start items-center gap-2 font-medium'>
                 <MapPin className='w-5 h-5' color='red' />
                 <p>{address}</p>
