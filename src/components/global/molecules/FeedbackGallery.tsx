@@ -1,11 +1,13 @@
-import { Modal, Popover, Rate } from 'antd'
+import { Modal, Popover, Rate, Tooltip } from 'antd'
 import { ArrowLeft, ArrowRight, ExternalLink, Maximize, Minimize, Minimize2 } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import FeedbackDetail from './FeedbackDetail'
 
-const FeedbackGallery = ({ images }: any) => {
+const FeedbackGallery = ({images }: any) => {
+  const totalImages = images.length
+  console.log("anhd", images[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false) // State to track if "See All" is clicked
@@ -13,26 +15,26 @@ const FeedbackGallery = ({ images }: any) => {
   const [modalText, setModalText] = useState('')
 
   // Sample ratings for the expanded cards
-  const ratings = [
-    { image: images[0], rating: 4.5, feedback: 'Great service and comfortable trip!' },
-    { image: images[1], rating: 3.8, feedback: 'The experience was okay, could be better.' },
-    { image: images[2], rating: 5, feedback: 'Excellent! Would highly recommend.' }
-    // Add more as needed
-  ]
+  // const ratings = [
+  //   { image: images[0], rating: 4.5, feedback: 'Great service and comfortable trip!' },
+  //   { image: images[1], rating: 3.8, feedback: 'The experience was okay, could be better.' },
+  //   { image: images[2], rating: 5, feedback: 'Excellent! Would highly recommend.' }
+  //   // Add more as needed
+  // ]
 
-  const imageUrls = [
-    'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-    'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
-    'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  ]
-  const feedback = {
-    UserName: 'Thuongminhlsr',
-    ImageUrl: imageUrls,
-    Rating: 4.5,
-    Desciption: 'Great service and comfortable trip!',
-    Date: '2024-09-24',
-    Avt: 'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg'
-  }
+  // const imageUrls = [
+  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
+  //   'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
+  //   'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
+  // ]
+  // const feedback = {
+  //   UserName: 'Thuongminhlsr',
+  //   ImageUrl: imageUrls,
+  //   Rating: 4.5,
+  //   Desciption: 'Great service and comfortable trip!',
+  //   Date: '2024-09-24',
+  //   Avt: 'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg'
+  // }
   // {UserName:"Thuongminhlst",ImageUrl: imageUrls, Rating: 4.5, Desciption: 'Great service and comfortable trip!',Date:"20-10-2024", Avt:"https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg" },
   // {UserName:"Thuongminhlst",ImageUrl: imageUrls, Rating: 4.5, Desciption: 'Great service and comfortable trip!',Date:"20-10-2024", Avt:"https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg" },
 
@@ -69,19 +71,26 @@ const FeedbackGallery = ({ images }: any) => {
       {/* Display current image */}
       <Popover title={<span className='text-[#647C6C]'>Click on the photo to see detailed review</span>}>
         <img
-          src={images[currentImageIndex]}
+        src={images[currentImageIndex]?.feedbackImage[0] || ''}
           alt={`Feedback ${currentImageIndex + 1}`}
           className='w-full h-[400px] object-cover mb-4 cursor-pointer'
-          onClick={() => showModal(images[currentImageIndex])}
+          onClick={() => showModal(images[currentImageIndex]?.feedbackImage[0])}
         />
+      
       </Popover>
-
+      <div className='absolute top-5 right-5 bg-[#647C6C] text-white px-3 py-1 rounded-full'>
+        {currentImageIndex + 1}/{totalImages}
+      </div>
       {/* Previous and Next Icons */}
       <div>
+      <Tooltip title={<span className='text-white'>{images[currentImageIndex].userName}</span>}>
+
         <img
-          src='https://media.yeah1.com/files/nguyetthao/2024/09/17/z5838759713922_f9f42b42471343f55ebda1bd4ec0d982-104345.jpg'
+          src={images[currentImageIndex]?.userAvatarUrl} alt={images[currentImageIndex].userName}
           className='absolute top-[360px] w-12 h-12 object-cover left-6 transform -translate-y-1/2 p-1 bg-[#fcf6f0]  rounded-full'
         />
+      </Tooltip>
+
         <ArrowLeft
           onClick={handlePrev}
           className={`absolute top-52 left-2 transform -translate-y-1/2 p-1 bg-white rounded-full text-gray-700 z-10 ${
@@ -104,7 +113,6 @@ const FeedbackGallery = ({ images }: any) => {
           {isExpanded ? <Minimize color='#647C6C' className='ml-1'/> : <Maximize color='#647C6C' className='ml-1' />}
         </Link>
       </div>
-
       {/* Expandable section with cards showing ratings */}
       <motion.div
         initial={{ height: 0, opacity: 0 }}
@@ -116,30 +124,12 @@ const FeedbackGallery = ({ images }: any) => {
           28 Feedbacks 
         </div>
         <div className='h-[700px] overflow-auto'>
-          {ratings.map((item, index) => (
-            // <div key={index} className='bg-white p-4 shadow-md rounded-lg'>
-            //   <img src={item.image} alt={`Feedback ${index + 1}`} className='w-full h-[150px] object-cover mb-4 rounded-md' />
-            //   <Rate allowHalf disabled defaultValue={item.rating} />
-            //   <p className='mt-2 text-sm text-gray-600'>{item.feedback}</p>
-            // </div>
+          {/* {ratings.map((item, index) => (
+          
             <FeedbackDetail feedback={feedback} />
-          ))}
-          {ratings.map((item, index) => (
-            // <div key={index} className='bg-white p-4 shadow-md rounded-lg'>
-            //   <img src={item.image} alt={`Feedback ${index + 1}`} className='w-full h-[150px] object-cover mb-4 rounded-md' />
-            //   <Rate allowHalf disabled defaultValue={item.rating} />
-            //   <p className='mt-2 text-sm text-gray-600'>{item.feedback}</p>
-            // </div>
-            <FeedbackDetail feedback={feedback} />
-          ))}
-          {ratings.map((item, index) => (
-            // <div key={index} className='bg-white p-4 shadow-md rounded-lg'>
-            //   <img src={item.image} alt={`Feedback ${index + 1}`} className='w-full h-[150px] object-cover mb-4 rounded-md' />
-            //   <Rate allowHalf disabled defaultValue={item.rating} />
-            //   <p className='mt-2 text-sm text-gray-600'>{item.feedback}</p>
-            // </div>
-            <FeedbackDetail feedback={feedback} />
-          ))}
+          ))} */}
+         
+         
         </div>
       </motion.div>
 

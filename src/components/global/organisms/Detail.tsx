@@ -31,13 +31,13 @@ interface ListImages {
   imageList: string[]
 }
 interface BookedSlot {
-  start: string; 
-  end: string;   
+  start: string
+  end: string
 }
 
 interface DailyBookedSlots {
-  date: string;        
-  slots: BookedSlot[]; 
+  date: string
+  slots: BookedSlot[]
 }
 interface RoomDetail {
   roomName: string
@@ -54,19 +54,31 @@ interface RoomDetail {
   listImages: ListImages
   aminities: string[]
   address: string
-  bookedSlots: DailyBookedSlots[];
+  bookedSlots: DailyBookedSlots[]
   relatedRoom: RelatedRoom[]
 }
 interface ApiResponse<T> {
   data: T
 }
+interface FeedbackImage {
+  feedbackId: number
+  userId: number
+  userAvatarUrl: string
+  userName: string
+  feedbackImage: string[]
+}
 
+interface FeedbackData {
+  averageStar: number
+  imageFeedbackModels: FeedbackImage[]
+}
 function Detail() {
   const { id } = useParams<{ id: string }>()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loadingRoomDetail, setLoadingRoomDetail] = useState<boolean>(false)
+  const [loadingRoomFeedbackImage, setLoadingRoomFeedbackImage] = useState<boolean>(false)
   const [roomDetail, setRoomDetail] = useState<RoomDetail | undefined>(undefined)
-
+  const [feedback, setFeedback] = useState<FeedbackData | undefined>(undefined)
   const navigate = useNavigate()
   const settings = {
     dots: true,
@@ -96,20 +108,34 @@ function Detail() {
 
   useEffect(() => {
     const fetchRoomDetail = async () => {
-      setLoading(true)
+      console.log('load detail')
+      setLoadingRoomDetail(true)
       try {
         const response = await studySpaceAPI.get<ApiResponse<RoomDetail>>(`/Room/detail/${id}`)
         setRoomDetail(response.data.data)
       } catch (error) {
         console.error('Error fetching watch detail:', error)
       } finally {
-        setLoading(false)
+        setLoadingRoomDetail(false)
+      }
+    }
+    const fetchFeedback = async () => {
+      console.log('load image')
+      setLoadingRoomFeedbackImage(true)
+      try {
+        const response = await studySpaceAPI.get<ApiResponse<FeedbackData>>(`/Feedback/all/room/${id}`) // Adjust endpoint as necessary
+        setFeedback(response.data.data)
+        console.log('fetch fev', response.data.data)
+      } catch (error) {
+        console.error('Error fetching feedback:', error)
+      } finally {
+        setLoadingRoomFeedbackImage(false)
       }
     }
 
     fetchRoomDetail()
+    fetchFeedback() // Call the feedback fetching function
   }, [id])
-  console.log('rome', roomDetail)
   // const spaceLocation = {
   //   name: 'StudySpace',
   //   address: '123 Trần Quý Cáp, phường Phú Thủy, Thành phố Phan Thiết, Bình Thuận',
@@ -168,6 +194,7 @@ function Detail() {
   //   },
   //   { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
   // ]
+  console.log(roomDetail, feedback?.imageFeedbackModels)
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>
@@ -243,12 +270,17 @@ function Detail() {
             <div className='flex justify-between items-center'>
               <p className='text-2xl font-medium'>Feedback Gallery</p>
               <div className='flex justify-center items-center gap-2'>
-                <p className='text-2xl'>4.5 </p>
+                <p className='text-2xl'>{feedback?.averageStar} </p>
 
                 <img className='w-8 h-8' src={star} alt='star icon' />
               </div>
             </div>
-            {/* <FeedbackGallery images={images} /> */}
+            {feedback?.imageFeedbackModels && feedback?.imageFeedbackModels.length > 0 && (
+              <FeedbackGallery images={feedback?.imageFeedbackModels} />
+            )}
+            {!feedback?.imageFeedbackModels && (
+              <div>No have feedback for this room</div>
+            )}
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
             <div>
