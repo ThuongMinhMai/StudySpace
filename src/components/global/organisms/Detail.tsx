@@ -26,6 +26,10 @@ interface RelatedRoom {
   image: string | null
   address: string | null
 }
+interface ListImages {
+  imageMenu: string | null
+  imageList: string[]
+}
 
 interface RoomDetail {
   roomName: string
@@ -37,9 +41,9 @@ interface RoomDetail {
   area: number
   longtitude: number
   latitude: number
-  houseRule: string
+  houseRule: string[]
   typeOfRoom: string
-  listImages: string[]
+  listImages: ListImages
   aminities: string[]
   address: string
   relatedRoom: RelatedRoom[]
@@ -155,7 +159,6 @@ function Detail() {
     },
     { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
   ]
-  console.log(roomDetail?.listImages.length)
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>
@@ -176,16 +179,16 @@ function Detail() {
 
         
         </Slider> */}
-        {roomDetail?.listImages && roomDetail.listImages.length > 1 ? (
+        {roomDetail?.listImages && roomDetail.listImages.imageList.length > 1 ? (
           <Slider {...settings}>
-            {roomDetail?.listImages.map((url, index) => (
+            {roomDetail?.listImages.imageList.map((url, index) => (
               <div key={index}>
                 <img src={url} alt={`Slide ${index + 1}`} className='w-full h-[450px] object-cover' />
               </div>
             ))}
           </Slider>
         ) : (
-          <img src={roomDetail?.listImages[0]} alt='Single image' className='w-full h-[450px] object-cover' />
+          <img src={roomDetail?.listImages.imageList[0]} alt='Single image' className='w-full h-[450px] object-cover' />
         )}
         <div className='mt-8 flex gap-10 '>
           <div className='flex flex-col flex-[5] gap-2'>
@@ -225,7 +228,7 @@ function Detail() {
             <Amentities aminities={roomDetail?.aminities || []} />
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
-            <HouseRule houseRule={roomDetail?.houseRule.split(',') || []} />
+            <HouseRule houseRule={roomDetail?.houseRule || []} />
             <div className='h-[1px] w-full bg-[#647C6C] my-8'></div>
 
             <div className='flex justify-between items-center'>
@@ -265,9 +268,11 @@ function Detail() {
           width={800}
         >
           <Image.PreviewGroup>
-            {roomDetail?.listImages.map((url, index) => (
-              <Image key={index} src={url} alt={`Menu ${index + 1}`} className='w-full mb-4' />
-            ))}
+            {roomDetail?.listImages.imageMenu ? (
+              <Image src={roomDetail.listImages.imageMenu} alt='Menu Image' className='w-full mb-4' />
+            ) : (
+              <p>No menu image available.</p>
+            )}
           </Image.PreviewGroup>
         </Modal>
       </div>
