@@ -3,9 +3,9 @@ import { useAuth } from '../../../auth/AuthProvider'
 // import { Avatar, AvatarFallback, AvatarImage } from '@/components/global/atoms/avatar'
 // import Loader from '@/components/local/TabCardTrip/Loader'
 import { useQueryClient } from '@tanstack/react-query'
-import { Avatar, Button, ConfigProvider, Form, Input } from 'antd'
+import { Avatar, Button, ConfigProvider, Form, Input, Spin } from 'antd'
 import { RuleObject } from 'antd/lib/form'
-import { Key, PiggyBank } from 'lucide-react'
+import { Key, Loader, PiggyBank } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'sonner'
@@ -67,7 +67,7 @@ function ProfilePage() {
   })
 
   const onSubmit = async (values: any) => {
-    console.log("value ne", values)
+    console.log('value ne', values)
     const formData = new FormData()
     formData.append('name', values.name || data?.name)
     // formData.append('FullName', values.FullName || data?.FullName)
@@ -284,14 +284,30 @@ function ProfilePage() {
                   <Input.Password placeholder='Xác nhận mật khẩu' />
                 </Form.Item>
                 <Form.Item className='mb-2 flex justify-center'>
-                  <Button
+                  {/* <Button
                     type='dashed'
                     htmlType='submit'
                     className={`${loading ? 'bg-green-500 text-white' : ''}`}
                     disabled={!hasChanges}
                   >
-                    {loading && <p>loaddinggggg</p>}
+                   
                     Cập nhật
+                  </Button> */}
+               
+                  <Button
+                    type='dashed'
+                    htmlType='submit'
+                    className={`${loading ? 'bg-green-700 text-white' : ''}`}
+                    disabled={!hasChanges}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader className='animate-spin ' size={16} /> {/* Lucide Loader with spin animation */}
+                        &nbsp; {/* Optional: Text next to the spinner */}
+                      </>
+                    ) : (
+                      'Cập nhật' // Show normal text when not loading
+                    )}
                   </Button>
                 </Form.Item>
               </div>

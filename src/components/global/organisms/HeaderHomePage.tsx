@@ -8,8 +8,11 @@ import { useAuth } from '../../../auth/AuthProvider'
 import ImageSlider from '../molecules/ImageSlider'
 import './HeaderHomePage.css'
 import SearchPage from './SearchPage'
+import { fetchUserDetail } from '../../../apis/userAPI'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
+  const { data, isLoading, isError, refetch } = fetchUserDetail(user?.userID || "");
+
   const navigate = useNavigate()
 
   const items: MenuProps['items'] = [
@@ -17,8 +20,8 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
       key: '1',
       label: (
         <div className='cursor-not-allowed'>
-          <p className='font-bold'>{user?.name}</p>
-          <p className='font-medium'>{user?.email || 'My Account'}</p>
+          <p className='font-bold'>{data?.name}</p>
+          <p className='font-medium'>{data?.email || 'My Account'}</p>
         </div>
       )
     },
@@ -230,12 +233,12 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
                     <div className='flex justify-center items-center text-nowrap bg-[#C6A083] px-3 py-1 gap-2 rounded-full hover:bg-[#efd2af] transition-all cursor-pointer'>
                       <img
                         className='w-8 h-8 rounded-full object-cover'
-                        src={'https://m.media-amazon.com/images/I/51ID6ovRfCL._AC_UF1000,1000_QL80_.jpg'}
+                        src={data?.avatarUrl}
                         alt='User avatar'
                       />
                       {/* <p className='font-medium'>{user?.name}</p> */}
                       <p className='font-medium'>
-                        {user?.name
+                        {data?.name
                           ?.split(' ')
                           .filter((_, index, arr) => index === 0 || index === arr.length - 1)
                           .join(' ')}
