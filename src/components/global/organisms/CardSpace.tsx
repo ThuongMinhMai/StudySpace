@@ -16,7 +16,6 @@ const CardSpace = ({
   address,
   isOvernight
 }: any) => {
-  console.log('is overnigth', isOvernight)
   return (
     <div className='relative min-w-80 mx-auto shadow-lg max-w-[350px]'>
       <ConfigProvider

@@ -51,7 +51,6 @@ function RoomPage() {
       typeSpace: searchParams.get('typeSpace') || 'All',
       persons: parseInt(searchParams.get('persons') || '0', 10)
     }
-    console.log(updatedFormValues.persons)
     setFormValues(updatedFormValues)
     setFilters({
       priceSort: 'All',
@@ -61,7 +60,6 @@ function RoomPage() {
     })
     fetchData(updatedFormValues, currentPage) // Fetch data with current page
   }, [location.search]) // Add currentPage to dependencies
-  console.log('locationsearch', filters)
 
   useEffect(() => {
     fetchDataFilter(formValues, currentPage, filters)
@@ -73,7 +71,6 @@ function RoomPage() {
       const response = await studySpaceAPI.get(
         `/Room/available?pageNumber=${page}&pageSize=${pageSize}&space=${value.typeSpace}&location=${value.location}&room=All&person=${value.persons}`
       )
-      console.log('Data fetched:', response.data.data)
       setCardData(response.data.data.rooms) // Update card data with the fetched results
       setTotalPages(response.data.data.totalCount) // Assuming the response has totalPages
       setTotalAvailable(response.data.data.totalAvailable)
@@ -109,7 +106,6 @@ function RoomPage() {
     // setFilters(newFilters)
     const updatedFilters = { ...filters, ...newFilters }
     setFilters(updatedFilters)
-    console.log('udate filter ơ room page', updatedFilters)
 
     setIsFilterDrawerOpen(false)
     setCurrentPage(1) // Reset to first page on new search
@@ -149,7 +145,6 @@ function RoomPage() {
 
       const queryString = queryParams.toString()
 
-      console.log('Query String:', queryString)
 
       const response = await studySpaceAPI.get(`/Room/filter?${queryParams}`)
 

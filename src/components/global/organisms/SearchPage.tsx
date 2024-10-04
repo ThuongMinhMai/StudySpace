@@ -29,7 +29,6 @@ function SearchPage({ isSearchOpen, toggleSearch }: any) {
     studySpaceAPI.get('/Stores/address')
       .then(response => {
         setLocations(response.data.data)
-        console.log("loation", response.data.data)
       })
       
       .catch(error => {

@@ -5,7 +5,6 @@ import studySpaceAPI from '../../../lib/studySpaceAPI'
 const { Option } = Select
 
 function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initialPersons, onSearchChange }: any) {
-  console.log('nhan ơ form', initialPersons)
   const [form] = Form.useForm() // Create a form instance
   const [locations, setLocations] = useState<string[]>([])
   const [typeSpace, setTypeSpace] = useState<string[]>([])
@@ -31,7 +30,6 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
       .get('/Stores/address')
       .then((response) => {
         setLocations(response.data.data)
-        console.log('loation', response.data.data)
       })
 
       .catch((error) => {
@@ -75,7 +73,6 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
     console.log('Form values:', values)
     // You can perform search or navigation based on form values here
   }
-  console.log('nhan duoc', initialLocation, initialTypeSpace, initialPersons)
   return (
     <ConfigProvider
       theme={{

@@ -58,7 +58,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log("refresh")
       if (token) {
         try {
           const response = await studySpaceAPI.post<User>('/Accounts/token-decode', token)
@@ -97,7 +96,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (axios.isAxiosError(error) && error.response) {
         console.log(error)
         const message = error.response.data
-        console.log('msajgjgaej', message)
         toast.error(message)
         // if (error.response.data.verified === false) {
         //   toast.error('Email đã đăng kí nhưng chưa xác thực. Vui lòng xác thực email!')
@@ -145,7 +143,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   const logout = () => {
-    console.log("log out")
     setToken(null)
     setUser(null)
     localStorage.removeItem('token')

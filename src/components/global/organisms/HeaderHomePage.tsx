@@ -10,7 +10,6 @@ import './HeaderHomePage.css'
 import SearchPage from './SearchPage'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
-  console.log('user ơ header', user)
   const navigate = useNavigate()
 
   const items: MenuProps['items'] = [

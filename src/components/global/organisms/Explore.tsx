@@ -72,7 +72,6 @@ function Explore() {
 
     fetchData()
   }, [])
-  console.log('hehe', spaces)
   return (
     <div className='relative'>
       <section className='section__container room__container' id='explore'>

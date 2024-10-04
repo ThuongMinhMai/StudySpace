@@ -95,7 +95,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     }
 
     calculateTotalBill(values);
-    console.log('Form values:', values);
     setSelectedRangeDate(null);
     setSelectedDate(null);
     setTotalBill(0);
@@ -190,7 +189,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   };
 
   const onValuesChange = (changedValues: any) => {
-    console.log('form doi', changedValues);
     calculateTotalBill(form.getFieldsValue());
   };
 

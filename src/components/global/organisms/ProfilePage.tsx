@@ -22,7 +22,6 @@ function ProfilePage() {
   const [file, setFile] = useState<File | null>(null)
   const [showPasswordFields, setShowPasswordFields] = useState(false)
   const queryClient = useQueryClient()
-  console.log('user ở profile', data)
   useEffect(() => {
     if (data) {
       // Update form fields when data is available

@@ -112,7 +112,6 @@ function Detail() {
 
   useEffect(() => {
     const fetchRoomDetail = async () => {
-      console.log('load detail')
       setLoadingRoomDetail(true)
       try {
         const response = await studySpaceAPI.get<ApiResponse<RoomDetail>>(`/Room/detail/${id}`)
@@ -124,12 +123,10 @@ function Detail() {
       }
     }
     const fetchFeedback = async () => {
-      console.log('load image')
       setLoadingRoomFeedbackImage(true)
       try {
         const response = await studySpaceAPI.get<ApiResponse<FeedbackData>>(`/Feedback/all/room/${id}`) // Adjust endpoint as necessary
         setFeedback(response.data.data)
-        console.log('fetch fev', response.data.data)
       } catch (error) {
         console.error('Error fetching feedback:', error)
       } finally {
@@ -198,7 +195,6 @@ function Detail() {
   //   },
   //   { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
   // ]
-  console.log(roomDetail, feedback?.imageFeedbackModels)
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>

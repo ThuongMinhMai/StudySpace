@@ -7,7 +7,6 @@ import { useAuth } from '../../../auth/AuthProvider'
 import SearchPage from './SearchPage'
 function Header({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
-  console.log('user ơ header', user)
   const navigate = useNavigate()
   const items: MenuProps['items'] = [
     {

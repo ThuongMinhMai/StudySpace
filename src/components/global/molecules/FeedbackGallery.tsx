@@ -18,7 +18,6 @@ interface FeedbackDetailData {
 const FeedbackGallery = ({ images }: any) => {
   const { id } = useParams()
   const totalImages = images.length
-  console.log('anhd', images[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false) // State to track if "See All" is clicked
@@ -80,7 +79,6 @@ const FeedbackGallery = ({ images }: any) => {
       const response = await studySpaceAPI.get(`/Feedback/detail/${id}`)
       setModalFeedback(response.data.data) // Set fetched feedback details
       // setModalText(response.data.feedback) // Set feedback text (optional)
-      console.log('fb detail', response.data.data)
     } catch (error) {
       console.error('Error fetching feedback details:', error)
     }

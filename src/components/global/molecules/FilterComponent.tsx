@@ -48,7 +48,6 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onCle
         ? ['All'] // When 'All' is selected, return ['All']
         : selectedUtilities // Otherwise return the selected utilities
     }
-    console.log('fl', filters)
     onFilterChange(filters)
   }
 
