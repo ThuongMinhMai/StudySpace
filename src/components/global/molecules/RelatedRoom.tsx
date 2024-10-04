@@ -1,6 +1,6 @@
 import CardSpace from '../organisms/CardSpace';
 
-interface RelatedRoom {
+interface RelatedRoomPropsType {
   roomId: number;
   roomName: string;
   storeName: string;
@@ -16,7 +16,7 @@ interface RelatedRoom {
 }
 
 interface RelatedRoomProps {
-  relatedRooms: RelatedRoom[]; // Accept undefined as well
+  relatedRooms?: RelatedRoomPropsType[]; // Accept relatedRooms as an optional property
 }
 
 function RelatedRoom({ relatedRooms = [] }: RelatedRoomProps) {

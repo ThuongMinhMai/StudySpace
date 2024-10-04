@@ -11,8 +11,8 @@ import Amentities from '../molecules/Amentities'
 import BookingForm from '../molecules/BookingForm'
 import FeedbackGallery from '../molecules/FeedbackGallery'
 import HouseRule from '../molecules/HouseRule'
-import RelatedRoom from '../molecules/RelatedRoom'
 import SpaceLocation from '../molecules/SpaceLocation'
+import RelatedRoom from '../molecules/RelatedRoom'
 interface RelatedRoom {
   roomId: number
   roomName: string
@@ -24,7 +24,8 @@ interface RelatedRoom {
   area: number
   type: string
   image: string | null
-  address: string | null
+  address: string | ""
+  isOvernight:boolean
 }
 interface ListImages {
   imageMenu: string | null
