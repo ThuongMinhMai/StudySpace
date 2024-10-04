@@ -1,6 +1,6 @@
-import { Modal, Popover, Rate, Tooltip } from 'antd'
+import { ConfigProvider, Modal, Pagination, Popover, Rate, Tooltip } from 'antd'
 import { ArrowLeft, ArrowRight, ExternalLink, Maximize, Minimize, Minimize2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import FeedbackDetail from './FeedbackDetail'
@@ -16,7 +16,7 @@ interface FeedbackDetailData {
   feedbackImages: string[]
 }
 const FeedbackGallery = ({ images }: any) => {
-  const {id} = useParams()
+  const { id } = useParams()
   const totalImages = images.length
   console.log('anhd', images[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -26,7 +26,9 @@ const FeedbackGallery = ({ images }: any) => {
   const [modalText, setModalText] = useState('')
   const [modalFeedback, setModalFeedback] = useState<FeedbackDetailData | null>(null)
   const [allFeedback, setAllFeedback] = useState([])
-  const [totalFeedback, setTotalFeedback] = useState("")
+  const [totalFeedback, setTotalFeedback] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize] = useState(6) // Number of feedback items per page
   // Sample ratings for the expanded cards
   // const ratings = [
   //   { image: images[0], rating: 4.5, feedback: 'Great service and comfortable trip!' },
@@ -52,7 +54,11 @@ const FeedbackGallery = ({ images }: any) => {
   // {UserName:"Thuongminhlst",ImageUrl: imageUrls, Rating: 4.5, Desciption: 'Great service and comfortable trip!',Date:"20-10-2024", Avt:"https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg" },
 
   // Add more as needed
-
+  useEffect(() => {
+    if (isExpanded) {
+      fetchFeedback(currentPage)
+    }
+  }, [isExpanded, currentPage])
   const handleNext = () => {
     if (currentImageIndex < images.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1)
@@ -85,20 +91,25 @@ const FeedbackGallery = ({ images }: any) => {
     setIsModalVisible(false)
   }
 
-  const toggleExpanded =async () => {
-
+  const toggleExpanded = async () => {
     setIsExpanded(!isExpanded)
     if (!isExpanded) {
-      try {
-        const response = await studySpaceAPI.get(`/Feedback/detail/room/${id}?pageNumber=1&pageSize=6`) // Fetch all feedbacks
-        setAllFeedback(response.data.data.feedbackResponses) // Store all feedbacks
-        setTotalFeedback(response.data.data.todalFeedback) // Store all feedbacks
-      } catch (error) {
-        console.error('Error fetching all feedback:', error)
-      }
+      fetchFeedback(currentPage)
     }
   }
-
+  const fetchFeedback = async (page: number) => {
+    try {
+      const response = await studySpaceAPI.get(`/Feedback/detail/room/${id}?pageNumber=${page}&pageSize=${pageSize}`)
+      setAllFeedback(response.data.data.feedbackResponses)
+      setTotalFeedback(response.data.data.todalFeedback)
+    } catch (error) {
+      console.error('Error fetching all feedback:', error)
+    }
+  }
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    fetchFeedback(page) // Fetch new feedback data on page change
+  }
   return (
     <div className='relative w-full mx-auto text-center mt-10'>
       {/* Display current image */}
@@ -156,10 +167,29 @@ const FeedbackGallery = ({ images }: any) => {
         <div className='text-start text-xl font-medium my-4 text-[#647C6C]'>{totalFeedback} Feedbacks</div>
         <div className='h-[700px] overflow-auto'>
           {allFeedback.map((feedback, index) => (
-          
             <FeedbackDetail feedback={feedback} />
           ))}
         </div>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#647C6C'
+            },
+            components: {
+              Button: {}
+            }
+          }}
+        >
+          <div className='flex justify-center items-center'>
+            <Pagination
+              current={currentPage}
+              pageSize={pageSize}
+              total={totalFeedback}
+              onChange={handlePageChange}
+              className='mt-4'
+            />
+          </div>
+        </ConfigProvider>
       </motion.div>
 
       {/* Modal for showing large image */}
