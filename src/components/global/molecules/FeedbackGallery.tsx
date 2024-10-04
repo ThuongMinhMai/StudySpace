@@ -25,7 +25,7 @@ const FeedbackGallery = ({ images }: any) => {
   const [modalImage, setModalImage] = useState('')
   const [modalText, setModalText] = useState('')
   const [modalFeedback, setModalFeedback] = useState<FeedbackDetailData | null>(null)
-  const [allFeedback, setAllFeedback] = useState<FeedbackDetailData[]>([])
+  const [allFeedback, setAllFeedback] = useState([])
   const [totalFeedback, setTotalFeedback] = useState("")
   // Sample ratings for the expanded cards
   // const ratings = [
