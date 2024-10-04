@@ -12,8 +12,8 @@ interface Slot {
 }
 
 interface BookingFormProps {
-  storeOpenTime: string; // e.g., "09:00"
-  storeCloseTime: string; // e.g., "18:00"
+  storeOpenTime?: string; // e.g., "09:00"
+  storeCloseTime?: string; // e.g., "18:00"
   bookedSlots: { date: string; slots: Slot[] }[] | undefined; // Allowing undefined
 }
 

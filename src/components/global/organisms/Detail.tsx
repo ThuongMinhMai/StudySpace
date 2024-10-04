@@ -57,6 +57,8 @@ interface RoomDetail {
   bookedSlots: DailyBookedSlots[]
   relatedRoom: RelatedRoom[]
   isOvernight: boolean
+  startTime: string
+  endTime: string,
 }
 interface ApiResponse<T> {
   data: T
@@ -303,7 +305,7 @@ function Detail() {
           </div>
 
           <div className='flex-[2.5] h-fit sticky top-[95px]'>
-            <BookingForm storeOpenTime='09:00' storeCloseTime='18:00' bookedSlots={roomDetail?.bookedSlots} />,
+            <BookingForm storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
           </div>
         </div>
         <RelatedRoom />
