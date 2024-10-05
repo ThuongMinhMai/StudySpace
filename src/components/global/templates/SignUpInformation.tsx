@@ -48,11 +48,12 @@ function SignUpInformation() {
   }
 
   const onSupplierFinish = async (values: any) => {
-    const formattedValues = formatValues(values)
+    const { confirmPassword, ...restValues } = values;
+    const formattedValues = formatValues(restValues)
     console.log('Supplier Form Values: ', formattedValues)
     setLoading(true)
     try {
-      const response = await axios.post(`/Accounts?token=${token}`, values)
+      const response = await studySpaceAPI.post(`/Stores?token=${token}`, formattedValues)
       console.log('Supplier Signup Response: ', response.data)
     } catch (error) {
       console.error('Supplier Signup Failed:', error)
@@ -271,8 +272,8 @@ function SignUpInformation() {
                       rules={[{ required: true, message: 'Please choose an option!' }]}
                     >
                       <Radio.Group>
-                        <Radio value={1}>Yes</Radio>
-                        <Radio value={0}>No</Radio>
+                        <Radio value={true}>Yes</Radio>
+                        <Radio value={false}>No</Radio>
                       </Radio.Group>
                     </Form.Item>
                   </Col>
@@ -288,7 +289,7 @@ function SignUpInformation() {
                   </Col>
                 </Row>
 
-                <Row gutter={16}>
+                {/* <Row gutter={16}>
                   <Col span={12}>
                     <Form.Item
                       label={<span className='font-medium'>Tax Number</span>}
@@ -314,7 +315,7 @@ function SignUpInformation() {
                       <Input placeholder='Enter your postal number' size='middle' />
                     </Form.Item>
                   </Col>
-                </Row>
+                </Row> */}
 
                 <Row gutter={16} justify='center' align='middle'>
                   <Col span={12}>
