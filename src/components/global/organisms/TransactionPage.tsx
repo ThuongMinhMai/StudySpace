@@ -127,7 +127,7 @@ function TransactionPage() {
       {/* Display transactions in a horizontal line style */}
       <div className='space-y-4'>
         {paginatedTransactions.map((transaction) => (
-          <Card key={transaction.id} className='shadow-lg'>
+          <Card key={transaction.id} hoverable >
             <div className='flex items-center justify-between p-4'>
               {/* Transaction Info */}
               <div className='flex items-center space-x-6'>
