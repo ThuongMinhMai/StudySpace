@@ -73,8 +73,8 @@ function Explore() {
     fetchData()
   }, [])
   return (
-    <div className='relative'>
-      <section className='section__container room__container' id='explore'>
+    <div className='relative' id='explore'>
+      <section className='section__container room__container' >
         <p className='section__subheader text font-bold text-5xl'>OUR SPACE</p>
 
         <div className='flex justify-between items-center'>

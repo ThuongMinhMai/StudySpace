@@ -11,6 +11,7 @@ function SignUpInformation() {
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState<string | null>(null)
   const [email, setEmail] = useState<string | null>(null)
+  const [isOvernight, setIsOvernight] = useState(false);
   const location = useLocation()
   const navigate = useNavigate()
   const [form] = Form.useForm()
@@ -101,7 +102,25 @@ function SignUpInformation() {
   const onRoleChange = (e: any) => {
     setRole(e.target.value)
   }
+  const handleOverNightChange = (e:any) => {
+    const isOverNightChecked = e.target.value;
 
+    setIsOvernight(isOverNightChecked);
+
+    if (isOverNightChecked) {
+      // If overnight is true, set openTime and closeTime to 00:00 and disable the fields
+      form.setFieldsValue({
+        openTime: moment('00:00', 'HH:mm'),
+        closeTime: moment('00:00', 'HH:mm')
+      });
+    } else {
+      // Enable the fields when overnight is false
+      form.setFieldsValue({
+        openTime: null,
+        closeTime: null
+      });
+    }
+  };
   return (
     <ConfigProvider
       theme={{
@@ -141,7 +160,7 @@ function SignUpInformation() {
 
             {/* Supplier Form */}
             {role === 'supplier' && (
-              <Form name='supplier_sign_up' form={form} onFinish={onSupplierFinish} layout='vertical' className=''>
+              <Form name='supplier_sign_up' form={form} onFinish={onSupplierFinish} layout='vertical' className='' >
                 <Row gutter={16}>
                   <Col span={12}>
                     <Form.Item
@@ -250,7 +269,7 @@ function SignUpInformation() {
                       name='openTime'
                       rules={[{ required: true, message: 'Please select open time!' }]}
                     >
-                      <TimePicker className='w-full' format='HH:mm' />
+                      <TimePicker className='w-full' format='HH:mm'disabled={isOvernight} />
                     </Form.Item>
                   </Col>
 
@@ -260,7 +279,7 @@ function SignUpInformation() {
                       name='closeTime'
                       rules={[{ required: true, message: 'Please select close time!' }]}
                     >
-                      <TimePicker className='w-full' format='HH:mm' />
+                      <TimePicker className='w-full' format='HH:mm' disabled={isOvernight}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -271,7 +290,7 @@ function SignUpInformation() {
                       name='isOverNight'
                       rules={[{ required: true, message: 'Please choose an option!' }]}
                     >
-                      <Radio.Group>
+                      <Radio.Group onChange={handleOverNightChange}>
                         <Radio value={true}>Yes</Radio>
                         <Radio value={false}>No</Radio>
                       </Radio.Group>

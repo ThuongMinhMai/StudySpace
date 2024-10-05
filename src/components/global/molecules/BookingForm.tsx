@@ -44,6 +44,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   };
 
   const handleSubmit = (values: any) => {
+    console.log("hdfkj", values)
     const { date, timeRange } = values;
 
     if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {

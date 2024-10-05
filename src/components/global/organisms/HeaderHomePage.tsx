@@ -1,7 +1,7 @@
 import { Dropdown, Space, type MenuProps } from 'antd'
 import { CircleUser, FileBox, LogOut, Search, TableOfContents, Wallet, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/LOGO SS ()-01.png'
 import logo1 from '../../../assets/LOGO SS-01.png'
 import { useAuth } from '../../../auth/AuthProvider'
@@ -11,7 +11,7 @@ import SearchPage from './SearchPage'
 import { fetchUserDetail } from '../../../apis/userAPI'
 function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const { user, token, logout } = useAuth()
-  const { data, isLoading, isError, refetch } = fetchUserDetail(user?.userID || "");
+  const { data, isLoading, isError, refetch } = fetchUserDetail(user?.userID || '')
 
   const navigate = useNavigate()
 
@@ -74,6 +74,8 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [isSearchOpen, setIsSearchOpen] = useState(false)
   const searchRef = useRef<HTMLDivElement | null>(null)
+  const location = useLocation() // Access current URL and search parameters
+
   const [isScrolled, setIsScrolled] = useState(false) // State to track scroll position
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -112,6 +114,15 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
       window.removeEventListener('scroll', handleScroll) // Cleanup on component unmount
     }
   }, [])
+  const handleExplore = (typeRoom: string) => {
+    const searchParams = new URLSearchParams(location.search) // Get existing search parameters
+
+    // Add or update the `type` query parameter
+    searchParams.set('typeSpace', typeRoom)
+
+    // Navigate to the new URL with updated query parameters
+    navigate(`${location.pathname}room?${searchParams.toString()}`)
+  }
   return (
     <div>
       {isSearchOpen && <SearchPage isSearchOpen={isSearchOpen} toggleSearch={toggleSearch} />}
@@ -145,7 +156,7 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
             <li>
               <a
                 className={`relative cursor-pointer isolate pb-2 transition-all duration-300 ${isMenuOpen ? 'text-white' : ''}`}
-                // href='#home'
+                href='#home'
               >
                 Home
               </a>
@@ -174,6 +185,12 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
               >
                 Explore
               </a>
+            </li>
+            <li>
+              <a   className={`relative isolate pb-2 transition-all duration-300 cursor-pointer ${isMenuOpen ? 'text-white' : ''}`}  onClick={() => handleExplore('All')}>
+                Room 
+              </a>
+             
             </li>
             <li>
               <a
@@ -231,11 +248,7 @@ function HeaderHomePage({ isSearchOpen, toggleSearch }: any) {
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <div className='flex justify-center items-center text-nowrap bg-[#C6A083] px-3 py-1 gap-2 rounded-full hover:bg-[#efd2af] transition-all cursor-pointer'>
-                      <img
-                        className='w-8 h-8 rounded-full object-cover'
-                        src={data?.avatarUrl}
-                        alt='User avatar'
-                      />
+                      <img className='w-8 h-8 rounded-full object-cover' src={data?.avatarUrl} alt='User avatar' />
                       {/* <p className='font-medium'>{user?.name}</p> */}
                       <p className='font-medium'>
                         {data?.name
