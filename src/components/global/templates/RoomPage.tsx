@@ -182,7 +182,7 @@ function RoomPage() {
       <div className='relative w-full '>
         <img src={ImgHeader} alt='imageheader' className='w-full  object-cover header__image' />
         <div className='lg:absolute inset-0 flex flex-col lg:gap-10 justify-center items-center'>
-          <p className='lg:text-yellow-50 font-paytoneone text-5xl mb-10 text-center text mt-20 lg:mt-0 text-[#3D4449]'>
+          <p className='lg:text-yellow-50 font-paytoneone text-7xl mb-10 text-center text mt-20 lg:mt-0 text-[#3D4449] '>
             Make Yourself At Home <br />
             In Our <span className='lg:text-[#d3ea98] text-[#80a12f] '>Spaces.</span>
           </p>

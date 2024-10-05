@@ -202,11 +202,10 @@ function Explore() {
             <div key={index} className='room__card bg-white overflow-hidden rounded-lg shadow-md'>
               <div className='room__card__image'>
                 <img src={space.image} alt={space.type} />
-                <div className='room__card__icons absolute right-4 bottom-4 w-full flex items-center justify-end flex-wrap gap-4 z-10'>
+                {/* <div className='room__card__icons absolute right-4 bottom-4 w-full flex items-center justify-end flex-wrap gap-4 z-10'>
                   <span className='inline-block px-2 py-2 text-2xl bg-white rounded-full shadow-lg cursor-pointer'>
-                    {/* Optional icon */}
                   </span>
-                </div>
+                </div> */}
               </div>
               <div className='room__card__details p-4'>
                 <h4 className='mb-2 text-xl font-semibold'>{space.type}</h4>
