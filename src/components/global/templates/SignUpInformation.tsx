@@ -12,6 +12,8 @@ function SignUpInformation() {
   const [token, setToken] = useState<string | null>(null)
   const [email, setEmail] = useState<string | null>(null)
   const [isOvernight, setIsOvernight] = useState(false);
+  const [success, setSuccess] = useState(false)
+
   const location = useLocation()
   const navigate = useNavigate()
   const [form] = Form.useForm()
@@ -49,13 +51,27 @@ function SignUpInformation() {
   }
 
   const onSupplierFinish = async (values: any) => {
+    if (!token) {
+      toast.error('Token is missing')
+      return
+    }
+    if (!email) {
+      toast.error('Email is missing')
+      return
+    }
     const { confirmPassword, ...restValues } = values;
     const formattedValues = formatValues(restValues)
     console.log('Supplier Form Values: ', formattedValues)
     setLoading(true)
     try {
       const response = await studySpaceAPI.post(`/Stores?token=${token}`, formattedValues)
-      console.log('Supplier Signup Response: ', response.data)
+      console.log('Supplier Signup Response: ', response.data.data)
+      if (response.data.data === null) {
+        toast.error(response.data.message);  // Log the message from the response if data is null
+      } else {
+        toast.success('Successfully signed up as a supplier');  // Log success message
+        navigate("/signUpSuccess")
+      }
     } catch (error) {
       console.error('Supplier Signup Failed:', error)
     } finally {

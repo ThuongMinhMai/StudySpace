@@ -13,6 +13,7 @@ import ProfilePage from './components/global/organisms/ProfilePage'
 import MyRoomPage from './components/global/organisms/MyRoomPage'
 import TransactionPage from './components/global/organisms/TransactionPage'
 import ProtectUserRoute from './auth/ProtectUserRoute'
+import SignUpSuccessfully from './components/global/organisms/SignUpSuccessfully'
 
 function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -59,6 +60,14 @@ function App() {
         element={
           <ProtectedRoute>
             <SignUpInformation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/signUpSuccess'
+        element={
+          <ProtectedRoute>
+            <SignUpSuccessfully />
           </ProtectedRoute>
         }
       />
