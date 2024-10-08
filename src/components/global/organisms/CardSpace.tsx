@@ -45,16 +45,16 @@ const CardSpace = ({
             style={{ borderRadius: '0px' }} // Ensure no border-radius
           >
             {/* Information section */}
-            <div className='flex items-center justify-between space-x-4 text-sm mb-4'>
+            <div className='flex items-center justify-between space-x-4 text-sm mb-4 mr-2'>
               <div className='flex items-center space-x-1'>
                 <Scaling />
                 <span>{area || '10'}M2</span>
               </div>
-              <div className='flex items-center space-x-1 border-l-2 border-r-2  px-7 border-black/50'>
+              <div className='flex items-center space-x-1 border-l-2 border-r-2  px-2 border-black/50'>
                 <User />
                 <span>{capacity} PERSON</span>
               </div>
-              <div className='flex items-center space-x-1'>
+              <div className='flex items-center gap-1'>
                 <Layers2 />
                 <span>{type || 'Basic'}</span>
               </div>

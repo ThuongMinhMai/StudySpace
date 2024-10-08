@@ -224,7 +224,7 @@ function ProfilePage() {
                 <Form.Item
                   name='name'
                   label={<span className='font-medium'>Tên người dùng</span>}
-                  rules={[{ required: false }]}
+                  rules={[{ required: true }]}
                 >
                   <Input placeholder='Tên người dùng' />
                 </Form.Item>
@@ -238,7 +238,7 @@ function ProfilePage() {
                 <Form.Item
                   name='address'
                   label={<span className='font-medium'>Địa chỉ</span>}
-                  rules={[{ required: false }]}
+                  rules={[{ required: true }]}
                 >
                   <Input placeholder='Địa chỉ' />
                 </Form.Item>
@@ -247,7 +247,7 @@ function ProfilePage() {
                 <Form.Item
                   name='phone'
                   label={<span className='font-medium'>PhoneNumber</span>}
-                  rules={[{ required: false }, { validator: validatePhoneNumber }]}
+                  rules={[{ required: true }, { validator: validatePhoneNumber }]}
                 >
                   <Input placeholder='Số điện thoại' />
                 </Form.Item>
@@ -306,7 +306,7 @@ function ProfilePage() {
                         &nbsp; {/* Optional: Text next to the spinner */}
                       </>
                     ) : (
-                      'Cập nhật' // Show normal text when not loading
+                      'Update' // Show normal text when not loading
                     )}
                   </Button>
                 </Form.Item>

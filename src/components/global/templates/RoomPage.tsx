@@ -151,6 +151,8 @@ function RoomPage() {
       // Update card data with the fetched results
       setCardData(response.data.data.rooms)
       setTotalPages(response.data.data.totalCount) // Assuming the response has total pages
+      setTotalAvailable(response.data.data.totalAvailable)
+
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {

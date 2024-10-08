@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { CircleCheck } from 'lucide-react'
-import Loader from '../organisms/Loader'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../auth/AuthProvider'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 interface OfferData {
   id: number
   name: string
