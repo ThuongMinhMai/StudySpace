@@ -31,9 +31,17 @@ function SignUp() {
         setIsSignedUp(true)
         setIsSending(false) // Stop loading
       }, 500) // Wait for the form to slide out before showing success
-    } catch (error) {
-      console.error('Signup failed', error)
-      setIsSending(false) // Stop loading
+    } catch (error:any) {
+      if (axios.isAxiosError(error) && error.response) {
+        // Log the error message from the API response
+        console.error('Signup failed:', error.response.data.message);
+        toast.error(error.response.data.message);
+      } else {
+        // Log a general error message if it's not an Axios error or doesn't have a response
+        console.error('Signup failed:', error.message);
+        toast.error('An error occurred during signup');
+      }
+      setIsSending(false); // Stop loading
     }
   }
 
