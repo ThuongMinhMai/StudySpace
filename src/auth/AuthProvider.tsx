@@ -4,6 +4,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 import { useNavigate } from 'react-router-dom'
 import studySpaceAPI from '../lib/studySpaceAPI'
 import { toast } from 'sonner'
+import { duration } from 'moment'
 // import { useInvoice } from '@/contexts/InvoiceContext'
 // Define the shape of our AuthContext
 interface AuthContextType {
@@ -20,10 +21,10 @@ interface AuthContextType {
 // Define the shape of User
 interface User {
   userID: string
-  roleName:string
+  roleName: string
   phone: string
   name: string
-  gender:string
+  gender: string
   email: string
   avaURL: string
   address: string
@@ -62,11 +63,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
           const response = await studySpaceAPI.post<User>('/Accounts/token-decode', token)
           // const response = await studySpaceAPI.post<User>('/Accounts/decode', {
-            //   headers: {
-              //     Authorization: `Bearer ${token}`
-              //   }
-              // })
-          setUser(response.data)
+          //   headers: {
+          //     Authorization: `Bearer ${token}`
+          //   }
+          // })
+          // setUser(response.data)
+          if (response.data.roleName === 'User') {
+            setUser(response.data)
+          } else {
+            toast.error('Tài khoản không tồn tại với vai trò người dùng')
+            localStorage.removeItem('token')
+          }
         } catch (error) {
           localStorage.removeItem('token')
           localStorage.removeItem('token')
@@ -77,7 +84,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     fetchUser()
   }, [token])
 
- 
   const login = async (email: string, password: string) => {
     try {
       setLoading(true)
@@ -91,7 +97,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setErrorMessage(null)
       toast.success('Đăng nhập thành công')
       navigate(-1)
-     
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         console.log(error)
@@ -133,12 +138,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.removeItem('token')
 
         toast.error('Lỗi đăng nhập')
-      setLoadingGG(false)
-
+        setLoadingGG(false)
       }
     } finally {
       setLoadingGG(false)
-
     }
   }
 
@@ -152,7 +155,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, user,loadingGG, loginWithGG, login, logout, errorMessage, loading }}>
+    <AuthContext.Provider value={{ token, user, loadingGG, loginWithGG, login, logout, errorMessage, loading }}>
       {children}
     </AuthContext.Provider>
   )
