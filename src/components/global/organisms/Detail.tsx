@@ -302,7 +302,7 @@ function Detail() {
           </div>
 
           <div className='flex-[2.5] h-fit sticky top-[95px]'>
-            <BookingForm storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
+            <BookingForm pricePerHour={roomDetail?.pricePerHour} storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
           </div>
         </div>
         <RelatedRoom relatedRooms ={roomDetail?.relatedRoom}/>

@@ -14,10 +14,11 @@ interface Slot {
 interface BookingFormProps {
   storeOpenTime?: string; // e.g., "09:00"
   storeCloseTime?: string; // e.g., "18:00"
+  pricePerHour:number | 0;
   bookedSlots: { date: string; slots: Slot[] }[] | undefined; // Allowing undefined
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime, bookedSlots = [] }) => {
+const BookingForm: React.FC<BookingFormProps> = ({pricePerHour, storeOpenTime, storeCloseTime, bookedSlots = [] }) => {
   const [form] = Form.useForm();
   const [isOvernight, setIsOvernight] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -44,7 +45,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
   };
 
   const handleSubmit = (values: any) => {
-    console.log("hdfkj", values)
+    console.log("đặt nè", values)
     const { date, timeRange } = values;
 
     if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
@@ -102,11 +103,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
     form.resetFields();
   };
 
-  const extraServices = [
-    { label: 'WiFi', value: 'wifi', price: 5 },
-    { label: 'Café', value: 'cafe', price: 10 },
-    { label: 'Parking', value: 'parking', price: 15 }
-  ];
+  // const extraServices = [
+  //   { label: 'WiFi', value: 'wifi', price: 5 },
+  //   { label: 'Café', value: 'cafe', price: 10 },
+  //   { label: 'Parking', value: 'parking', price: 15 }
+  // ];
 
   const calculateTotalBill = (values: any) => {
     const { timeRange, extraServices: selectedServices } = values;
@@ -116,17 +117,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
       const selectedStart = dayjs(timeRange[0].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
       const selectedEnd = dayjs(timeRange[1].format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm');
       const durationInHours = selectedEnd.diff(selectedStart, 'hour', true);
-      total += durationInHours;
+      total += durationInHours*pricePerHour;
     }
 
-    if (selectedServices) {
-      selectedServices.forEach((service: string) => {
-        const extraService = extraServices.find((s) => s.value === service);
-        if (extraService) {
-          total += extraService.price;
-        }
-      });
-    }
+    // if (selectedServices) {
+    //   selectedServices.forEach((service: string) => {
+    //     const extraService = extraServices.find((s) => s.value === service);
+    //     if (extraService) {
+    //       total += extraService.price;
+    //     }
+    //   });
+    // }
 
     setTotalBill(total);
   };
@@ -270,7 +271,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
             <Alert message={overlapWarning} type='warning' />
           </Form.Item>
         )}
-        <Form.Item label='Extra Services' name='extraServices' className='w-full'>
+        {/* <Form.Item label='Extra Services' name='extraServices' className='w-full'>
           <Checkbox.Group>
             <Space direction='vertical'>
               {extraServices.map((service) => (
@@ -280,7 +281,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ storeOpenTime, storeCloseTime
               ))}
             </Space>
           </Checkbox.Group>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <div className='h-[1px] w-full bg-[#647C6C] my-4'></div>
           <div className='flex justify-between items-center text-xl '>
