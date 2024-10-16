@@ -473,7 +473,7 @@ nav {
 .animate-slide-out {
   animation: slideOut 0.5s ease forwards;
 }
-.ant-tabs-nav {
+/* .ant-tabs-nav {
   width: 100% !important;
   }
   
@@ -488,4 +488,4 @@ nav {
   .ant-tabs-nav > div:nth-of-type(1) {
   display: unset !important;
   width: 100% !important;
-  }
+  } */
