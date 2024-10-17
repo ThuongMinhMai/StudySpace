@@ -1,6 +1,7 @@
 import { Card, ConfigProvider } from 'antd'
 import { Layers2, MapPin, Moon, Scaling, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { formatPrice } from '../../../lib/utils'
 const { Meta } = Card
 
 const CardSpace = ({
@@ -30,7 +31,7 @@ const CardSpace = ({
             hoverable
             cover={
               <div className='relative'>
-                <div className='card text-lg font-bold' data-label={`From: ${price || 0}$`}>
+                <div className='card text-lg font-bold' data-label={`From: ${formatPrice((price || 0)*1000)}`}>
                   <div className='relative overflow-hidden'>
                     <img
                       alt={roomName}

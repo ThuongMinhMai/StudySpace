@@ -21,7 +21,7 @@ interface Room {
   type: string
   address: string
   image: string
-  isOvernight:boolean
+  isOvernight: boolean
 }
 function RoomPage() {
   const location = useLocation()
@@ -145,14 +145,12 @@ function RoomPage() {
 
       const queryString = queryParams.toString()
 
-
       const response = await studySpaceAPI.get(`/Room/filter?${queryParams}`)
 
       // Update card data with the fetched results
       setCardData(response.data.data.rooms)
       setTotalPages(response.data.data.totalCount) // Assuming the response has total pages
       setTotalAvailable(response.data.data.totalAvailable)
-
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
@@ -182,7 +180,9 @@ function RoomPage() {
   return (
     <div className='w-full bg-[#f5f0ec]'>
       <div className='relative w-full '>
-        <img src={ImgHeader} alt='imageheader' className='w-full  object-cover header__image' />
+        <div className='w-full bg-white-100 h-[620px]'>
+          <img src={ImgHeader} alt='imageheader' className='w-full  object-cover header__image' />
+        </div>
         <div className='lg:absolute inset-0 flex flex-col lg:gap-10 justify-center items-center'>
           <p className='lg:text-yellow-50 font-paytoneone text-7xl mb-10 text-center text mt-20 lg:mt-0 text-[#3D4449] '>
             Make Yourself At Home <br />

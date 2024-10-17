@@ -13,6 +13,7 @@ import FeedbackGallery from '../molecules/FeedbackGallery'
 import HouseRule from '../molecules/HouseRule'
 import SpaceLocation from '../molecules/SpaceLocation'
 import RelatedRoom from '../molecules/RelatedRoom'
+import { formatPrice } from '../../../lib/utils'
 interface RelatedRoom {
   roomId: number
   roomName: string
@@ -230,7 +231,7 @@ function Detail() {
           <div className='flex flex-col flex-[5] gap-2'>
             <div className='flex justify-between items-center'>
               <div className='text-xl  text-gray-700 mt-4'>
-                From <span className='font-semibold text-2xl'>${roomDetail?.pricePerHour}</span>
+                From <span className='font-semibold text-2xl'>{formatPrice((roomDetail?.pricePerHour||0)*1000)}</span>
               </div>
               <div className='cursor-pointer text-[#647C6C] hover:underline  transition-all' onClick={showModal}>
                 See Menu
@@ -302,7 +303,7 @@ function Detail() {
           </div>
 
           <div className='flex-[2.5] h-fit sticky top-[95px]'>
-            <BookingForm pricePerHour={roomDetail?.pricePerHour||0} storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
+            <BookingForm roomId={id} pricePerHour={(roomDetail?.pricePerHour||0)*1000} storeOpenTime={roomDetail?.startTime} storeCloseTime={roomDetail?.endTime} bookedSlots={roomDetail?.bookedSlots} />
           </div>
         </div>
         <RelatedRoom relatedRooms ={roomDetail?.relatedRoom}/>

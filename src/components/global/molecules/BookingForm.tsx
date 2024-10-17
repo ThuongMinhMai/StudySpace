@@ -2,6 +2,11 @@ import { Alert, Button, Checkbox, ConfigProvider, DatePicker, Form, Space, TimeP
 import 'antd/dist/reset.css';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../../auth/AuthProvider';
+import studySpaceAPI from '../../../lib/studySpaceAPI';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { formatPrice } from '../../../lib/utils';
 
 const { RangePicker: TimeRangePicker } = TimePicker;
 const { RangePicker: DateTimeRangePicker } = DatePicker;
@@ -12,14 +17,17 @@ interface Slot {
 }
 
 interface BookingFormProps {
+  roomId:string | undefined
   storeOpenTime?: string; // e.g., "09:00"
   storeCloseTime?: string; // e.g., "18:00"
   pricePerHour:number | 0;
   bookedSlots: { date: string; slots: Slot[] }[] | undefined; // Allowing undefined
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({pricePerHour, storeOpenTime, storeCloseTime, bookedSlots = [] }) => {
+const BookingForm: React.FC<BookingFormProps> = ({roomId, pricePerHour, storeOpenTime, storeCloseTime, bookedSlots = [] }) => {
+  const {user} = useAuth()
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const [isOvernight, setIsOvernight] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
   const [selectedRangeDate, setSelectedRangeDate] = useState<[Dayjs | null, Dayjs | null] | null>(null);
@@ -44,9 +52,12 @@ const BookingForm: React.FC<BookingFormProps> = ({pricePerHour, storeOpenTime, s
     setIsOvernight(e.target.checked);
   };
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async(values: any) => {
     console.log("đặt nè", values)
     const { date, timeRange } = values;
+  // Combine date with start and end time to form datetime objects
+  
+ 
 
     if (isOvernight && selectedRangeDate && selectedRangeDate.length === 2) {
       const [startDate, endDate] = selectedRangeDate;
@@ -96,11 +107,75 @@ const BookingForm: React.FC<BookingFormProps> = ({pricePerHour, storeOpenTime, s
       }
     }
 
+    let startDateTime, endDateTime;
+
+    // if (date) {
+    //   // Combine date with start and end time from timeRange to form datetime objects
+    //   const selectedDateStr = date.format('YYYY-MM-DD');
+    //   const selectedStart = timeRange[0].format('HH:mm');
+    //   const selectedEnd = timeRange[1].format('HH:mm');
+  
+    //   startDateTime = dayjs(`${selectedDateStr} ${selectedStart}`, 'YYYY-MM-DD HH:mm');
+    //   endDateTime = dayjs(`${selectedDateStr} ${selectedEnd}`, 'YYYY-MM-DD HH:mm');
+  
+    //   console.log("Selected start datetime:", startDateTime.format('YYYY-MM-DD HH:mm'));
+    //   console.log("Selected end datetime:", endDateTime.format('YYYY-MM-DD HH:mm'));
+    // } else {
+    //   // If only timeRange is provided, it already includes the full datetime
+    //   [startDateTime, endDateTime] = timeRange;
+  
+    //   const formattedStart = startDateTime.format('YYYY-MM-DD HH:mm');
+    //   const formattedEnd = endDateTime.format('YYYY-MM-DD HH:mm');
+  
+    //   console.log("Selected start datetime:", formattedStart);
+    //   console.log("Selected end datetime:", formattedEnd);
+    // }
+
+    if (date) {
+      // Combine date with start and end time from timeRange to form datetime objects
+      const selectedDateStr = date.format('YYYY-MM-DD');
+      const selectedStart = timeRange[0].format('HH:mm');
+      const selectedEnd = timeRange[1].format('HH:mm');
+  
+      startDateTime = dayjs(`${selectedDateStr} ${selectedStart}`, 'YYYY-MM-DD HH:mm');
+      endDateTime = dayjs(`${selectedDateStr} ${selectedEnd}`, 'YYYY-MM-DD HH:mm');
+    } else {
+      // If only timeRange is provided, it already includes the full datetime
+      [startDateTime, endDateTime] = timeRange;
+    }
+  
+    // Format the datetimes to ISO 8601 format
+    const formattedStart = startDateTime.toISOString();
+    const formattedEnd = endDateTime.toISOString();
+  
+    console.log("Selected start datetime:", formattedStart);
+    console.log("Selected end datetime:", formattedEnd);
+ 
     calculateTotalBill(values);
-    setSelectedRangeDate(null);
-    setSelectedDate(null);
-    setTotalBill(0);
-    form.resetFields();
+    const payload ={
+      userId: user?.userID,
+      roomId:roomId,
+      startTime:formattedStart,
+      endTime:formattedEnd,
+      fee: totalBill,
+      note:"Thanh toán hóa đơn đặt phòng"+ user?.name
+    }
+
+
+    try {
+      const response = await studySpaceAPI.post("/Bookings",payload)
+      console.log("đặt phòng", response.data.data)
+      const { checkInDate, checkInTime, checkOutDate, checkOutTime, roomId, roomName, total, userId } = response.data.data[0];
+      navigate(`/checkout?checkInDate=${checkInDate}&checkInTime=${checkInTime}&checkOutDate=${checkOutDate}&checkOutTime=${checkOutTime}&roomId=${roomId}&roomName=${encodeURIComponent(roomName)}&total=${total}&userId=${userId}`);
+      setSelectedRangeDate(null);
+      setSelectedDate(null);
+      setTotalBill(0);
+      form.resetFields();
+    } catch (error) {
+      console.log(error)
+      toast.error("Booking room failed!Please try again!")
+    }
+   
   };
 
   // const extraServices = [
@@ -286,7 +361,7 @@ const BookingForm: React.FC<BookingFormProps> = ({pricePerHour, storeOpenTime, s
           <div className='h-[1px] w-full bg-[#647C6C] my-4'></div>
           <div className='flex justify-between items-center text-xl '>
             <div className='font-medium'>Total Bill: </div>
-            <div className='font-bold'>${totalBill.toFixed(2)}</div>
+            <div className='font-bold'>{formatPrice(totalBill)}</div>
           </div>
         </Form.Item>
         <Button type='primary' htmlType='submit' size='large' className='text-white w-full'>

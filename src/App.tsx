@@ -14,6 +14,9 @@ import MyRoomPage from './components/global/organisms/MyRoomPage'
 import TransactionPage from './components/global/organisms/TransactionPage'
 import ProtectUserRoute from './auth/ProtectUserRoute'
 import SignUpSuccessfully from './components/global/organisms/SignUpSuccessfully'
+import PaymentSuccess from './components/global/organisms/PaymentSuccess'
+import PaymentFailure from './components/global/organisms/PaymentFailure'
+import CheckoutPage from './components/global/organisms/CheckoutPage '
 
 function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -37,6 +40,9 @@ function App() {
         />
         <Route path='/booking' element={<MyRoomPage />} />
         <Route path='/transaction' element={<TransactionPage />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
+        <Route path='/payment-success' element={<PaymentSuccess />} />
+        <Route path='/payment-cancel' element={<PaymentFailure />} />
       </Route>
       <Route path='*' element={<NotFound />} />
       <Route

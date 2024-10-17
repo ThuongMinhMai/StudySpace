@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatPrice (value: number): string {
+export function formatPrice (value: number): any {
   return new Intl.NumberFormat('vi-VN').format(value) + 'đ'
 }
 
