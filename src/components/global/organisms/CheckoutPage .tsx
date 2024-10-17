@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
-import { ConfigProvider, Input, Table } from 'antd'
+import { ConfigProvider, Input, Table, Button, message } from 'antd'
 import checkout from '../../../assets/checkout.png'
 import { useAuth } from '../../../auth/AuthProvider'
 import { formatPrice } from '../../../lib/utils'
+import { useState } from 'react'
 
 const CheckoutPage = () => {
   const { user } = useAuth()
@@ -20,15 +21,21 @@ const CheckoutPage = () => {
   const roomName = searchParams.get('roomName')
   const total = searchParams.get('total')
   const userId = searchParams.get('userId')
+  const bookingId = searchParams.get('bookingId') // Assuming you have this in the URL
 
   // Check if all required fields are present
   const isDataComplete =
-    checkInDate && checkInTime && checkOutDate && checkOutTime && roomId && roomName && total && userId
+    checkInDate && checkInTime && checkOutDate && checkOutTime && roomId && roomName && total && userId && bookingId
+
+  // Calculate deposit (30% of total)
+  const deposit = total ? Number(total) * 0.3 : 0;
+
   const bookingData = [
     { key: '1', field: 'Room Name', details: roomName },
     { key: '2', field: 'Check-in', details: `${checkInTime} (${checkInDate})` },
     { key: '3', field: 'Check-out', details: `${checkOutTime} (${checkOutDate})` },
-    { key: '4', field: 'Total', details: `${formatPrice(total ? Number(total) : 0)}` }
+    { key: '4', field: 'Total', details: `${formatPrice(total ? Number(total) : 0)}` },
+    { key: '5', field: 'Deposit (30%)', details: `${formatPrice(deposit)}` },
   ]
 
   const bookingColumns = [
@@ -43,6 +50,26 @@ const CheckoutPage = () => {
       key: 'details'
     }
   ]
+
+  const [note, setNote] = useState('')
+
+  const handlePayment = () => {
+    // Simulate sending data to the backend
+    const paymentData = {
+      bookingId,
+      deposit,
+      note
+    }
+    
+    console.log('Payment Data:', paymentData)
+
+    // Here you would typically make an API call to process the payment
+    // Example: await api.post('/payment', paymentData)
+
+    // Show success message
+    message.success('Payment information sent successfully!') 
+  }
+
   if (!isDataComplete) {
     return (
       <div className='flex flex-col items-center justify-center h-screen w-full p-6'>
@@ -73,8 +100,6 @@ const CheckoutPage = () => {
           <p className='drop-shadow-2xl'>Checkout</p>
         </div>
       </div>
-
-      {/* <h2 className='mt-8 text-2xl font-bold'>Checkout Page</h2> */}
 
       {/* User Information Section */}
       <div className='mt-6 w-3/4 rounded-lg '>
@@ -126,7 +151,7 @@ const CheckoutPage = () => {
         </div>
       </div>
 
-      <div className='mt-6 w-3/4 '>
+      <div className='mt-6 w-3/4'>
         <h3 className='text-xl font-semibold mb-4'>Your Order:</h3>
         {bookingData.map((item) => (
           <div key={item.key} className='flex justify-between border-b border-[#647C6C] py-2'>
@@ -134,6 +159,36 @@ const CheckoutPage = () => {
             <span className={`ml-4 ${item.field === 'Total' ? 'font-bold' : ''}`}>{item.details}</span>
           </div>
         ))}
+
+        {/* Note Input Field */}
+        <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: '#647C6C'
+              },
+              components: {
+                Button: {}
+              }
+            }}
+          >
+        <div className='mt-4'>
+      
+          <label className='block text-sm font-medium mb-2'>Note</label>
+          <Input.TextArea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={4}
+            placeholder='Enter any special requests or notes...'
+          />
+        </div>
+
+        {/* Payment Button */}
+        <div className='mt-6'>
+          <Button type='primary' onClick={handlePayment}>
+            Pay Deposit
+          </Button>
+        </div>
+        </ConfigProvider>
       </div>
     </div>
   )
