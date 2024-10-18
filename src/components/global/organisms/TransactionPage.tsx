@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { useAuth } from '../../../auth/AuthProvider'
 import { toast } from 'sonner'
+import { formatPrice } from '../../../lib/utils'
 
 // Define the structure of a transaction
 interface Transaction {
@@ -76,7 +77,7 @@ function TransactionPage() {
                   <strong>Date:</strong> {transaction.date}
                 </p>
                 <p className='text-sm'>
-                  <strong>Amount:</strong> ${transaction.fee.toFixed(2)}
+                  <strong>Amount:</strong> {formatPrice(transaction.fee)}
                 </p>
                 <p className='text-sm'>
                   <strong>Payment Method:</strong> {transaction.paymentMethod}
@@ -137,7 +138,7 @@ function TransactionPage() {
               <strong>Date:</strong> {selectedTransaction.date}
             </p>
             <p className='text-sm text-gray-500'>
-              <strong>Amount:</strong> ${selectedTransaction.fee.toFixed(2)}
+              <strong>Amount:</strong> {formatPrice(selectedTransaction.fee)}
             </p>
             <p className='text-sm text-gray-500'>
               <strong>Payment Method:</strong> {selectedTransaction.paymentMethod}

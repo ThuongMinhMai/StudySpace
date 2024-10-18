@@ -18,8 +18,8 @@ function PaymentSuccess() {
         Thank you for your trust <span className='text-primary font-medium'>The Study Space</span>
         </p>
 
-        <Link to='/' className='underline hover:text-primary font-medium text-xl mt-8'>
-        Return to homepage
+        <Link to='/booking' className='underline hover:text-primary font-medium text-xl mt-8'>
+        View Booking
         </Link>
       </div>
     </div>

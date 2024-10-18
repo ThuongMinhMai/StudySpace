@@ -7,6 +7,7 @@ import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { useAuth } from '../../../auth/AuthProvider'
 import { Moon } from 'lucide-react'
 import RatingForm from './RatingForm'
+import { formatPrice } from '../../../lib/utils'
 
 // Define the structure of the booked room data
 interface BookedRoom {
@@ -132,7 +133,7 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> ${room.pricePerHour}
+                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -182,7 +183,7 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> ${room.pricePerHour}
+                        <strong>Fee:</strong> {formatPrice(room.pricePerHour*1000)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -231,7 +232,7 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> ${room.pricePerHour}
+                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -280,7 +281,7 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> ${room.pricePerHour}
+                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -324,7 +325,7 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> ${room.pricePerHour}
+                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -394,7 +395,7 @@ function MyRoomPage() {
                 </Tag>
               </p>
               <p className='text-sm text-gray-500'>
-                <strong>Fee:</strong> ${selectedRoom.pricePerHour}
+                <strong>Fee:</strong>{formatPrice(selectedRoom.pricePerHour*1000)}
               </p>
               <p className='text-sm text-gray-500'>
                 <strong>Booking Date:</strong> {selectedRoom.bookedDate}-{selectedRoom.bookedTime}

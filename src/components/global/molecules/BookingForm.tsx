@@ -165,8 +165,8 @@ const BookingForm: React.FC<BookingFormProps> = ({roomId, pricePerHour, storeOpe
     try {
       const response = await studySpaceAPI.post("/Bookings",payload)
       console.log("đặt phòng", response.data.data)
-      const { checkInDate, checkInTime, checkOutDate, checkOutTime, roomId, roomName, total, userId } = response.data.data[0];
-      navigate(`/checkout?checkInDate=${checkInDate}&checkInTime=${checkInTime}&checkOutDate=${checkOutDate}&checkOutTime=${checkOutTime}&roomId=${roomId}&roomName=${encodeURIComponent(roomName)}&total=${total}&userId=${userId}`);
+      const { checkInDate, checkInTime, checkOutDate, checkOutTime, roomId, roomName, total, userId,bookingId } = response.data.data[0];
+      navigate(`/checkout?checkInDate=${checkInDate}&checkInTime=${checkInTime}&checkOutDate=${checkOutDate}&checkOutTime=${checkOutTime}&bookingId=${bookingId}&roomName=${encodeURIComponent(roomName)}&total=${total}&userId=${userId}`);
       setSelectedRangeDate(null);
       setSelectedDate(null);
       setTotalBill(0);
