@@ -95,7 +95,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ onFilterChange, onCle
               onChange={(value: number[]) => setPriceRange([value[0], value[1]])}
             />
             <p>
-              ${priceRange[0]} - ${priceRange[1]}
+              {priceRange[0]} - {priceRange[1]}
             </p>
           </div>
 

@@ -398,7 +398,7 @@ function MyRoomPage() {
                 <strong>Fee:</strong>{formatPrice(selectedRoom.pricePerHour*1000)}
               </p>
               <p className='text-sm text-gray-500'>
-                <strong>Booking Date:</strong> {selectedRoom.bookedDate}-{selectedRoom.bookedTime}
+                <strong>Booking Date:</strong> ({selectedRoom.bookedTime})-{selectedRoom.bookedDate}
               </p>
               <p className='text-sm text-gray-500'>
                 <strong>Payment Method:</strong> {selectedRoom.paymentMethod}

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../auth/AuthProvider'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
+import { formatPrice } from '../../../lib/utils'
 interface OfferData {
   id: number
   name: string
@@ -56,8 +57,8 @@ function OfferCard() {
           <div className='room__card__details p-4 flex flex-col justify-center items-center gap-10'>
             <h4 className='mt-8 text-center text-2xl font-bold'>{offer.name}</h4>
             <h5 className='mb-4 text-base text-center text-[#FFA800]'>
-              <span className='font-extrabold text-xl'>$</span>{' '}
-              <span className='font-extrabold text-5xl'>{offer.fee}</span>
+              <span className='font-extrabold text-5xl'>{formatPrice(offer.fee)}</span>
+              <span className='font-extrabold text-xl'>/</span>{' '}
               <span className='text-lg text-[#767676] font-medium'>monthly</span>
             </h5>
             <ul className='list-none space-y-8 px-8 text-[#67625D]'>
