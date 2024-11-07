@@ -138,31 +138,7 @@ function Detail() {
     fetchRoomDetail()
     fetchFeedback() // Call the feedback fetching function
   }, [id])
-  // const spaceLocation = {
-  //   name: 'StudySpace',
-  //   address: '123 Trần Quý Cáp, phường Phú Thủy, Thành phố Phan Thiết, Bình Thuận',
-  //   city: 'Phan Thiết',
-  //   postalCode: '12345',
-  //   latitude: 10.934398119069566,
-  //   longitude: 108.09428773144262
-  // }
-
-  // const imageUrls = [
-  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-  //   // 'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg'
-  //   // 'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  // ]
-  // const images = [
-  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-  //   'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
-  //   'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  // ]
-
-  // const menuImages = [
-  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-  //   'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
-  //   'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  // ]
+ 
   useEffect(() => {
     window.scrollTo(0, 0)
     // Update state when query parameters change
@@ -180,22 +156,7 @@ function Detail() {
     navigate(-1) // This navigates back to the previous page
   }
 
-  // const bookedSlots = {
-  //   '2024-09-20': [
-  //     { start: '10:00', end: '11:00' },
-  //     { start: '14:00', end: '15:00' }
-  //   ]
-  // }
-  // const bookedSlots = [
-  //   {
-  //     date: '2024-10-22',
-  //     slots: [
-  //       { start: '10:30', end: '11:30' },
-  //       { start: '14:00', end: '15:00' }
-  //     ]
-  //   },
-  //   { date: '2024-10-23', slots: [{ start: '09:00', end: '10:00' }] }
-  // ]
+  
   return (
     <div className='bg-gradient-to-b from-[#fcfbf9] to-[#ede4dd] w-full'>
       <div className='w-4/5 mx-auto mt-10 my-20 '>
@@ -207,15 +168,7 @@ function Detail() {
           />
         </Tooltip>
 
-        {/* <Slider {...settings}>
-          {imageUrls.map((url, index) => (
-            <div key={index} className=''>
-              <img src={url} alt={`Slide ${index + 1}`} className='w-full h-[450px] object-cover' />
-            </div>
-          ))}
-
-        
-        </Slider> */}
+     
         {roomDetail?.listImages && roomDetail.listImages.imageList.length > 1 ? (
           <Slider {...settings}>
             {roomDetail?.listImages.imageList.map((url, index) => (

@@ -17,6 +17,7 @@ import space3 from '../../../assets/space3.jpg'
 import './AboutUs.css'
 import { useEffect, useState } from 'react'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
+import { formatPrice } from '../../../lib/utils'
 interface Space {
   minimumPricePerHour: number
   description: string
@@ -211,7 +212,7 @@ function Explore() {
                 <h4 className='mb-2 text-xl font-semibold'>{space.type}</h4>
                 <p className='my-4 text-gray-600'>{space.description}</p>
                 <h5 className='mb-4 text-base font-medium text-gray-400'>
-                  Starting from <span className='text-xl text-[#FFA800] font-bold '>${space.minimumPricePerHour}/hour</span>
+                  Starting from <span className='text-xl text-[#FFA800] font-bold '>{formatPrice((space.minimumPricePerHour)*1000)}/hour</span>
                 </h5>
 
                 <button

@@ -70,7 +70,6 @@ function FormSearch({ initialLocation, initialTypeSpace, initialTypeRoom, initia
 
   const onFinish = (values: any) => {
     onSearchChange(values)
-    console.log('Form values:', values)
     // You can perform search or navigation based on form values here
   }
   return (

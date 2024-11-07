@@ -68,7 +68,6 @@ function ProfilePage() {
   })
 
   const onSubmit = async (values: any) => {
-    console.log('value ne', values)
     const formData = new FormData()
     formData.append('name', values.name || data?.name)
     // formData.append('FullName', values.FullName || data?.FullName)
@@ -84,16 +83,14 @@ function ProfilePage() {
       formData.append('AvatarUrl', '')
     }
     // Logging form data
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`)
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`)
+    // }
     try {
       const response = await updateUserProfile(user?.userID || '', formData)
       setLoading(false)
       // toast.success('Cập nhật profile thành công')
 
-      console.log('Profile updated successfully:', response)
-      console.log('Profile updated successfully:', response.data)
       await refetch()
       setHasChanges(false)
       queryClient.invalidateQueries({ queryKey: ['userDetail', user?.userID] })

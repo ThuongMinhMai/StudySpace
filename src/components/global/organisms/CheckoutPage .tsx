@@ -9,7 +9,6 @@ import { toast } from 'sonner'
 
 const CheckoutPage = () => {
   const { user } = useAuth()
-  console.log('User Info:', user)
 
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -59,22 +58,6 @@ const CheckoutPage = () => {
 
   const [note, setNote] = useState('')
 
-  // const handlePayment = () => {
-  //   // Simulate sending data to the backend
-  //   const paymentData = {
-  //     bookingId,
-  //     amount:deposit,
-  //     description:note
-  //   }
-
-  //   console.log('Payment Data:', paymentData)
-
-  //   // Here you would typically make an API call to process the payment
-  //   // Example: await api.post('/payment', paymentData)
-
-  //   // Show success message
-  //   message.success('Payment information sent successfully!')
-  // }
   const handlePayment = async () => {
     try {
       // Simulate sending data to the backend
@@ -83,12 +66,10 @@ const CheckoutPage = () => {
         amount: deposit,
         description: roomName 
       }
-
-      console.log('Payment Data:', paymentData)
+      console.log("creaet payment")
 
       // Make an API call to process the payment
-      const response = await studySpaceAPI.post('/Payments', paymentData)
-      console.log('paument', response.data.data)
+      const response = await studySpaceAPI.post('/Payments/customer', paymentData)
       // Show success message if the request is successful
       // Check the response status
       if (response.data.status === 1) {
@@ -96,7 +77,6 @@ const CheckoutPage = () => {
         window.location.href = response.data.data.checkoutUrl
       } else {
         // Log the error message if the status is not 1
-        console.log(response.data.message)
         toast.error('Payment failed' + response.data.message)
       }
       message.success('Payment information sent successfully!')

@@ -1,5 +1,5 @@
 import { Button, Col, ConfigProvider, DatePicker, Form, Input, Radio, Row, TimePicker } from 'antd'
-import axios from 'axios'; // Assuming axios is used for making API requests
+import axios from 'axios' // Assuming axios is used for making API requests
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -11,7 +11,7 @@ function SignUpInformation() {
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState<string | null>(null)
   const [email, setEmail] = useState<string | null>(null)
-  const [isOvernight, setIsOvernight] = useState(false);
+  const [isOvernight, setIsOvernight] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const location = useLocation()
@@ -41,7 +41,6 @@ function SignUpInformation() {
       form.setFieldsValue({ email: email }) // Set the email value in the form
     }
   }, [email, form])
-  console.log('token nè', token, email)
   const formatValues = (values: any) => {
     return {
       ...values,
@@ -59,18 +58,16 @@ function SignUpInformation() {
       toast.error('Email is missing')
       return
     }
-    const { confirmPassword, ...restValues } = values;
+    const { confirmPassword, ...restValues } = values
     const formattedValues = formatValues(restValues)
-    console.log('Supplier Form Values: ', formattedValues)
     setLoading(true)
     try {
       const response = await studySpaceAPI.post(`/Stores?token=${token}`, formattedValues)
-      console.log('Supplier Signup Response: ', response.data.data)
       if (response.data.data === null) {
-        toast.error(response.data.message);  // Log the message from the response if data is null
+        toast.error(response.data.message) // Log the message from the response if data is null
       } else {
-        toast.success('Successfully signed up as a supplier');  // Log success message
-        navigate("/signUpSuccess")
+        toast.success('Successfully signed up as a supplier') // Log success message
+        navigate('/signUpSuccess')
       }
     } catch (error) {
       console.error('Supplier Signup Failed:', error)
@@ -99,12 +96,10 @@ function SignUpInformation() {
       gender: values.gender,
       dob: values.dob.toISOString() // Formatting Date of Birth to ISO string
     }
-    console.log('User Form Values: ', payload)
 
     setLoading(true)
     try {
       const response = await studySpaceAPI.post(`/Accounts?token=${token}`, payload)
-      console.log('User Signup Response: ', response.data)
       toast.success('Sign up successfully. Please login to continue!')
       navigate('/signin')
     } catch (error) {
@@ -118,25 +113,25 @@ function SignUpInformation() {
   const onRoleChange = (e: any) => {
     setRole(e.target.value)
   }
-  const handleOverNightChange = (e:any) => {
-    const isOverNightChecked = e.target.value;
+  const handleOverNightChange = (e: any) => {
+    const isOverNightChecked = e.target.value
 
-    setIsOvernight(isOverNightChecked);
+    setIsOvernight(isOverNightChecked)
 
     if (isOverNightChecked) {
       // If overnight is true, set openTime and closeTime to 00:00 and disable the fields
       form.setFieldsValue({
         openTime: moment('00:00', 'HH:mm'),
         closeTime: moment('00:00', 'HH:mm')
-      });
+      })
     } else {
       // Enable the fields when overnight is false
       form.setFieldsValue({
         openTime: null,
         closeTime: null
-      });
+      })
     }
-  };
+  }
   return (
     <ConfigProvider
       theme={{
@@ -176,7 +171,7 @@ function SignUpInformation() {
 
             {/* Supplier Form */}
             {role === 'supplier' && (
-              <Form name='supplier_sign_up' form={form} onFinish={onSupplierFinish} layout='vertical' className='' >
+              <Form name='supplier_sign_up' form={form} onFinish={onSupplierFinish} layout='vertical' className=''>
                 <Row gutter={16}>
                   <Col span={12}>
                     <Form.Item
@@ -245,9 +240,10 @@ function SignUpInformation() {
                         { required: true, message: 'Please input your password!' },
                         { min: 6, message: 'Password must be at least 6 characters long!' },
                         {
-                          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&*+\-])[A-Za-z\d@#$%&*+\-]{6,}$/,
+                          // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
                           message:
-                            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!'
+                            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@, #, $, %, &, *, +, -)!'
                         }
                       ]}
                       hasFeedback
@@ -285,7 +281,7 @@ function SignUpInformation() {
                       name='openTime'
                       rules={[{ required: true, message: 'Please select open time!' }]}
                     >
-                      <TimePicker className='w-full' format='HH:mm'disabled={isOvernight} />
+                      <TimePicker className='w-full' format='HH:mm' disabled={isOvernight} />
                     </Form.Item>
                   </Col>
 
@@ -295,7 +291,7 @@ function SignUpInformation() {
                       name='closeTime'
                       rules={[{ required: true, message: 'Please select close time!' }]}
                     >
-                      <TimePicker className='w-full' format='HH:mm' disabled={isOvernight}/>
+                      <TimePicker className='w-full' format='HH:mm' disabled={isOvernight} />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -434,9 +430,9 @@ function SignUpInformation() {
                         { required: true, message: 'Please input your password!' },
                         { min: 6, message: 'Password must be at least 6 characters long!' },
                         {
-                          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                          pattern:  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&*+\-])[A-Za-z\d@#$%&*+\-]{6,}$/,
                           message:
-                            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!'
+                            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@, #, $, %, &, *, +, -)!'
                         }
                       ]}
                       hasFeedback

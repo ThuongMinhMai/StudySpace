@@ -7,9 +7,7 @@ function SignIn() {
   const { login, loginWithGG, loadingGG, loading } = useAuth()
   const navigate = useNavigate()
   const onFinish = async (values: any) => {
-    console.log('Received values from form: ', values)
     try {
-      console.log(values)
 
       await login(values.email, values.password)
     } catch (error) {

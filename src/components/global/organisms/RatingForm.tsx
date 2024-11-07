@@ -23,7 +23,6 @@ const suggestions = [
 ]
 
 function RatingForm({ bookingId, setShowRatingForm, onRatingSuccess }: RatingFormProps) {
-  console.log("nha", bookingId)
   const { user } = useAuth()
   const [form] = Form.useForm()
   
@@ -50,10 +49,10 @@ function RatingForm({ bookingId, setShowRatingForm, onRatingSuccess }: RatingFor
           }
         })
       }
-      console.log('Form Data:', formData)
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`)
-      }
+      // console.log('Form Data:', formData)
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(`${key}: ${value}`)
+      // }
       const response = await studySpaceAPI.post('/Feedback', formData)
       setLoading(false)
       toast.success('Successful room review!')

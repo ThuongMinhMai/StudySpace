@@ -102,15 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log(error)
         const message = error.response.data
         toast.error(message)
-        // if (error.response.data.verified === false) {
-        //   toast.error('Email đã đăng kí nhưng chưa xác thực. Vui lòng xác thực email!')
-        //   // navigate(`/otp-verified/${email}`)
-        //   const response = await studySpaceAPI.post('user-management/managed-users/otp-code-sending', { email: email })
-        // } else {
-        //   setLoading(false)
-        //   toast.error('Email hoặc mật khẩu không đúng')
-        // }
-        // console.log('check verified', error.response.data.verified)
+      
         setErrorMessage(message)
       } else {
         console.error('Login failed:', error)
@@ -120,7 +112,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
   const loginWithGG = async (accessToken: string) => {
-    console.log('token ơ gg ', accessToken)
     setLoadingGG(true)
     try {
       setLoading(true)

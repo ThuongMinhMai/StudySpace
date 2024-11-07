@@ -40,7 +40,14 @@ function App() {
         />
         <Route path='/booking' element={<MyRoomPage />} />
         <Route path='/transaction' element={<TransactionPage />} />
-        <Route path='/checkout' element={<CheckoutPage />} />
+        <Route
+          path='/checkout'
+          element={
+            <ProtectUserRoute>
+              <CheckoutPage />
+            </ProtectUserRoute>
+          }
+        />
         <Route path='/payment-success' element={<PaymentSuccess />} />
         <Route path='/payment-cancel' element={<PaymentFailure />} />
       </Route>

@@ -28,31 +28,7 @@ const FeedbackGallery = ({ images }: any) => {
   const [totalFeedback, setTotalFeedback] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize] = useState(6) // Number of feedback items per page
-  // Sample ratings for the expanded cards
-  // const ratings = [
-  //   { image: images[0], rating: 4.5, feedback: 'Great service and comfortable trip!' },
-  //   { image: images[1], rating: 3.8, feedback: 'The experience was okay, could be better.' },
-  //   { image: images[2], rating: 5, feedback: 'Excellent! Would highly recommend.' }
-  //   // Add more as needed
-  // ]
 
-  // const imageUrls = [
-  //   'https://images.squarespace-cdn.com/content/v1/6352a024aeb13620d6a839b0/06b31b78-2c10-496f-967c-8986490cc696/BoltonInterior-03777.JPG',
-  //   'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg',
-  //   'https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/04/04095646/music-for-coffee-shop.jpg'
-  // ]
-  // const feedback = {
-  //   UserName: 'Thuongminhlsr',
-  //   ImageUrl: imageUrls,
-  //   Rating: 4.5,
-  //   Desciption: 'Great service and comfortable trip!',
-  //   Date: '2024-09-24',
-  //   Avt: 'https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg'
-  // }
-  // {UserName:"Thuongminhlst",ImageUrl: imageUrls, Rating: 4.5, Desciption: 'Great service and comfortable trip!',Date:"20-10-2024", Avt:"https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg" },
-  // {UserName:"Thuongminhlst",ImageUrl: imageUrls, Rating: 4.5, Desciption: 'Great service and comfortable trip!',Date:"20-10-2024", Avt:"https://fnb.qdc.vn/pictures/catalog/hinh-banner/dinh-coffee-2000.jpg" },
-
-  // Add more as needed
   useEffect(() => {
     if (isExpanded) {
       fetchFeedback(currentPage)
@@ -71,9 +47,6 @@ const FeedbackGallery = ({ images }: any) => {
   }
 
   const showModal = async (id: string) => {
-    // setModalImage(image)
-    // setModalText('Additional information about this image')
-
     try {
       // Assuming your API endpoint is something like /api/feedback/:fbid
       const response = await studySpaceAPI.get(`/Feedback/detail/${id}`)
@@ -192,11 +165,6 @@ const FeedbackGallery = ({ images }: any) => {
 
       {/* Modal for showing large image */}
       <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} centered width={800}>
-        {/* <div className='flex flex-col items-center'>
-          <img src={modalImage} alt='Modal Content' className='w-full h-[500px] object-cover mb-4' />
-          <p>{modalText}</p>
-        </div> */}
-
         {modalFeedback && (
           <div className='feedback-detail w-4/5 m-auto'>
             <div className='flex items-center mb-4'>
@@ -215,7 +183,7 @@ const FeedbackGallery = ({ images }: any) => {
             </div>
             <p className='text-lg '>{modalFeedback.reviewText}</p>
             {modalFeedback.feedbackImages.length > 0 && (
-              <div className='feedback-images mt-4'>
+              <div className='feedback-images mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2'>
                 {modalFeedback.feedbackImages.map((image, index) => (
                   <img
                     key={index}

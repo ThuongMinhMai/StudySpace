@@ -33,20 +33,7 @@ export const fetchUserDetail = (userId: string) => {
       enabled: !!userId,
     });
   };
-  // export const updateUserProfile = async (userId:string,formData: any) => {
-  //   try {
-  //     const response = await studySpaceAPI.put(`/Accounts/${userId}`, formData); 
-  //     if (response.data.data == null) {
-  //       console.log("me", response.data.message)
-  //       toast.error(response.data.message); // Display error message if no data returned
-  //       return;
-  //     }
-  //     console.log("update", response.data.message)
-  //     return response.data; 
-  //   } catch (error) {
-  //     throw new Error('Error updating user profile'); // Handle errors appropriately in your application
-  //   }
-  // };
+ 
 
   export const updateUserProfile = async (userId: string, formData: any) => {
     try {

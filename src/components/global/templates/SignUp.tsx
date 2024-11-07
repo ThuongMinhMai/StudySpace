@@ -23,7 +23,6 @@ function SignUp() {
     try {
       // Send a POST request to the signup API
       const response = await studySpaceAPI.post('/Accounts/email-sending-confirmation', values.email)
-      console.log(response.data)
 
       // Add slide-out animation for the form
       setSlideOut(true)
@@ -52,7 +51,6 @@ function SignUp() {
       // Send a POST request to resend confirmation email
       const response = await studySpaceAPI.post('/Accounts/send-confirm-mail', email)
       toast.success('Email resent successfully')
-      console.log('Resend email response:', response.data)
       setIsResending(false) // Stop loading
     } catch (error) {
       console.error('Resend email failed', error)
