@@ -64,27 +64,35 @@ const CheckoutPage = () => {
       const paymentData = {
         bookingId,
         amount: deposit,
-        description: roomName 
+        description: roomName
       }
-      console.log("creaet payment")
+      console.log('creaet payment')
 
       // Make an API call to process the payment
       const response = await studySpaceAPI.post('/Payments/customer', paymentData)
       // Show success message if the request is successful
       // Check the response status
-      if (response.data.status === 1) {
-        // Redirect to the checkout URL if successful
-        window.location.href = response.data.data.checkoutUrl
-      } else {
-        // Log the error message if the status is not 1
-        toast.error('Payment failed' + response.data.message)
-      }
-      message.success('Payment information sent successfully!')
+      message.success(
+        <>
+          Payment information sent successfully! <strong>Invoice will be canceled after 30 minutes</strong>
+        </>,
+        5
+      )
+      setTimeout(() => {
+        if (response.data.status === 1) {
+          // Redirect to the checkout URL if successful
+          window.location.href = response.data.data.checkoutUrl
+        } else {
+          console.log('Error create payment' + response.data.message)
+          // Log the error message if the status is not 1
+          toast.error('Payment failed' + response.data.message)
+        }
+      }, 5000) // 5000 milliseconds (5 seconds)
     } catch (error) {
       console.error('Payment error:', error)
 
       // Show an error message if the request fails
-      toast.error('Payment failed. Please try again later.' + error)
+      // toast.error('Payment failed. Please try again later.' + error)
     }
   }
 
