@@ -1,13 +1,14 @@
-import { Button, Col, ConfigProvider, Drawer, Pagination, Row } from 'antd'
+import { Button, Carousel, Col, ConfigProvider, Drawer, Pagination, Row } from 'antd'
 import { SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ImgHeader from '../../../assets/ImagerHeader.png'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 import FilterComponent from '../molecules/FilterComponent'
 import CardSpace from '../organisms/CardSpace'
 import FormSearch from '../organisms/FormSearch'
 import SkeletonCarder from '../organisms/SkeletonCarder'
+import Slider from 'react-slick'
 
 interface Room {
   roomId: number
@@ -23,15 +24,20 @@ interface Room {
   image: string
   isOvernight: boolean
 }
+interface StorePre {
+  roomId: number
+  roomImage: string
+  storeName: string
+}
 function RoomPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const [filters, setFilters] = useState<any>('')
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
-  const [loading, setLoading] = useState<boolean>(false)
   const [cardData, setCardData] = useState<Room[]>([])
   const [totalAvailable, setTotalAvailable] = useState<number>(0)
-
+  const [rooms, setRooms] = useState<StorePre[]>([])
+  const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState<number>(1) // Current page state
   const [totalPages, setTotalPages] = useState<number>(0) // Total pages state
   const pageSize = 6 // Number of items per page
@@ -64,7 +70,21 @@ function RoomPage() {
   useEffect(() => {
     fetchDataFilter(formValues, currentPage, filters)
   }, [currentPage, filters])
+  useEffect(() => {
+    // Fetch room data from API
+    const fetchRooms = async () => {
+      try {
+        const response = await studySpaceAPI.get('/Room/premium-store') // Replace with your API endpoint
+        setRooms(response.data.data) // Adjust according to your API response structure
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching rooms:', error)
+        setLoading(false)
+      }
+    }
 
+    fetchRooms()
+  }, [])
   const fetchData = async (value: any, page: number) => {
     setLoading(true)
     try {
@@ -177,9 +197,43 @@ function RoomPage() {
     // Logic to refetch or filter cards based on newFilters goes here
     fetchDataFilter(formValues, 1, updatedFilters)
   }
+  // const rooms = [
+  //   {
+  //     roomid: '101',
+  //     roomImage: 'https://www.luxcafeclub.com/cdn/shop/articles/Minimalist_Modern_Coffee_Shop_1_1100x.png?v=1713243107',
+  //     storename: 'Sunshine Inn'
+  //   },
+  //   {
+  //     roomid: '102',
+  //     roomImage:
+  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCx5FiTUfwxU-nOPFSwJ78fWnpUzWl_JRoJTfgWo9RFS_kKd1USxAvEkxuCcBJLo1rqVg&usqp=CAU',
+  //     storename: 'Sunshine Inn'
+  //   },
+  //   {
+  //     roomid: '201',
+  //     roomImage:
+  //       'https://www.alalyonnaise.fr/var/site/storage/images/_aliases/all_wide_width_2400/1/5/9/7/857951-3-fre-FR/53413e4aba3b-Anahera-c-Anahera-2.jpg',
+  //     storename: 'Moonlight Suites'
+  //   },
+  //   {
+  //     roomid: '202',
+  //     roomImage: 'https://blog.serviceideas.com/hubfs/Blog%20Images/Coffee-Shop.jpg',
+  //     storename: 'Moonlight Suites'
+  //   }
+  // ]
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1500
+    // draggable: true // Enable drag functionality
+  }
   return (
     <div className='w-full bg-[#f5f0ec]'>
-      <div className='relative w-full '>
+      {/* <div className='relative w-full '>
         <div className='w-full bg-white-100 h-[620px]'>
           <img src={ImgHeader} alt='imageheader' className='w-full  object-cover header__image' />
         </div>
@@ -195,8 +249,104 @@ function RoomPage() {
             onSearchChange={handleSearchChange}
           />
         </div>
-      </div>
+      </div> */}
+      {/* <div className='relative w-full overflow-hidden'>
+        <Slider {...settings} className='w-full'>
+          {rooms.map((room) => (
+            <div key={room.roomid} className='relative w-full h-[620px]'>
+              <div
+                className='w-full h-full bg-cover bg-center'
+                style={{
+                  backgroundImage: `url(${room.roomImage})`
+                }}
+              >
+                <div className='absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center'>
+                  <p className='lg:text-yellow-50 font-paytoneone text-7xl mb-10 text-center text-[#3D4449]'>
+                    {room.storename}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Slider>
 
+        Search Form
+        <div className='absolute inset-0 flex flex-col lg:mt-48 lg:gap-10 justify-center items-center'>
+          <FormSearch
+            initialLocation={formValues.location}
+            initialTypeSpace={formValues.typeSpace}
+            initialPersons={formValues.persons}
+            onSearchChange={handleSearchChange}
+          />
+        </div>
+      </div> */}
+      <div className='relative w-full overflow-hidden '>
+        {rooms && rooms.length > 0 ? (
+          /* Render Slider if there are rooms */
+          <>
+            <Slider {...settings} className='w-full'>
+              {rooms.map((room) => (
+                <div key={room.roomId} className='relative w-full h-[620px]'>
+                  <Link to={`/detail/${room.roomId}`} className='w-full h-full'>
+                    <div
+                      className='w-full h-full bg-cover bg-center'
+                      style={{
+                        backgroundImage: `url(${room.roomImage})`
+                      }}
+                    >
+                      <div className='absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center'>
+                        <Link
+                          to={`/detail/${room.roomId}`}
+                          className='lg:text-yellow-50 font-paytoneone text-7xl mb-10 text-center text-[#3D4449]'
+                        >
+                          {room.storeName}
+                        </Link>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </Slider>
+
+            {/* Search Form Overlay */}
+            <div className='absolute inset-0 flex flex-col lg:mt-48 lg:gap-10 justify-center items-center'>
+              <FormSearch
+                initialLocation={formValues.location}
+                initialTypeSpace={formValues.typeSpace}
+                initialPersons={formValues.persons}
+                onSearchChange={handleSearchChange}
+              />
+            </div>
+          </>
+        ) : (
+          /* Render Default View if there are no rooms */
+          <div className='relative w-full'>
+            <div className='w-full bg-white-100 h-[620px]'>
+              <img src={ImgHeader} alt='imageheader' className='w-full object-cover header__image' />
+            </div>
+            <div className='lg:absolute inset-0 flex flex-col lg:gap-10 justify-center items-center'>
+              <p className='lg:text-yellow-50 font-paytoneone text-7xl mb-10 text-center text mt-20 lg:mt-0 text-[#3D4449]'>
+                Make Yourself At Home <br />
+                In Our <span className='lg:text-[#d3ea98] text-[#80a12f] '>Spaces.</span>
+              </p>
+              <FormSearch
+                initialLocation={formValues.location}
+                initialTypeSpace={formValues.typeSpace}
+                initialPersons={formValues.persons}
+                onSearchChange={handleSearchChange}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      {/* <Slider {...settings} className='w-full max-w-lg px-4'>
+          {rooms.map((room) => (
+            <div key={room.roomid} className='text-center'>
+              <img src={room.roomImage} alt={room.storename} className='w-full h-64 object-cover rounded-md' />
+              <p className='mt-4 text-lg font-semibold text-gray-700'>{room.storename}</p>
+            </div>
+          ))}
+        </Slider> */}
       <div className='container mx-auto lg:px-10 my-10 flex flex-col'>
         <div className='flex justify-between  items-center lg:px-14 md:px-0 px-36 mb-10'>
           {/* <h2 className='text-2xl font-semibold'>{cardData?.length || 0} Available Spaces</h2> */}
