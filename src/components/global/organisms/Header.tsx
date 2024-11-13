@@ -53,7 +53,7 @@ function Header({ isSearchOpen, toggleSearch }: any) {
         <div onClick={() => navigate('/transaction')}>
           {' '}
           {/* Navigate to /profile */}
-          Wallet
+          Bill
         </div>
       ),
       icon: <Wallet onClick={() => navigate('/transaction')} strokeWidth={1} className='w-5 h-5' />

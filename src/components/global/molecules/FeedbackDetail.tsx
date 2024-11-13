@@ -53,7 +53,7 @@ function FeedbackDetail({ feedback }: RatingDetailProps) {
         <div className='flex items-center justify-between mb-4 '>
           <div className='flex items-center justify-center'>
             <div className='w-12 h-12 mr-2 overflow-hidden rounded-full'>
-              <img className='object-cover w-full h-full' src={defaultAvatar} alt='Profile Image' />
+              <img className='object-cover w-full h-full' src={feedback.avatar} alt='Profile Image' />
             </div>
 
             <div className='flex flex-col justify-center items-start'>

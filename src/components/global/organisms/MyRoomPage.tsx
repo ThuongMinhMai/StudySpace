@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Card, Tag, Button, Modal, Tabs, ConfigProvider } from 'antd'
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
-import 'antd/dist/reset.css' // Reset Ant Design styles
-import { start } from 'repl'
-import studySpaceAPI from '../../../lib/studySpaceAPI'
-import { useAuth } from '../../../auth/AuthProvider'
+import { Button, Card, ConfigProvider, Modal, Tabs, Tag } from 'antd'
+import 'antd/dist/reset.css'; // Reset Ant Design styles
 import { Moon } from 'lucide-react'
-import RatingForm from './RatingForm'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../../../auth/AuthProvider'
+import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { formatPrice } from '../../../lib/utils'
+import RatingForm from './RatingForm'
 
 // Define the structure of the booked room data
 interface BookedRoom {
@@ -35,6 +34,7 @@ interface BookedRoom {
   isFeedback: boolean
   depositFee: number
   totalFee: number
+  hastag:string
 }
 
 function MyRoomPage() {
@@ -380,6 +380,9 @@ function MyRoomPage() {
         <Modal title='Booking Room Detail' visible={isModalVisible} onCancel={handleCancel} footer={null}>
           {selectedRoom && (
             <div>
+              <p className='text-sm text-gray-500'>
+                <strong># </strong>{selectedRoom.hastag}
+              </p>
               <p className='text-sm text-gray-500'>
                 <strong>Room Name:</strong> {selectedRoom.roomName}
               </p>
