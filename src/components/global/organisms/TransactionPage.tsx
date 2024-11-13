@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import studySpaceAPI from '../../../lib/studySpaceAPI'
 import { useAuth } from '../../../auth/AuthProvider'
 import { toast } from 'sonner'
-import { formatPrice } from '../../../lib/utils'
+import { formatDate, formatDateV2, formatPrice } from '../../../lib/utils'
 
 // Define the structure of a transaction
 interface Transaction {
@@ -71,10 +71,10 @@ function TransactionPage() {
               {/* Transaction Info */}
               <div className='flex items-center space-x-6'>
                 <p className='text-sm'>
-                  <strong>Transaction ID:</strong> {transaction.id}
+                  <strong>#</strong> {transaction.id}
                 </p>
                 <p className='text-sm'>
-                  <strong>Date:</strong> {transaction.date}
+                  <strong>Date:</strong> {formatDateV2(transaction.date)}
                 </p>
                 <p className='text-sm'>
                   <strong>Amount:</strong> {formatPrice(transaction.fee)}

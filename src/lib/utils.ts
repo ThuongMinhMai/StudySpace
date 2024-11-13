@@ -12,7 +12,17 @@ export function formatPrice (value: number): any {
 export function formatDate(date: Date) {
   return date.toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
 }
-
+export function formatDateV2(date:string){
+  const day = new Date(date) // Convert the string to a Date object
+  
+  // Format the date to a readable format (e.g., 'dd/mm/yyyy' or 'mm/dd/yyyy')
+  const formattedDate = day.toLocaleDateString('vi-VN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  })
+  return formattedDate
+}
 export function calculateDuration(startTime:string, endTime:string) {
   // Parse the start and end time
   const startParts = startTime.split(':');
