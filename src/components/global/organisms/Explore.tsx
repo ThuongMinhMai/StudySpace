@@ -208,9 +208,9 @@ function Explore() {
                   </span>
                 </div> */}
               </div>
-              <div className='room__card__details p-4'>
+              <div className='room__card__details p-4 '>
                 <h4 className='mb-2 text-xl font-semibold'>{space.type}</h4>
-                <p className='my-4 text-gray-600'>{space.description}</p>
+                <p className='my-4 text-gray-600 truncate'>{space.description}</p>
                 <h5 className='mb-4 text-base font-medium text-gray-400'>
                   Starting from <span className='text-xl text-[#FFA800] font-bold '>{formatPrice((space.minimumPricePerHour)*1000)}/hour</span>
                 </h5>
@@ -221,6 +221,7 @@ function Explore() {
                 >
                   Explore
                 </button>
+                
               </div>
             </div>
           ))}

@@ -15,6 +15,7 @@ interface Transaction {
   paymentMethod: string
   status: string
   type: string
+  hastag:string
 }
 
 // Mocked transaction data (replace this with actual API data)
@@ -71,7 +72,7 @@ function TransactionPage() {
               {/* Transaction Info */}
               <div className='flex items-center space-x-6'>
                 <p className='text-sm'>
-                  <strong>#</strong> {transaction.id}
+                  <strong>#</strong> {transaction.hastag}
                 </p>
                 <p className='text-sm'>
                   <strong>Date:</strong> {formatDateV2(transaction.date)}

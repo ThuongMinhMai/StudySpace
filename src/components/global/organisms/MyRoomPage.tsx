@@ -11,7 +11,7 @@ import { formatPrice } from '../../../lib/utils'
 
 // Define the structure of the booked room data
 interface BookedRoom {
-  bookingId:number
+  bookingId: number
   roomId: number
   roomName: string
   storeName: string
@@ -33,6 +33,8 @@ interface BookedRoom {
   checkIn: boolean
   paymentMethod: string
   isFeedback: boolean
+  depositFee: number
+  totalFee: number
 }
 
 function MyRoomPage() {
@@ -133,7 +135,12 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
+                        <strong>Total Bill:</strong>
+                        {formatPrice(room.totalFee)}
+                      </p>
+                      <p className='text-sm text-gray-500'>
+                        <strong>Deposit Fee:</strong>
+                        {formatPrice(room.depositFee)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -183,7 +190,12 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong> {formatPrice(room.pricePerHour*1000)}
+                        <strong>Total Bill:</strong>
+                        {formatPrice(room.totalFee)}
+                      </p>
+                      <p className='text-sm text-gray-500'>
+                        <strong>Deposit Fee:</strong>
+                        {formatPrice(room.depositFee)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -232,7 +244,12 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
+                        <strong>Total Bill:</strong>
+                        {formatPrice(room.totalFee)}
+                      </p>
+                      <p className='text-sm text-gray-500'>
+                        <strong>Deposit Fee:</strong>
+                        {formatPrice(room.depositFee)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -281,7 +298,12 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
+                        <strong>Total Bill:</strong>
+                        {formatPrice(room.totalFee)}
+                      </p>
+                      <p className='text-sm text-gray-500'>
+                        <strong>Deposit Fee:</strong>
+                        {formatPrice(room.depositFee)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -325,7 +347,12 @@ function MyRoomPage() {
                       <h2 className='font-semibold text-xl'>{room.roomName}</h2>
                       <p className='text-sm text-gray-500'>{room.storeName}</p>
                       <p className='text-sm text-gray-500'>
-                        <strong>Fee:</strong>{formatPrice(room.pricePerHour*1000)}
+                        <strong>Total Bill:</strong>
+                        {formatPrice(room.totalFee)}
+                      </p>
+                      <p className='text-sm text-gray-500'>
+                        <strong>Deposit Fee:</strong>
+                        {formatPrice(room.depositFee)}
                       </p>
                       <p className='text-sm text-gray-500'>
                         <strong>Status:</strong>{' '}
@@ -395,7 +422,12 @@ function MyRoomPage() {
                 </Tag>
               </p>
               <p className='text-sm text-gray-500'>
-                <strong>Fee:</strong>{formatPrice(selectedRoom.pricePerHour*1000)}
+                <strong>Total Bill:</strong>
+                {formatPrice(selectedRoom.totalFee)}
+              </p>
+              <p className='text-sm text-gray-500'>
+                <strong>Deposit Fee:</strong>
+                {formatPrice(selectedRoom.depositFee)}
               </p>
               <p className='text-sm text-gray-500'>
                 <strong>Booking Date:</strong> ({selectedRoom.bookedTime})-{selectedRoom.bookedDate}
@@ -414,9 +446,13 @@ function MyRoomPage() {
             </div>
           )}
         </Modal>
-        {
-          showRatingForm && (
-            <Modal title='Leave Feedback' visible={showRatingForm} onCancel={() => setShowRatingForm(false)} footer={null}>
+        {showRatingForm && (
+          <Modal
+            title='Leave Feedback'
+            visible={showRatingForm}
+            onCancel={() => setShowRatingForm(false)}
+            footer={null}
+          >
             {selectedRoom && (
               <RatingForm
                 setShowRatingForm={setShowRatingForm}
@@ -425,9 +461,7 @@ function MyRoomPage() {
               />
             )}
           </Modal>
-          )
-        }
-       
+        )}
       </div>
     </ConfigProvider>
   )
