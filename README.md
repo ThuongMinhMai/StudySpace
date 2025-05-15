@@ -14,6 +14,7 @@ This is the **frontend application for users** of the Study Space project – a 
 ## Technologies Used
 
 - [React.js](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Ant Design](https://ant.design/)
 - [ShadCN UI](https://ui.shadcn.com/)
